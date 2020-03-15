@@ -1,0 +1,182 @@
+﻿@model Totalligent.BusinessEntities.Register
+@*@using (Html.BeginForm("Register", "Admin", FormMethod.Post))
+    {*@
+<div class="row">
+    <div class="col-6">
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Client Name</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.ClientName, new { id = "txtClientName", oninvalid = "this.setCustomValidity('Client Name required: Rajesh R')", @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Name of the Company" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Address of Company</label>
+            </div>
+            <div class="col-md-6">
+                @*<input type="text" class="form-control datetimepicker" value="11455">*@
+                @Html.TextBoxFor(m => m.Address, new { id = "txtCompanyAddress", oninvalid = "this.setCustomValidity('Company Address required: US ZIP 115')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Address of the Company" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">City</label>
+            </div>
+            <div class="col-md-6">
+                @*<input type="text" class="form-control datetimepicker" value="Senior Manager">*@
+                @Html.TextBoxFor(m => m.City, new { id = "txtCity", oninvalid = "this.setCustomValidity('City required: AbuDhabi')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "City" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">State</label>
+            </div>
+            <div class="col-md-6">
+                @*<input type="text" class="form-control datetimepicker" value="Krishna Kumar">*@
+                @Html.TextBoxFor(m => m.StateName, new { id = "txtState", oninvalid = "this.setCustomValidity('State Name required: International City')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "State" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Zipcode</label>
+            </div>
+            <div class="col-md-6">
+                @*<input type="email" class="form-control datetimepicker" value="jeeva_sph@yahoo.com">*@
+                @Html.TextBoxFor(m => m.ZipCode, new { id = "txtZipCode", oninvalid = "this.setCustomValidity('Postal Code/Zip Code required: 600034')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "ZipCode" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Contact Person</label>
+            </div>
+            <div class="col-md-6">
+                @*<input type="number" class="form-control datetimepicker" value="+91 9120391030">*@
+                @Html.TextBoxFor(m => m.ContactPerson, new { id = "txtContactPerson", oninvalid = "this.setCustomValidity('Contact Person required: Jeevarathanam P')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Contact Person" })
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Mobile Number</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.MobileNumber, new { id = "txtMobileNumber", oninvalid = "this.setCustomValidity('Mobile Number is required: 9840359280')", oninput = "setCustomValidity('')", @class = "form-control", @required = "required", placeholder = "Mobile Number" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Email ID</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.EmailId, new { id = "txtEmail", oninvalid = "this.setCustomValidity('Valid email is required: ex@abc.xyz')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Email Address" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Currency</label>
+            </div>
+            <div class="col-md-6">
+                @*<input type="text" class="form-control datetimepicker" value="Krishna Kumar">*@
+                @Html.TextBoxFor(m => m.Currency, new { id = "txtCurrency", oninvalid = "this.setCustomValidity('Enter Currency :INR,US$')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Currency" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Broker</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Broker, new { id = "txtBroker", oninvalid = "this.setCustomValidity('Enter Broker :Murali Prasad')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Broker" })
+            </div>
+        </div>
+        <div class="row m-b-15">
+            <div class="col-md-6">
+                <label for="inputName" class="col-sm-12 col-form-label text-right">Re-Insurer</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Reinsurer, new { id = "txtReInsurer", oninvalid = "this.setCustomValidity('Enter Re-Insurer :JeevaRathanam')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Re-Insurer" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 text-center">
+    <button type="button" class="btn btn-default m-l-10 m-r-10">Cancel</button>
+    <button type="submit" id="btnSubmit" class="btn btn-primary m-l-10 m-r-10">Create Draft No</button>
+    
+</div>
+<div id="example">
+    @(Html.Kendo().Dialog()
+                .Name("dialogClient")
+                .Title("Client Registration")
+                .Content("<label id='lblMessage'></label>")
+                .Width(400)
+                .Modal(true)
+                .Visible(false)
+                .Actions(actions =>
+                {
+                    actions.Add().Text("Cancel");
+                    actions.Add().Text("Ok").Primary(true);
+                })
+                .Events(ev => ev.Close("onClose").Open("onOpen"))
+    )
+</div>
+<script>
+    function onClose() {
+        $("#showDialogBtn").fadeIn();
+    }
+
+    function onOpen() {
+        $("#showDialogBtn").fadeOut();
+    }
+
+    function showDialog() {
+        $('#dialogClient').data("kendoDialog").open();
+    }
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnSubmit').click(function (e) {
+            e.preventDefault();
+            var objRegister = {
+                "Reinsurer": $('#txtReInsurer').val(),
+                "Broker": $('#txtBroker').val(),
+                "Currency": $('#txtCurrency').val(),
+                "EmailId": $('#txtEmail').val(),
+                "MobileNumber": $('#txtMobileNumber').val(),
+                "ContactPerson": $('#txtContactPerson').val(),
+                "ZipCode": $('#txtZipCode').val(),
+                "StateName": $('#txtState').val(),
+                "City": $('#txtCity').val(),
+                "Address": $('#txtCompanyAddress').val(),
+                "ClientName": $('#txtClientName').val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Register",
+                data: JSON.stringify(objRegister),
+                dataType: "json",
+                contentType: 'application/json;charset=utf-8',
+                success: function (res) {
+                    if (res.length > 0) {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Client Registered Successfully.! Policy Numbe is ' + res);
+                    }
+                    else {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Client is not Registered Successfully.!');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Client!.');
+                }
+            })
+        })
+    });
+</script>
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

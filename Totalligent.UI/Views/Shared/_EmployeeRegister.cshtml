@@ -1,0 +1,189 @@
+﻿
+@model Totalligent.UI.Models.AdminModel
+@using Totalligent.BAL
+
+@*@using (Html.BeginForm("EmployeeRegister", "Admin", FormMethod.Post))
+    {*@
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Register a New Employee</h4>
+                <p class="card-category">Complete your registration of new employee details</p>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="">
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">Type of Employee</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="ddlTypeOfEmp" class="form-control">
+                                    <option value="2">TPA Employee</option>
+                                    <option value="3">Client Employee</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">User Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.EmployeeRegistration.UserName, new {id="txtUserName", oninvalid = "this.setCustomValidity('User Name is required')",
+@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a username" })
+                            </div>
+                        </div>
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">Employee Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.EmployeeRegistration.UserEmployeeNo, new {id="txtEmployeeNo", oninvalid = "this.setCustomValidity('Employee Number is required')",
+@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a Employee Number" })
+                            </div>
+                        </div>
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">Role</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.EmployeeRegistration.UserTypeId, new SelectList((new TotalligentBALayer()).GetUserType(), "UserTypeId", "Designation", 0), new { @id = "UserTypeId", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">Reporting To</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.EmployeeRegistration.ReportingManager, new {id="txtReportingManager", oninvalid = "this.setCustomValidity('Reporting Manager is required')",
+@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Reporting Manager" })
+                            </div>
+                        </div>
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">Email ID</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.EmployeeRegistration.EmailId, new {id="txtEmailId", oninvalid = "this.setCustomValidity('Valid email is required: ex@abc.xyz')", oninput = "setCustomValidity('')",
+@required = "required", @class = "form-control", placeholder = "Email ID" })
+                            </div>
+                        </div>
+                        <div class="row m-b-15">
+                            <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label text-right">Mobile Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.EmployeeRegistration.MobileNumber, new {id="txtEmpMobileNumber", oninvalid = "this.setCustomValidity('Mobile Number is required')",
+@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Mobile Number" })
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default pull-left">Cancel</button>
+                    <button type="submit" id="btnSubmitER" class="btn btn-primary pull-right">Submit<i class="m-l-5 material-icons">arrow_forward</i></button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-profile">
+            <div class="card-avatar">
+                <a href="#pablo">
+                    <img class="img" src="~/Content/images/marc.jpg" />
+                </a>
+            </div>
+            <div class="card-body">
+                <h6 class="card-category text-gray">AMI SAOG ADMIN</h6>
+                <h4 class="card-title">Alec Thompson</h4>
+                <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="#pablo" class="btn btn-primary btn-round">Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*@Html.TextBoxFor(m => m.EmployeeRegistration.EmailId, new { oninvalid = "this.setCustomValidity('EmailId is required')",
+    @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Email Id" })*@
+
+@(Html.Kendo().Dialog()
+                    .Name("dialogEmployee")
+                    .Title("Employee Registration")
+                    .Content("<label id='lblMessageEmp'></label>")
+                    .Width(400)
+                    .Modal(true)
+                    .Visible(false)
+                    .Actions(actions =>
+                    {
+                        actions.Add().Text("Cancel");
+                        actions.Add().Text("Ok").Primary(true);
+                    })
+                    .Events(ev => ev.Close("onClose").Open("onOpen"))
+)
+
+<script>
+    function onClose() {
+        $("#showDialogBtn").fadeIn();
+    }
+
+    function onOpen() {
+        $("#showDialogBtn").fadeOut();
+    }
+
+    function showDialog() {
+        $('#dialogEmployee').data("kendoDialog").open();
+    }
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnSubmitER').click(function (e) {
+            e.preventDefault();
+            var objEmployeRegistration = {
+                "UserName": $('#txtUserName').val(),
+                "UserEmployeeNo": $('#txtEmployeeNo').val(),
+                "UserTypeId": $('#UserTypeId').val(),
+                "ReportingManager": $('#txtReportingManager').val(),
+                "MobileNumber": $('#txtEmpMobileNumber').val(),
+                "EmailId": $('#txtEmailId').val(),
+                "RoleId": $("#ddlTypeOfEmp option:selected").val()
+
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Admin/EmployeeRegister",
+                data: JSON.stringify(objEmployeRegistration),
+                dataType: "json",
+                contentType: 'application/json;charset=utf-8',
+                success: function (res) {
+                    if (res > 0) {
+                        $("#lblMessageEmp").html('Employee Registered Successfully');
+                        $('#dialogEmployee').data("kendoDialog").open();
+                        clearAll();
+                    }
+                    else {
+                        $("#lblMessageEmp").html('Employee Registered not Successfully');
+                        $('#dialogEmployee').data("kendoDialog").open();
+                    }
+                },
+                error: function () {
+                    $("#lblMessageEmp").html('Error while Registring the Client!.');
+                }
+            })
+        });
+        function clearAll() {
+            $('#txtUserName').val("");
+            $('#txtEmployeeNo').val("");
+            $('#UserTypeId').val("");
+            $('#txtReportingManager').val("");
+            $('#txtEmpMobileNumber').val("");
+            $('#txtEmailId').val("");
+        }
+    });
+</script>

@@ -1,0 +1,109 @@
+﻿
+@using Totalligent.BusinessEntities;
+
+<div class="row m-b-15">
+    <div class="col-md-4">
+        <label for="inputName" class="col-sm-12 col-form-label text-right">Name of Employee</label>
+    </div>
+    <div class="col-md-4">
+
+        <label>
+            @if (Model != null)
+            {
+                if (Model.UserName != null)
+                {
+                    @Model.UserName
+                }
+            }
+        </label>
+
+
+    </div>
+</div>
+<div class="row m-b-15">
+    <div class="col-md-4">
+        <label for="inputName" class="col-sm-12 col-form-label text-right">Employee Number</label>
+    </div>
+    <div class="col-md-4">
+        @*<input type="text" class="form-control datetimepicker" value="11455">*@
+        <label>
+            @if (Model != null)
+            {
+                if (Model.UserEmployeeNo != null)
+                {
+                    @Model.UserEmployeeNo
+                }
+            }
+            </label>
+    </div>
+</div>
+<div class="row m-b-15">
+    <div class="col-md-4">
+        <label for="inputName" class="col-sm-12 col-form-label text-right">Employee User Type</label>
+    </div>
+    <div class="col-md-4">
+        @*<input type="text" class="form-control datetimepicker" value="Senior Manager">*@
+        <label>
+            @if (Model != null)
+            {
+                if (Model.Designation != null)
+                {
+                    @Model.Designation
+                }
+            }
+            </label>
+    </div>
+</div>
+<div class="row m-b-15">
+    <div class="col-md-4">
+        <label for="inputName" class="col-sm-12 col-form-label text-right">Reporting Manager</label>
+    </div>
+    <div class="col-md-4">
+        @*<input type="text" class="form-control datetimepicker" value="Krishna Kumar">*@
+        <label>
+            @if (Model != null)
+            {
+                if (Model.ReportingManager != null)
+                {
+                    @Model.ReportingManager
+                }
+            }
+            </label>
+    </div>
+</div>
+<div class="row m-b-15">
+    <div class="col-md-4">
+        <label for="inputName" class="col-sm-12 col-form-label text-right">Email ID</label>
+    </div>
+    <div class="col-md-4">
+        <label>
+            @if (Model != null)
+            {
+                if (Model.EmailId != null)
+                {
+                    @Model.EmailId
+                }
+            }
+            </label>
+    </div>
+</div>
+<div class="row m-b-15">
+    <div class="col-md-4">
+        <label for="inputName" class="col-sm-12 col-form-label text-right">Moblie Number</label>
+    </div>
+    <div class="col-md-4">
+        <label>
+            @if (Model != null)
+            {
+                if (Model.MobileNumber != null)
+                {
+                    @Model.MobileNumber
+                }
+            }
+            </label>
+    </div>
+</div>
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

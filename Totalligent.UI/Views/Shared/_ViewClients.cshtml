@@ -1,0 +1,287 @@
+﻿
+
+@model IEnumerable<Totalligent.BusinessEntities.Register>
+
+
+<div>
+    <div class="row m-b-15">
+        <div class="col-md-4">
+            <label class="col-sm-12 col-form-label text-right">Policy Number</label>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="txtPolicyNumber" placeholder="Policy Number" />
+        </div>
+        <div class="col-md-6">
+            <input type="submit" id="btnViewClients" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PolicyNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClientName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StateName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ZipCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactPerson)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MobileNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmailId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Currency)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Broker)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reinsurer)
+                    </th>
+
+                </tr>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PolicyNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClientName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContactPerson)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Currency)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Broker)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reinsurer)
+                            </td>
+                            @*<td>
+                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                </td>*@
+                        </tr>
+                    }
+                }
+            </table>
+            <div id="grid"></div>
+            @*@(Html.Kendo().Grid<Totalligent.BusinessEntities.Register>()
+                                                                                .Name("EmpGrid")
+                                                                                .Columns(columns =>
+                                                                                {
+                                                                                    columns.Bound(e => e.PolicyNumber).Width(140);
+                                                                                //columns.Bound(e => e.FirstName).Width(140);
+                                                                                //columns.Bound(e => e.LastName);
+                                                                                columns.Command(command => command.Custom("ViewDetails").Click("showDetails")).Width(180);
+                                                                                })
+                                                                                .Scrollable()
+                                                                                .Groupable()
+                                                                                .Sortable()
+                                                                                .Pageable(pageable => pageable
+                                                                                .Refresh(true)
+                                                                                .PageSizes(true)
+                                                                                .ButtonCount(5))
+                                                                                .DataSource(dataSource => dataSource
+                                                                                    .Ajax()
+
+                                                                                    .Read(read => read.Action("GetClients", "Admin"))
+                                                                                )
+
+                )*@
+            @*@(Html.Kendo().Window().Name("Details")
+                                .Title("Enter your Credentials")
+                                .Visible(false)
+                                .Modal(true)
+                                .Draggable(true)
+                                .Width(400)
+                )*@
+        </div>
+    </div>
+</div>
+<script type="text/x-kendo-template" id="template">
+    <div id="details-container">
+        <div class="card-login">
+            <div class="form">
+                <div class="input-group m-t-15">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="material-icons">mail</i>
+                        </span>
+                    </div>
+                    <input type="email" class="form-control" placeholder="Email...">
+                </div>
+                <div class="input-group m-t-25 m-b-25">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="material-icons">lock_outline</i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password...">
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-default btn-round">Cancel</button>
+                    <button class="btn btn-primary btn-round">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#template").html());
+
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#Details").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnViewClients').click(function (e) {
+            e.preventDefault();
+            var PolicyNumber = $('#txtPolicyNumber').val();
+            $.ajax({
+                type: "GET",
+                url: "/Admin/GetClients",
+                data: { "PolicyNumber": PolicyNumber },
+                dataType: "",
+                contentType: 'application/json;charset=utf-8',
+                success: function (res) {
+
+                    if (res.length > 0) {
+                        console.log(res);
+                        $("#grid").kendoGrid({
+                            dataSource: {
+                                data: res,
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            PolicyNumber: { type: "string" },
+                                            //UnitPrice: { type: "number" },
+                                            // UnitsInStock: { type: "number" },
+                                            //Discontinued: { type: "boolean" }
+                                        }
+                                    }
+                                },
+                                pageSize: 20
+                            },
+                            height: 550,
+                            scrollable: true,
+                            sortable: true,
+                            filterable: true,
+                            pageable: {
+                                input: true,
+                                numeric: false
+                            },
+
+                            //columns: [
+                            //    "PolicyNumber",
+                            //  { field: "UnitPrice", title: "Unit Price", format: "{0:c}", width: "130px" },
+                            // { field: "UnitsInStock", title: "Units In Stock", width: "130px" },
+                            // { field: "Discontinued", width: "130px" }
+                            //]
+                            columns: [
+                                {
+                                    field: "PolicyNumber",
+                                    title: "Policy Number"
+                                },
+                                {
+                                    field: "ClientName",
+                                    title: "Client Name"
+                                }
+                                ,
+                                {
+                                    field: "Address",
+                                    title: "Address"
+                                }
+                                ,
+                                {
+                                    field: "City",
+                                    title: "City"
+                                }
+                                ,
+                                {
+                                    field: "ContactPerson",
+                                    title: "Contact Person"
+                                }
+                                ,
+                                {
+                                    field: "MobileNumber",
+                                    title: "Mobile Number"
+                                }
+                                ,
+                                {
+                                    field: "EmailId",
+                                    title: "Email Id"
+                                },
+                                {
+                                    field: "Currency",
+                                    title: "Currency"
+                                }
+                                ,
+                                {
+                                    field: "Broker",
+                                    title: "Broker"
+                                }
+                                ,
+                                {
+                                    field: "Reinsurer",
+                                    title: "Reinsurer"
+                                }
+                            ]
+                        });
+                    }
+                    else {
+                        $("#lblMessage").html('Client is not Registered Successfully.!');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Client!.');
+                }
+            })
+        })
+    });
+</script>
