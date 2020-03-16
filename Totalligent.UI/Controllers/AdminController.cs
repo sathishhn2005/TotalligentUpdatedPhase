@@ -76,21 +76,41 @@ namespace Totalligent.UI.Controllers
                 }
 
             }
-             return Json(lstGetClients, JsonRequestBehavior.AllowGet);
+            return Json(lstGetClients, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult TPAInsCompany(InsuranceCompany objInsCompany)
         {
+            long returnCode = -1;
+            string PolicyNumber = string.Empty;
             try
             {
-                long returnCode = -1;
-                returnCode = objBALTot.RegisterTPAInsEmployee(objInsCompany);
-                return Json(returnCode);
+                returnCode = objBALTot.RegisterTPAInsEmployee(objInsCompany, out PolicyNumber);
+                return Json(PolicyNumber);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            
+        }
+        [HttpGet]
+        public ActionResult GetCompany(string PolicyNumber)
+        {
+            List<InsuranceCompany> lstGetCompanies = new List<InsuranceCompany>();
+            if (!string.IsNullOrEmpty(PolicyNumber))
+            {
+                try
+                {
+                    lstGetCompanies = objBALTot.GetCompanies(PolicyNumber);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+            return Json(lstGetCompanies, JsonRequestBehavior.AllowGet);
         }
     }
 }

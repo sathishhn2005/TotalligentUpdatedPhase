@@ -139,7 +139,7 @@ namespace Totalligent.BAL
                     string encryptedPswd = Convert.ToBase64String(b);
                     if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(encryptedPswd))
                     {
-                        returnCode = objTotalligentDAL.SaveLogin(UserName, encryptedPswd, objRegisterEmployee.RoleId);
+                        returnCode = objTotalligentDAL.SaveLogin(objRegisterEmployee.UserName, encryptedPswd, objRegisterEmployee.RoleId);
                         MailingServices objMail = new MailingServices();
                         returnCode = objMail.SendMailToAdmin(UserName, encryptedPswd, EmailId);
                     }
@@ -185,11 +185,11 @@ namespace Totalligent.BAL
             return lstClients;
         }
         //Registering New TPA Insurance company Employee
-        public long RegisterTPAInsEmployee(InsuranceCompany objInsCompany)
+        public long RegisterTPAInsEmployee(InsuranceCompany objInsCompany,out string PolicyNumber)
         {
             try
             {
-                long returnCode = objTotalligentDAL.TPAInsComRegister(objInsCompany);
+                long returnCode = objTotalligentDAL.TPAInsComRegister(objInsCompany,out PolicyNumber);
                 
                 return returnCode;
             }
@@ -197,6 +197,22 @@ namespace Totalligent.BAL
             {
                 throw ex;
             }
+        }
+        public List<InsuranceCompany> GetCompanies(string CompanyDraftNo)
+        {
+            List<InsuranceCompany> lstClients = new List<InsuranceCompany>();
+            if (!string.IsNullOrEmpty(CompanyDraftNo))
+            {
+                try
+                {
+                    lstClients = objTotalligentDAL.GetCompanies(CompanyDraftNo);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return lstClients;
         }
     }
 }

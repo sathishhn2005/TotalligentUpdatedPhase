@@ -378,10 +378,10 @@ namespace Totalligent.DAL
             }
             return lstClients;
         }
-        public long TPAInsComRegister(InsuranceCompany objInsCompanyRegister)
+        public long TPAInsComRegister(InsuranceCompany objInsCompanyRegister,out string PolicyNumber)
         {
             long returnCode = -1;
-
+            PolicyNumber = string.Empty;
             try
             {
                 using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
@@ -406,6 +406,7 @@ namespace Totalligent.DAL
                         };
                         cmd.Parameters.Add(UDTparam);
                         returnCode = cmd.ExecuteNonQuery();
+                        PolicyNumber = cmd.ExecuteScalar().ToString() ?? "";
                     }
                 }
             }
@@ -415,6 +416,55 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return returnCode;
+        }
+        public List<InsuranceCompany> GetCompanies(string CompanyDraftNo)
+        {
+            List<InsuranceCompany> lstCompanies = new List<InsuranceCompany>();
+            try
+            {
+                DataTable dt = new DataTable();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetCompanies"
+                    };
+                    cmd.Parameters.AddWithValue("@CompanyDraftNo", CompanyDraftNo);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        lstCompanies = (from DataRow dr in dt.Rows
+                                      select new InsuranceCompany()
+                                      {
+                                          ClientId = Convert.ToInt32(dr["InsCompanyId"]),
+                                          PolicyNumber = dr["PolicyNumber"].ToString(),
+                                          CompanyName = dr["CompanyName"].ToString(),
+                                          Address = dr["CompanyAddress"].ToString(),
+                                          City = dr["City"].ToString(),
+                                          StateName = dr["StateName"].ToString(),
+                                          ZipCode = (long)dr["ZipCode"],
+                                          ContactPerson = dr["ContactPerson"].ToString(),
+                                          MobileNumber = dr["MobileNumber"].ToString(),
+                                          EmailId = dr["EmailId"].ToString(),
+                                          Currency = dr["Currency"].ToString(),
+                                          Broker = dr["Broker"].ToString(),
+                                          Reinsurer = dr["Reinsurer"].ToString(),
+                                      }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstCompanies;
         }
     }
 }
