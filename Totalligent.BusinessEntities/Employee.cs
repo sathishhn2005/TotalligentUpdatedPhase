@@ -24,6 +24,8 @@ namespace Totalligent.BusinessEntities
         private string addedBy = string.Empty;
         private DateTime updatedOn = DateTime.Now;
         private string updatedBy = string.Empty;
+        private string newpassword = string.Empty;
+        private int ticketId = 0;
         
         
         public int EmployeeId { get => employeeId; set => employeeId = value; }
@@ -40,6 +42,7 @@ namespace Totalligent.BusinessEntities
         public string UpdatedBy { get => updatedBy; set => updatedBy = value; }
         public string Designation { get => designation; set => designation = value; }
         public int RoleId { get => roleId; set => roleId = value; }
-        
+        public int TicketId { get => ticketId; set => ticketId = value; }
+        public string Newpassword { get => newpassword; set => newpassword = value; }
     }
 }

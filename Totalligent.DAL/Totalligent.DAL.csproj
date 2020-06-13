@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="TotalligentDALayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TotalligentMasterDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Totalligent.BusinessEntities\Totalligent.BusinessEntities.csproj">

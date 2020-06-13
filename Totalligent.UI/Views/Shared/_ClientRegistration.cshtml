@@ -103,7 +103,7 @@
 </div>
 <div class="col-12 text-center">
     <button type="button" class="btn btn-default m-l-10 m-r-10">Cancel</button>
-    <button type="submit" id="btnSubmit" class="btn btn-primary m-l-10 m-r-10">Create Draft No</button>
+    <button type="submit" id="btnSubmitClientRegister" class="btn btn-primary m-l-10 m-r-10">Create Draft No</button>
     
 </div>
 <div id="example">
@@ -139,7 +139,7 @@
 <script type="text/javascript">
 
     $(function () {
-        $('#btnSubmit').click(function (e) {
+        $('#btnSubmitClientRegister').click(function (e) {
             e.preventDefault();
             var objRegister = {
                 "Reinsurer": $('#txtReInsurer').val(),
@@ -163,7 +163,7 @@
                 success: function (res) {
                     if (res.length > 0) {
                         $('#dialogClient').data("kendoDialog").open();
-                        $("#lblMessage").html('Client Registered Successfully.! Policy Numbe is ' + res);
+                        $("#lblMessage").html('Client Registered Successfully.! Policy Number is ' + res);
                     }
                     else {
                         $('#dialogClient').data("kendoDialog").open();

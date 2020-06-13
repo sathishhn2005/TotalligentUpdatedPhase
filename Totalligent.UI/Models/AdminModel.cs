@@ -10,7 +10,8 @@ namespace Totalligent.UI.Models
         readonly TotalligentBALayer objBALTot = new TotalligentBALayer();
         readonly MailingServices objUtilityMailSer = new MailingServices();
         public Employee EmployeeRegistration { get; set; }
-        
+        public Quotation QuotationMaster { get; set; }
+
         public long RegisterUser(Employee objEmployee)
         {
             try

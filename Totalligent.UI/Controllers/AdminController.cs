@@ -92,7 +92,7 @@ namespace Totalligent.UI.Controllers
             {
                 throw ex;
             }
-            
+
         }
         [HttpGet]
         public ActionResult GetCompany(string PolicyNumber)
@@ -111,6 +111,66 @@ namespace Totalligent.UI.Controllers
 
             }
             return Json(lstGetCompanies, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult RaiseTickets(FormCollection collection)
+        {
+            try
+            {
+                RaiseTickets objRaiseTickets = new RaiseTickets
+                {
+                    TicketId = Convert.ToInt32(collection["TicketId"]),
+                    RaisedBy = collection["RaisedBy"].ToString(),
+                    Description = collection["Description"].ToString(),
+                    CreatedAt = Convert.ToDateTime(collection["CreatedAt"]),
+                    CreatedBy = collection["CreatedBy"].ToString(),
+                };
+
+                long returnCode = -1;
+                returnCode = objBALTot.RaiseTicket(objRaiseTickets);
+                return Json(returnCode);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+        public ActionResult ViewTickets()
+        {
+            var Model = new List<RaiseTickets>();
+            try
+            {
+                Model = objBALTot.ViewTickets();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return PartialView("_ViewTicket", Model);
+        }
+        
+        [HttpPost]
+        public ActionResult ResetNewPassword(FormCollection collection)
+        {
+            try
+            {
+
+                RaiseTickets objRaiseTickets = new RaiseTickets
+                {
+                    TicketId = Convert.ToInt32(collection["TicketId"]),
+                    RaisedBy = collection["RaisedBy"].ToString(),
+                    Newpassword = collection["Newpassword"].ToString(),
+                };
+
+                long returnCode = 1;
+                returnCode = objBALTot.CloseTicket(objRaiseTickets);
+                return Json(returnCode);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
     }
 }

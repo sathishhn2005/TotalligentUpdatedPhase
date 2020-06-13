@@ -49,7 +49,7 @@ namespace Totalligent.BAL
                 {
 
                     returnCode = objTotalligentDAL.UpdateNewPassword(UserName, OldPswd, NewPswd);
-                    
+
                 }
             }
             catch (Exception ex)
@@ -151,6 +151,7 @@ namespace Totalligent.BAL
                 throw ex;
             }
         }
+
         public string InsertClient(Register objClientRegistration)
         {
             string PolicyNumber = string.Empty;
@@ -185,12 +186,12 @@ namespace Totalligent.BAL
             return lstClients;
         }
         //Registering New TPA Insurance company Employee
-        public long RegisterTPAInsEmployee(InsuranceCompany objInsCompany,out string PolicyNumber)
+        public long RegisterTPAInsEmployee(InsuranceCompany objInsCompany, out string PolicyNumber)
         {
             try
             {
-                long returnCode = objTotalligentDAL.TPAInsComRegister(objInsCompany,out PolicyNumber);
-                
+                long returnCode = objTotalligentDAL.TPAInsComRegister(objInsCompany, out PolicyNumber);
+
                 return returnCode;
             }
             catch (Exception ex)
@@ -213,6 +214,74 @@ namespace Totalligent.BAL
                 }
             }
             return lstClients;
+        }
+        public long RaiseTicket(RaiseTickets objRaiseTickets)
+        {
+            try
+            {
+                long returnCode = objTotalligentDAL.SaveRaiseTicket(objRaiseTickets);
+
+                return returnCode;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int IsUserExits(string UserId)
+        {
+            int i = 0;
+
+            try
+            {
+                i = objTotalligentDAL.IsUserExists(UserId, out List<Employee> lstUsers);
+
+                if (i > 0)
+                {
+                    MailingServices objMail = new MailingServices();
+                    i = objMail.PswdResetMailFromAdmin(lstUsers[0].UserName, lstUsers[0].MobileNumber, lstUsers[0].EmailId, lstUsers[0].TicketId,0);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return i;
+
+        }
+        public List<RaiseTickets> ViewTickets()
+        {
+            try
+            {
+                List<RaiseTickets> lstViewTickets = objTotalligentDAL.GetTickets();
+
+                return lstViewTickets;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public long CloseTicket(RaiseTickets objRaiseTickets)
+        {
+            try
+            {
+                long returnCode = objTotalligentDAL.CloseRaisedTicket(objRaiseTickets, out List<Employee> lstMailNewPswd);
+                if (returnCode > 0 && lstMailNewPswd.Count > 0)
+                {
+                    MailingServices objMail = new MailingServices();
+                    returnCode = objMail.PswdResetMailFromAdmin(lstMailNewPswd[0].UserName, lstMailNewPswd[0].Newpassword,
+                        lstMailNewPswd[0].EmailId, lstMailNewPswd[0].TicketId,1);
+
+                }
+
+                return returnCode;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

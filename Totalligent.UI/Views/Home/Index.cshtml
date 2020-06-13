@@ -7,13 +7,62 @@
     <link href="@Url.Content("~/Content/material-dashboard.css")" rel="stylesheet" />
 }
 <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../Content/images/bg7.jpg">
+    <div class="sidebar" data-color="purple" data-background-color="black" data-image="../Content/images/bg7.jpg">
         <!--
             Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
             Tip 2: you can also add an image using data-image tag
         -->
-        <div class="logo">
+        <div class="logo bg-violet card card-profile no-shadow m-t-15 m-b-15 hide">
+            <div class="card-avatar card-avatar-min m-auto">
+                <a href="#pablo">
+                    <img class="img" src="/Content/images/marc.jpg">
+                </a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Alec Thompson</h4><h6 class="card-category text-white dull-text">AMI SAOG ADMIN</h6>
+                <h6 class="card-title text-white dull-text" style="font-style: normal;font-size: 10px;">
+                    Last Logged in: 05-04-2020
+                </h6>
+            </div>
+        </div>
+        <div class="user">
+            <div class="photo">
+                <img src="/Content/images/marc.jpg">
+            </div>
+            <div class="user-info">
+                <a data-toggle="collapse" href="#collapseExample" class="username">
+                    <span>
+                        Tania Andrew
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="sidebar-mini"> MP </span>
+                                <span class="sidebar-normal"> My Profile </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="sidebar-mini"> EP </span>
+                                <span class="sidebar-normal"> Edit Profile </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="sidebar-mini"> S </span>
+                                <span class="sidebar-normal"> Settings </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="hide">
+
             @if (ViewBag.RoleId == 1 || ViewBag.RoleId == 2)
             {
                 <a href="#" class="simple-text logo-normal">
@@ -21,8 +70,8 @@
                     VIDAL HEALTH CARE
                 </a>
             }
-            </div>
-        <div class="logo text-center">
+        </div>
+        <div class="logo hide text-center">
             @if (ViewBag.UserName != null)
             {
                 <label>@ViewBag.UserName<br /> @DateTime.Now.ToShortDateString()</label>
@@ -37,6 +86,36 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="Masters" href="#">
+                        <i class="material-icons">note_add</i>
+                        <p>Master</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" id="Quotation" href="#">
+                        <i class="material-icons">assignment</i>
+                        <p>Quotation</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <i class="material-icons">policy</i>
+                        <p>Policy</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <i class="material-icons">contact_mail</i>
+                        <p>Card Issuance</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <i class="material-icons">dashboard</i>
+                        <p>Endorsement</p>
+                    </a>
+                </li>
                 @if (ViewBag.RoleId == 1)
                 {
                     <li class="nav-item">
@@ -45,16 +124,28 @@
                             <p>Register New User</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="RaiseTicket" href="#">
+                            <i class="material-icons">error</i> Tickets
+                        </a>
+                    </li>
                 }
             </ul>
         </div>
+        <div class="sidebar-background" style="background-image: url(../Content/images/bg7.jpg);"></div>
     </div>
     <div class="main-panel">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="#pablo">Dashboard</a>
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
+                            <i class="material-icons text_align-center visible-on-sidebar-regular">menu</i>
+                            <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
+                        </button>
+                    </div>
+                    <a class="navbar-brand" href="#pablo">Dashboard<div class="ripple-container"></div></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -118,120 +209,155 @@
         <!-- End Navbar -->
         <div class="content" id="divMainContent">
             <div class="container-fluid">
-                <div class="row hide">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title">Register a New Employee</h4>
-                                <p class="card-category">Registration of Client Profile</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Client Company ID</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Address</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">City</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Country</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Postal Code</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Currency</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Contact Person</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Mobile Number</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Email ID</label>
-                                                <input type="email" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Broker</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Commission</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Re Insurer</label>
-                                                <input type="email" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary pull-right">Proceed to Client Policy Quotation and Details <i class="m-l-5 material-icons">arrow_forward</i></button>
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-profile">
-                            <div class="card-avatar">
-                                <a href="#pablo">
-                                    <img class="img" src="~/Content/images/marc.jpg" />
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-category text-gray">AMI SAOG ADMIN</h6>
-                                <h4 class="card-title">Alec Thompson</h4>
-                                <p class="card-description">
-                                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                </p>
-                                <a href="#pablo" class="btn btn-primary btn-round">Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-warning card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">note_add</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Master</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons text-danger">warning</i>
+                                    <a href="#pablo">Get More Space...</a>
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-rose card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Quotation</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">local_offer</i> Manage Quotations
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-success card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">policy</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Policy</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i> Last 24 Hours
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-info card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">contact_mail</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Medical Cards</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Just Updated
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-success card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">policy</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Endorsement</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i> Last 24 Hours
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-info card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">contact_mail</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Dashboard</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Just Updated
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-primary card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">person_add</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">Register User</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Just Updated
+                                </div>
+                                <i class="material-icons text_align-center ">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-primary card-header-icon" data-header-animation="true">
+                                <div class="card-icon">
+                                    <i class="material-icons">person_add</i>
+                                </div>
+                            </div>
+                            <div class="card-body card-InnerHeader">
+                                <h5 class="card-title">View Tickets</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Just Updated
+                                </div>
+                                <a href="Admin/ViewTickets"> <i class="material-icons text_align-center ">arrow_forward</i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row hide">
                     <div class="card card-nav-tabs">
                         <div class="card-header card-header-primary">
                             <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -276,11 +402,11 @@
                                         }
                                         @if (ViewBag.RoleId == 1)
                                         {
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#RaiseTicket" data-toggle="tab">
-                                                    <i class="material-icons">error</i> Raise a Ticket
-                                                </a>
-                                            </li>
+                                            @*<li class="nav-item">
+                                                    <a class="nav-link" href="#RaiseTicket" data-toggle="tab">
+                                                        <i class="material-icons">error</i> Raise a Ticket
+                                                    </a>
+                                                </li>*@
                                         }
                                         @if (ViewBag.RoleId == 2)
                                         {
@@ -290,7 +416,11 @@
                                                 </a>
                                             </li>
                                         }
-
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#QuotationMaster" data-toggle="tab">
+                                                <i class="material-icons">cloud_upload</i> Quotation Master
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -303,64 +433,170 @@
                                 <div class="tab-pane" id="MasterData">
                                     <div class="row m-b-15">
                                         <div class="col-md-4">
-                                            <label for="inputName" class="col-sm-12 col-form-label text-right">Client Company Master</label>
+                                            <label class="col-sm-12 col-form-label text-right">Select Master Upload Type</label>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="demo-section k-content">
-                                                @(Html.Kendo().Upload().Name("Clientfiles").HtmlAttributes(new { aria_label = "files" })
-                                                )
+                                        <div class="col-md-4 demo-section k-content">
+                                            @(Html.Kendo().DropDownList()
+                                                                                                                                                                    .Name("size")
+                                                                                                                                                                    .BindTo(new List<string>() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "Broker Name",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "Agent Name",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "Re-Insurer Name",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "Category Master",
+                                                                                                                                                                    })
+                                                                                                                                                                    .HtmlAttributes(new { style = "width: 100%", accesskey = "w" })
+                                            )
+                                        </div>
+                                        <div class="col-md-2 text-left">
+                                            <button type="submit" id="btnViewClients" class="btn btn-primary btn-fab btn-round btn-sm ">
+                                                <i class="material-icons">search</i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">Broker Name</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="Name">
+                                                    @*@Html.TextBoxFor(m => m.ClientName, new { id = "txtClientName", oninvalid = "this.setCustomValidity('Client Name required: Rajesh R')", @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Name of the Company" })*@
+                                                </div>
+                                            </div>
+
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">Address of Broker</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="Address">
+                                                </div>
+                                            </div>
+
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">State</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="State">
+                                                </div>
+                                            </div>
+
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">Contact Person</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="Name">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">Broker Code</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="Code">
+                                                    @*@Html.TextBoxFor(m => m.ClientName, new { id = "txtClientName", oninvalid = "this.setCustomValidity('Client Name required: Rajesh R')", @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Name of the Company" })*@
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">City</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="City">
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">Zipcode</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" placeholder="Zipcode">
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15">
+                                                <div class="col-md-4">
+                                                    <label for="inputName" class="col-sm-12 col-form-label text-right">Email ID</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="email" class="form-control" placeholder="email-id">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-b-15">
-                                        <div class="col-md-4">
-                                            <label for="inputName" class="col-sm-12 col-form-label text-right">Broker Master</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="demo-section k-content">
-                                                @(Html.Kendo().Upload()
-                                                                                                                                                                                                                                            .Name("Brokerfiles")
-                                                                                                                                                                                                                                            .HtmlAttributes(new { aria_label = "files" })
-                                                )
+                                    <div class="col-12 text-center">
+                                        <button type="submit" id="btnSubmit" class="btn btn-primary m-l-10 m-r-10">Create Broker</button>
+
+                                        <button type="submit" id="btnSubmit" class="btn btn-default m-l-10 m-r-10">Upload Bulk Master</button>
+                                    </div>
+                                    <div class="hide">
+                                        <div class="row m-b-15">
+                                            <div class="col-md-4">
+                                                <label for="inputName" class="col-sm-12 col-form-label text-right">Client Company Master</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="demo-section k-content">
+                                                    @(Html.Kendo().Upload().Name("Clientfiles").HtmlAttributes(new { aria_label = "files" })
+                                                    )
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row m-b-15">
-                                        <div class="col-md-4">
-                                            <label for="inputName" class="col-sm-12 col-form-label text-right">Agent Master</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="demo-section k-content">
-                                                @(Html.Kendo().Upload()
-                                                                                                                                                                                                                                    .Name("Agentfiles")
-                                                                                                                                                                                                                                    .HtmlAttributes(new { aria_label = "files" })
-                                                )
+                                        <div class="row m-b-15">
+                                            <div class="col-md-4">
+                                                <label for="inputName" class="col-sm-12 col-form-label text-right">Broker Master</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="demo-section k-content">
+                                                    @(Html.Kendo().Upload()
+                                                                                                                                                                                                                                                                                                                                                                                        .Name("Brokerfiles")
+                                                                                                                                                                                                                                                                                                                                                                                        .HtmlAttributes(new { aria_label = "files" })
+                                                    )
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row m-b-15">
-                                        <div class="col-md-4">
-                                            <label for="inputName" class="col-sm-12 col-form-label text-right">Network Master</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="demo-section k-content">
-                                                @(Html.Kendo().Upload()
-                                                                                                                                                                                                                            .Name("Networkfiles")
-                                                                                                                                                                                                                            .HtmlAttributes(new { aria_label = "files" })
-                                                )
+                                        <div class="row m-b-15">
+                                            <div class="col-md-4">
+                                                <label for="inputName" class="col-sm-12 col-form-label text-right">Agent Master</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="demo-section k-content">
+                                                    @(Html.Kendo().Upload()
+                                                                                                                                                                                                                                                                                                                                                                                .Name("Agentfiles")
+                                                                                                                                                                                                                                                                                                                                                                                .HtmlAttributes(new { aria_label = "files" })
+                                                    )
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row m-b-15">
-                                        <div class="col-md-4">
-                                            <label for="inputName" class="col-sm-12 col-form-label text-right">Category Master</label>
+                                        <div class="row m-b-15">
+                                            <div class="col-md-4">
+                                                <label for="inputName" class="col-sm-12 col-form-label text-right">Network Master</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="demo-section k-content">
+                                                    @(Html.Kendo().Upload()
+                                                                                                                                                                                                                                                                                                                                                                        .Name("Networkfiles")
+                                                                                                                                                                                                                                                                                                                                                                        .HtmlAttributes(new { aria_label = "files" })
+                                                    )
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="demo-section k-content">
-                                                @(Html.Kendo().Upload()
-                                                                                                                                                                                                                    .Name("Categoryfiles")
-                                                                                                                                                                                                                    .HtmlAttributes(new { aria_label = "files" })
-                                                )
+                                        <div class="row m-b-15">
+                                            <div class="col-md-4">
+                                                <label for="inputName" class="col-sm-12 col-form-label text-right">Category Master</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="demo-section k-content">
+                                                    @(Html.Kendo().Upload()
+                                                                                                                                                                                                                                                                                                                                                                .Name("Categoryfiles")
+                                                                                                                                                                                                                                                                                                                                                                .HtmlAttributes(new { aria_label = "files" })
+                                                    )
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -381,17 +617,16 @@
 
                                 @if (ViewBag.RoleId == 1)
                                 {
-                                    <div class="tab-pane" id="RaiseTicket">
-                                        @Html.Partial("_RaiseTicket");
-                                    </div>
-                                }
 
-                                @if (ViewBag.RoleId == 2)
-                                {
                                     <div class="tab-pane" id="ViewTicket">
                                         @Html.Partial("_ViewTicket");
                                     </div>
                                 }
+
+
+                                <div class="tab-pane" id="QuotationMaster">
+                                    Sample Content is here
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -403,10 +638,22 @@
         {
             <div class="content" id="divEmpRegister">
                 <div class="container-fluid">
-                    @Html.Partial("_EmployeeRegister");
+                    @Html.Partial("_EmployeeRegister")
                 </div>
             </div>
         }
+       
+        <div class="content" id="divQuotation">
+            <div class="container">
+                @Html.Partial("_Quotation")
+            </div>
+        </div>
+        <div class="content" id="divMasters">
+            <div class="container-fluid">
+                @Html.Partial("_Masters")
+            </div>
+        </div>
+
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="float-left">
@@ -445,17 +692,38 @@
         $("#EmpRegister").click(function () {
             $("#divMainContent").css("display", "none");
             $("#divEmpRegister").css("display", "block");
-
-
+            $("#divMasters").css("display", "none");
+            $("#divQuotation").css("display", "none");
+            //$("#divMainContent").hide();
+            //$("#divEmpRegister").show();
+        });
+        $("#Quotation").click(function () {
+            $("#divMainContent").css("display", "none");
+            $("#divEmpRegister").css("display", "none");
+            $("#divQuotation").css("display", "block");
+            $("#divMasters").css("display", "none");
+            $('html').addClass('sidebar-mini');
+            //$("#divMainContent").hide();
+            //$("#divEmpRegister").show();
+        });
+        $("#Masters").click(function () {
+            $("#divMainContent").css("display", "none");
+            $("#divEmpRegister").css("display", "none");
+            $("#divQuotation").css("display", "none");
+            $("#divMasters").css("display", "block");
             //$("#divMainContent").hide();
             //$("#divEmpRegister").show();
         });
         $("#anchorRegister").click(function () {
             $("#divEmpRegister").css("display", "none");
             $("#divMainContent").css("display", "block");
+            $("#divMasters").css("display", "none");
+            $("#divQuotation").css("display", "none");
             //$("#divEmpRegister").show();
             //$("#divMainContent").hide();
         });
+
+        demo.initMaterialWizard();
     });
     $('.sidebar-wrapper li > a').click(function () {
         $('.sidebar-wrapper li').removeClass('active');

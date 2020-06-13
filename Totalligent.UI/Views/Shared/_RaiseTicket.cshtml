@@ -1,61 +1,119 @@
 ﻿@model Totalligent.BusinessEntities.RaiseTickets
+@*@using (Html.BeginForm("RaiseTickets", "Admin", FormMethod.Post))
+    {*@
+@Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>RaiseTickets</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.TicketId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TicketId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TicketId, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h4>Raise Tickets</h4>
+    <hr />
+    <div class="row">
+        <div class="col-7 offset-1">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row m-b-15">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.TicketId, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.TicketId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TicketId, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RaisedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RaisedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RaisedBy, "", new { @class = "text-danger" })
+        <div class="col-7 offset-1">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row m-b-15">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.RaisedBy, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.RaisedBy, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RaisedBy, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        <div class="col-7 offset-1">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row m-b-15">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+        <div class="col-7 offset-1">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row m-b-15">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="col-7 offset-1">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row m-b-15">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="row">
+        <div class="col-md-5 text-right">
+            @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-default btn-sm" })
+        </div>
+        <div class="col-md-6 text-left">
+            <input type="submit" id="btnRaiseTicket" value="Create" class="btn btn-primary btn-sm" />
+        </div>
+    </div>
 </div>
+@*  *@}
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnRaiseTicket').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append("TicketId", $("#TicketId").val());
+            formData.append("RaisedBy", $("#RaisedBy").val());
+            formData.append("Description", $("#Description").val());
+            formData.append("CreatedAt", $("#CreatedAt").val());
+            formData.append("CreatedBy", $("#CreatedBy").val());
+            $.ajax({
+                type: "POST",
+                url: "/Admin/RaiseTickets",
+                data: formData,
+                dataType: "json",
+               // contentType: 'application/json;charset=utf-8',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res > 0) {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Ticket Raised Successfully.!' + res);
+                    }
+                    else {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Ticket is not Registered Successfully.!');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Company!.');
+                }
+            })
+        })
+    });
+</script>

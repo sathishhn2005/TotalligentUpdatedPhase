@@ -8,11 +8,14 @@
         <div class="col-md-4">
             <label class="col-sm-12 col-form-label text-right">Policy Number</label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <input type="text" class="form-control" id="txtPolicyNumber" placeholder="Policy Number" />
         </div>
-        <div class="col-md-6">
-            <input type="submit" id="btnViewClients" />
+        <div class="col-md-2 text-left">
+            <button type="submit" id="btnViewClients" class="btn btn-primary btn-fab btn-round btn-sm ">
+                <i class="material-icons">search</i>
+            </button>
+
         </div>
     </div>
     <div class="row">
@@ -122,12 +125,11 @@
                                         }
                                     }
                                 },
-                                pageSize: 20
+                                pageSize: 5
                             },
-                            height: 550,
                             scrollable: true,
                             sortable: true,
-                            filterable: true,
+                            filterable: false,
                             pageable: {
                                 input: true,
                                 numeric: false
@@ -153,26 +155,26 @@
                                     field: "Address",
                                     title: "Address"
                                 }
-                                ,
-                                {
-                                    field: "City",
-                                    title: "City"
-                                }
+                                //,
+                                //{
+                                //    field: "City",
+                                //    title: "City"
+                                //}
                                 ,
                                 {
                                     field: "ContactPerson",
                                     title: "Contact Person"
                                 }
                                 ,
-                                {
-                                    field: "MobileNumber",
-                                    title: "Mobile Number"
-                                }
-                                ,
-                                {
-                                    field: "EmailId",
-                                    title: "Email Id"
-                                },
+                                //{
+                                //    field: "MobileNumber",
+                                //    title: "Mobile Number"
+                                //}
+                                //,
+                                //{
+                                //    field: "EmailId",
+                                //    title: "Email Id"
+                                //},
                                 {
                                     field: "Currency",
                                     title: "Currency"

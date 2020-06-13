@@ -173,8 +173,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AgentController.cs" />
+    <Compile Include="Controllers\BrokerController.cs" />
+    <Compile Include="Controllers\ClientCompanyController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\DiagnosticsController.cs" />
+    <Compile Include="Controllers\DrugController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HospitalController.cs" />
+    <Compile Include="Controllers\InsuranceCompanyController.cs" />
+    <Compile Include="Controllers\LabController.cs" />
+    <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,6 +195,7 @@
   <ItemGroup>
     <Content Include="Content\images\bg7.jpg" />
     <Content Include="Content\images\marc.jpg" />
+    <Content Include="Content\material-bootstrap-wizard.css" />
     <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\material-kit.css" />
     <Content Include="Content\util.css" />
@@ -269,11 +279,15 @@
     <Content Include="fonts\poppins\Poppins-Thin.ttf" />
     <Content Include="fonts\poppins\Poppins-ThinItalic.ttf" />
     <Content Include="Content\material-kit.css.map" />
+    <Content Include="Scripts\jquery.bootstrap.wizard.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\material-bootstrap-wizard.js" />
     <Content Include="Scripts\material-kit.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -298,6 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Quotation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -327,6 +342,16 @@
     <Content Include="Views\Shared\_ViewInsCompany.cshtml" />
     <Content Include="Views\Shared\_RaiseTicket.cshtml" />
     <Content Include="Views\Shared\_ViewTicket.cshtml" />
+    <Content Include="Views\Shared\_Masters.cshtml" />
+    <Content Include="Views\Shared\_Quotation.cshtml" />
+    <Content Include="Views\Agent\_AgentMaster.cshtml" />
+    <Content Include="Views\Broker\_BrokerMaster.cshtml" />
+    <Content Include="Views\ClientCompany\_ClientCompanyMaster.cshtml" />
+    <Content Include="Views\Diagnostics\_DiagnosticsMaster.cshtml" />
+    <Content Include="Views\Drug\_DrugMaster.cshtml" />
+    <Content Include="Views\Hospital\_HospitalMaster.cshtml" />
+    <Content Include="Views\InsuranceCompany\_InsCompanyMaster.cshtml" />
+    <Content Include="Views\Lab\_LabMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Totalligent.BAL\Totalligent.BAL.csproj">

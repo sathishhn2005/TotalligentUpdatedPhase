@@ -378,7 +378,7 @@ namespace Totalligent.DAL
             }
             return lstClients;
         }
-        public long TPAInsComRegister(InsuranceCompany objInsCompanyRegister,out string PolicyNumber)
+        public long TPAInsComRegister(InsuranceCompany objInsCompanyRegister, out string PolicyNumber)
         {
             long returnCode = -1;
             PolicyNumber = string.Empty;
@@ -405,8 +405,8 @@ namespace Totalligent.DAL
                             Value = dt
                         };
                         cmd.Parameters.Add(UDTparam);
-                        returnCode = cmd.ExecuteNonQuery();
-                        PolicyNumber = cmd.ExecuteScalar().ToString() ?? "";
+                        if (!string.IsNullOrEmpty(cmd.ExecuteScalar().ToString()))
+                            PolicyNumber = cmd.ExecuteScalar().ToString() ?? "";
                     }
                 }
             }
@@ -441,22 +441,22 @@ namespace Totalligent.DAL
                     if (dt.Rows.Count > 0)
                     {
                         lstCompanies = (from DataRow dr in dt.Rows
-                                      select new InsuranceCompany()
-                                      {
-                                          ClientId = Convert.ToInt32(dr["InsCompanyId"]),
-                                          PolicyNumber = dr["PolicyNumber"].ToString(),
-                                          CompanyName = dr["CompanyName"].ToString(),
-                                          Address = dr["CompanyAddress"].ToString(),
-                                          City = dr["City"].ToString(),
-                                          StateName = dr["StateName"].ToString(),
-                                          ZipCode = (long)dr["ZipCode"],
-                                          ContactPerson = dr["ContactPerson"].ToString(),
-                                          MobileNumber = dr["MobileNumber"].ToString(),
-                                          EmailId = dr["EmailId"].ToString(),
-                                          Currency = dr["Currency"].ToString(),
-                                          Broker = dr["Broker"].ToString(),
-                                          Reinsurer = dr["Reinsurer"].ToString(),
-                                      }).ToList();
+                                        select new InsuranceCompany()
+                                        {
+                                            ClientId = Convert.ToInt32(dr["InsCompanyId"]),
+                                            PolicyNumber = dr["PolicyNumber"].ToString(),
+                                            CompanyName = dr["CompanyName"].ToString(),
+                                            Address = dr["CompanyAddress"].ToString(),
+                                            City = dr["City"].ToString(),
+                                            StateName = dr["StateName"].ToString(),
+                                            ZipCode = (long)dr["ZipCode"],
+                                            ContactPerson = dr["ContactPerson"].ToString(),
+                                            MobileNumber = dr["MobileNumber"].ToString(),
+                                            EmailId = dr["EmailId"].ToString(),
+                                            Currency = dr["Currency"].ToString(),
+                                            Broker = dr["Broker"].ToString(),
+                                            Reinsurer = dr["Reinsurer"].ToString(),
+                                        }).ToList();
                     }
                 }
             }
@@ -465,6 +465,179 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return lstCompanies;
+        }
+        public long SaveRaiseTicket(RaiseTickets objRaiseTickets)
+        {
+            long returnCode = -1;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_RaiseTicket"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    cmd.Parameters.AddWithValue("@TicketId", objRaiseTickets.TicketId);
+                    cmd.Parameters.AddWithValue("@RaisedBy", objRaiseTickets.RaisedBy);
+                    cmd.Parameters.AddWithValue("@Description", objRaiseTickets.Description);
+                    cmd.Parameters.AddWithValue("@CreatedAt", objRaiseTickets.CreatedAt);
+                    cmd.Parameters.AddWithValue("@CreatedBy", objRaiseTickets.CreatedBy);
+
+                    returnCode = cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public int IsUserExists(string UserName, out List<Employee> lstUsers)
+        {
+            int i = 0;
+            DataTable dt = new DataTable();
+            lstUsers = new List<Employee>();
+            //List<Employee> lstUsers = new List<Employee>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_ResetPassword"
+                    };
+                    cmd.Parameters.AddWithValue("@UserName", UserName);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(dt);
+                    i = dt.Rows.Count;
+                    if (dt.Rows.Count > 0)
+                    {
+                        lstUsers = (from DataRow dr in dt.Rows
+                                    select new Employee()
+                                    {
+                                        UserName = dr["UserName"].ToString(),
+                                        MobileNumber = dr["MobileNumber"].ToString(),
+                                        EmailId = dr["EmailId"].ToString(),
+                                        TicketId = (int)dr["TicketId"],
+
+                                    }).ToList();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return i;
+        }
+        public List<RaiseTickets> GetTickets()
+        {
+            List<RaiseTickets> lstViewTickets = new List<RaiseTickets>();
+            try
+            {
+                DataTable dt = new DataTable();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_ViewTickets"
+                    };
+                    // cmd.Parameters.AddWithValue("@CompanyDraftNo", CompanyDraftNo);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        lstViewTickets = (from DataRow dr in dt.Rows
+                                          select new RaiseTickets()
+                                          {
+                                              TicketId = Convert.ToInt32(dr["TicketId"]),
+                                              RaisedBy = dr["RaisedBy"].ToString(),
+                                              Description = dr["Description"].ToString(),
+                                              CreatedAt = Convert.ToDateTime(dr["CreatedAt"].ToString()),
+                                              Status = dr["Status"].ToString(),
+                                              EmailId = dr["EmailId"].ToString()
+
+                                          }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstViewTickets;
+        }
+        public long CloseRaisedTicket(RaiseTickets objRaiseTickets,out List<Employee> lstMailNewPwsd)
+        {
+            long returnCode = -1;
+            lstMailNewPwsd = new List<Employee>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_CloseTicket"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    cmd.Parameters.AddWithValue("@TicketId", objRaiseTickets.TicketId);
+                    cmd.Parameters.AddWithValue("@RaisedBy", objRaiseTickets.RaisedBy);
+                    cmd.Parameters.AddWithValue("@Newpassword", objRaiseTickets.Newpassword);
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(dt);
+                    returnCode = dt.Rows.Count;
+                    if (dt.Rows.Count > 0)
+                    {
+                        lstMailNewPwsd = (from DataRow dr in dt.Rows
+                                    select new Employee()
+                                    {
+                                        UserName = dr["UserName"].ToString(),
+                                        Newpassword = dr["Newpassword"].ToString(),
+                                        EmailId = dr["EmailId"].ToString(),
+                                        TicketId = (int)dr["TicketId"],
+
+                                    }).ToList();
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
         }
     }
 }

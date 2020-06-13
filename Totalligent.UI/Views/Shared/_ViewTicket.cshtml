@@ -1,21 +1,30 @@
 ﻿@model IEnumerable<Totalligent.BusinessEntities.RaiseTickets>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css {
+    <link href="@Url.Content("~/Content/material-dashboard.css")" rel="stylesheet" />
+}
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
 
         <th>
-            @Html.DisplayNameFor(model => model.RaisedBy)
+            TicketId
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            User Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
+            Raised On
         </th>
-        <th></th>
+        <th>Status</th>
+        <th>Email Id</th>
+        <th>Actions</th>
     </tr>
 
     @if (Model != null)
@@ -24,6 +33,9 @@
         {
             <tr>
 
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketId)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RaisedBy)
                 </td>
@@ -34,14 +46,108 @@
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                <td>
+                    @*<button type="button" class="btn btn-primary btn-round" data-toggle="modal"
+                                data-target="#resetPasswordModal">
+                            Edit
+                        </button>*@
+                    <a data-toggle="modal" data-id="@item.RaisedBy~@item.TicketId" title="Add this item"
+                       class="open-AddBookDialog btn btn-primary" href="#resetPasswordModal">Edit</a>
+
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })*@
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
         }
     }
-    </table>
+</table>
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Password Reset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        TicketId:
+                        <label id="lblTicketId"></label>
+                    </div>
+                    <div class="form-group">
+                        User Name:
+                        <label id="lblUserName"></label>
+                    </div>
+                    <div class="form-group">
+
+                        <input type="password" required placeholder="Enter New password" class="form-control" id="txtPassNew">
+                    </div>
+                    <label id="lblSuccMsg"></label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnResetPassword" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).on("click", ".open-AddBookDialog", function () {
+
+        var item = $(this).data('id');
+        item.split("~");
+        var UserName = item.split('~')[0];
+        var TicketId = item.split('~')[1];
+        $("#lblUserName").html(UserName);
+        $("#lblTicketId").html(TicketId);
+        // As pointed out in comments,
+        // it is unnecessary to have to manually call the modal.
+        // $('#addBookDialog').modal('show');
+    });
+    $(function () {
+        $('#btnResetPassword').click(function (e) {
+            e.preventDefault();
+            var ticketid = $("#lblTicketId").text();
+            var username = $("#lblUserName").text();
+            var formData = new FormData();
+            formData.append("TicketId", ticketid);
+            formData.append("RaisedBy", username);
+            formData.append("Newpassword", $("#txtPassNew").val());
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ResetNewPassword",
+                data: formData,
+                dataType: "json",
+                // contentType: 'application/json;charset=utf-8',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res > 0) {
+                        $("#txtPassNew").val('');
+                        $("#lblSuccMsg").html('Ticket closed Successfully.!');
+                        //   $('#dialogClient').data("kendoDialog").open();
+                        // $("#lblMessage").html('Ticket closed Successfully.!' + res);
+                    }
+                    else {
+                        //$('#dialogClient').data("kendoDialog").open();
+                        //$("#lblMessage").html('Error while password reset.!);
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while password reset!.');
+                }
+            })
+        })
+    });
+</script>

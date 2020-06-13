@@ -7,6 +7,7 @@ using Totalligent.BAL;
 using System.Web.Mvc;
 
 using Totalligent.UI.Models;
+using System.Text.RegularExpressions;
 
 namespace Totalligent.UI.Controllers
 {
@@ -43,23 +44,32 @@ namespace Totalligent.UI.Controllers
         {
             long returnCode = -1;
             string Username = (string)TempData["uname"];
-            if (objModelNewPassword != null && !string.IsNullOrEmpty(objModelNewPassword.NewPassword)
-                && !string.IsNullOrEmpty(objModelNewPassword.OldPassword)
-                && !string.IsNullOrEmpty(objModelNewPassword.ConfirmPassword))
+            if (!Regex.IsMatch(objModelNewPassword.NewPassword, "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])"))
             {
-                if (!objModelNewPassword.NewPassword.Equals(objModelNewPassword.ConfirmPassword))
+                ViewBag.ConfirmPasswordMessage = "Password should be Alphanumeric with a Capital letter and character.";
+                return View();
+            }
+            else
+            {
+                if (objModelNewPassword != null && !string.IsNullOrEmpty(objModelNewPassword.NewPassword)
+                    && !string.IsNullOrEmpty(objModelNewPassword.OldPassword)
+                    && !string.IsNullOrEmpty(objModelNewPassword.ConfirmPassword))
                 {
-                    ViewBag.ConfirmPasswordMessage = "New Password and Confirmation Password must match.";
-                    return View();
+                    if (!objModelNewPassword.NewPassword.Equals(objModelNewPassword.ConfirmPassword))
+                    {
+                        ViewBag.ConfirmPasswordMessage = "New Password and Confirmation Password must match.";
+                        return View();
+                    }
+                    else
+                        returnCode = objBALTot.UpdateNewPassword(Username, objModelNewPassword.OldPassword, objModelNewPassword.ConfirmPassword);
                 }
-                else
-                    returnCode = objBALTot.UpdateNewPassword(Username, objModelNewPassword.OldPassword, objModelNewPassword.ConfirmPassword);
             }
             if (returnCode > 0)
 
                 return View("Login");
             else
                 return View("Error");
+
         }
         [HttpGet]
         public ActionResult Login(RolesModel objModels)
@@ -114,6 +124,26 @@ namespace Totalligent.UI.Controllers
             {
                 return View("Login");
             }
+        }
+        [HttpGet]
+        public JsonResult ResetPassword(string UserId)
+        {
+            int i = 0;
+            try
+            {
+                if (!string.IsNullOrEmpty(UserId))
+                {
+                    i = objRolesModel.IsUserExits(UserId);
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(i,JsonRequestBehavior.AllowGet);
+
         }
 
 

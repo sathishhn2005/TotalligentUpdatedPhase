@@ -12,6 +12,20 @@ namespace Totalligent.Utilities
             string conStr = ConfigurationManager.ConnectionStrings["Totalligent"].ConnectionString.ToString();
             return conStr;
         }
+        public string GetOLEDBConnectionString(string Extension)
+        {
+            string OLEDBContstr = string.Empty;
+            if (Extension.Equals(".xls"))
+            {
+                OLEDBContstr = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+            }
+            else if (Extension.Equals(".xlsx"))
+            {
+                OLEDBContstr = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+            }
+
+            return OLEDBContstr;
+        }
         public DataTable ConvertToClient(Register _objRegisterClient)
         {
             try
