@@ -15,6 +15,8 @@ namespace Totalligent.BusinessEntities
 
         public string State { get; set; }
 
+        public string Band { get; set; }
+
         public long? Zipcode { get; set; }
 
         public string ContactPerson { get; set; }

@@ -38,7 +38,7 @@ namespace Totalligent.UI.Controllers
                 BrokerMaster objSaveBroker = new BrokerMaster
                 {
                     BrokerName = collection["BrokerName"].ToString(),
-                    BrokerCode = collection["BrokerCode"].ToString(),
+                    //BrokerCode = collection["BrokerCode"].ToString(),
                     Address = collection["Address"].ToString(),
                     City = collection["City"].ToString(),
                     Zipcode = collection["Zipcode"].ToString(),

@@ -16,8 +16,9 @@
     <div>
         @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <input type="file" name="postedFile" />
+            <input type="file" name="postedFile" accept=".xls,.xlsx"/>
             <input type="submit" value="Import" />
+            <a href="~/Masters/HospitalMaster.xlsx" download>Download Sample format</a>
         }
     </div>
     <div>
@@ -83,6 +84,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Band, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Band, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Band, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
@@ -110,6 +119,7 @@
             formData.append("ContactPerson", $("#ContactPerson").val());
             formData.append("MobileNumber", $("#MobileNumber").val());
             formData.append("EmailId", $("#EmailId").val());
+            formData.append("Band", $("#Band").val());
             $.ajax({
                 type: "POST",
                 url: "/Hospital/Create",

@@ -12,8 +12,9 @@
     <div>
         @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <input type="file" name="postedFile" />
+            <input type="file" name="postedFile" accept=".xls,.xlsx" />
             <input type="submit" value="Import" />
+            <a href="~/Masters/ClientMaster.xlsx" download>Download Sample format</a>
         }
     </div>
 

@@ -32,7 +32,7 @@ namespace Totalligent.DAL
                     cmd.Connection = con;
 
                     cmd.Parameters.AddWithValue("@AgentName", objAgentMaster.AgentName);
-                    cmd.Parameters.AddWithValue("@AgentCode", objAgentMaster.AgentCode);
+                    //cmd.Parameters.AddWithValue("@AgentCode", objAgentMaster.AgentCode);
                     cmd.Parameters.AddWithValue("@Address", objAgentMaster.Address);
                     cmd.Parameters.AddWithValue("@City", objAgentMaster.City);
                     cmd.Parameters.AddWithValue("@Zipcode", objAgentMaster.Zipcode);
@@ -67,7 +67,7 @@ namespace Totalligent.DAL
                     cmd.Connection = con;
 
                     cmd.Parameters.AddWithValue("@BrokerName", objBrokerMaster.BrokerName);
-                    cmd.Parameters.AddWithValue("@BrokerCode", objBrokerMaster.BrokerCode);
+                    //cmd.Parameters.AddWithValue("@BrokerCode", objBrokerMaster.BrokerCode);
                     cmd.Parameters.AddWithValue("@Address", objBrokerMaster.Address);
                     cmd.Parameters.AddWithValue("@City", objBrokerMaster.City);
                     cmd.Parameters.AddWithValue("@Zipcode", objBrokerMaster.Zipcode);
@@ -209,6 +209,7 @@ namespace Totalligent.DAL
                     cmd.Parameters.AddWithValue("@ContactPerson", objHosMaster.ContactPerson);
                     cmd.Parameters.AddWithValue("@MobileNumber", objHosMaster.MobileNumber);
                     cmd.Parameters.AddWithValue("@EmailId", objHosMaster.EmailId);
+                    cmd.Parameters.AddWithValue("@Band", objHosMaster.Band);
                     returnCode = cmd.ExecuteNonQuery();
 
                 }
@@ -272,7 +273,7 @@ namespace Totalligent.DAL
                     cmd.Connection = con;
 
                     cmd.Parameters.AddWithValue("@LabName", objLabMaster.LabName);
-                    cmd.Parameters.AddWithValue("@LabCode", objLabMaster.LabCode);
+                    //cmd.Parameters.AddWithValue("@LabCode", objLabMaster.LabCode);
                     cmd.Parameters.AddWithValue("@Address", objLabMaster.Address);
                     cmd.Parameters.AddWithValue("@State", objLabMaster.State);
                     cmd.Parameters.AddWithValue("@City", objLabMaster.City);
@@ -346,86 +347,89 @@ namespace Totalligent.DAL
         }
         private long BulkInsertMaster(DataTable dt, SqlConnection con, string TableName)
         {
-            using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+            long returnCode = -1;
+            try
             {
-                //Set the database table name.
-                sqlBulkCopy.DestinationTableName = TableName;
-                //                BrokerName
-                //BrokerCode
-                //Address
-                //City
-                //Zipcode
-                //ContactPerson
-                //MobileNumber
-                //EmailId
-                //[OPTIONAL]: Map the Excel columns with that of the database table
-                if (TableName.Equals("dbo.TB_AgentMaster"))
+
+                using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
                 {
-                    sqlBulkCopy.ColumnMappings.Add("AgentName", "AgentName");
-                    sqlBulkCopy.ColumnMappings.Add("AgentCode", "AgentCode");
-                }
-                if (TableName.Equals("dbo.TB_BrokerMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("BrokerName", "BrokerName");
-                    sqlBulkCopy.ColumnMappings.Add("BrokerCode", "BrokerCode");
-                }
-                if (TableName.Equals("dbo.TB_ClientCompanyMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("ClientCompanyName", "ClientCompanyName");
-                    sqlBulkCopy.ColumnMappings.Add("State", "State");
-                    sqlBulkCopy.ColumnMappings.Add("Currency", "Currency");
-                    sqlBulkCopy.ColumnMappings.Add("Provider", "Provider");
-                    sqlBulkCopy.ColumnMappings.Add("ProviderCommission", "ProviderCommission");
-                    sqlBulkCopy.ColumnMappings.Add("ReInsurer", "ReInsurer");
-                    sqlBulkCopy.ColumnMappings.Add("ReInsurerRate", "ReInsurerRate");
-                }
-                if (TableName.Equals("dbo.TB_DiagnosticsMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("DiagnosticsCode", "DiagnosticsCode");
-                    sqlBulkCopy.ColumnMappings.Add("DiagnosticsName", "DiagnosticsName");
-                }
-                if (TableName.Equals("dbo.TB_DrugMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("DrugCode", "DrugCode");
-                    sqlBulkCopy.ColumnMappings.Add("DrugName", "DrugName");
-                }
-                if (TableName.Equals("dbo.TB_HospitalMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("HospitalName", "HospitalName");
-                    sqlBulkCopy.ColumnMappings.Add("State", "State");
-                }
-                if (TableName.Equals("dbo.TB_InsuranceCompanyMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("InsurancecompanyName", "InsurancecompanyName");
-                    sqlBulkCopy.ColumnMappings.Add("State", "State");
-                }
-                if (TableName.Equals("dbo.TB_LabMaster"))
-                {
-                    sqlBulkCopy.ColumnMappings.Add("LabCode", "LabCode");
-                    sqlBulkCopy.ColumnMappings.Add("LabName", "LabName");
-                    sqlBulkCopy.ColumnMappings.Add("State", "State");
-                }
-                if (TableName.Equals("dbo.TB_AgentMaster") || TableName.Equals("dbo.TB_BrokerMaster")
-                    || TableName.Equals("dbo.TB_ClientCompanyMaster") ||
-                    TableName.Equals("dbo.TB_HospitalMaster") || TableName.Equals("dbo.TB_InsuranceCompanyMaster")
-                    || TableName.Equals("dbo.TB_LabMaster"))
-                {
+                    //Set the database table name.
+                    sqlBulkCopy.DestinationTableName = TableName;
+
+                    if (TableName.Equals("dbo.TB_AgentMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("AgentName", "AgentName");
+                        //sqlBulkCopy.ColumnMappings.Add("AgentCode", "AgentCode");
+                    }
+                    if (TableName.Equals("dbo.TB_BrokerMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("BrokerName", "BrokerName");
+                        //sqlBulkCopy.ColumnMappings.Add("BrokerCode", "BrokerCode");
+                    }
+                    if (TableName.Equals("dbo.TB_ClientCompanyMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("ClientCompanyName", "ClientCompanyName");
+                        sqlBulkCopy.ColumnMappings.Add("State", "State");
+                        sqlBulkCopy.ColumnMappings.Add("Currency", "Currency");
+                        sqlBulkCopy.ColumnMappings.Add("Provider", "Provider");
+                        sqlBulkCopy.ColumnMappings.Add("ProviderCommission", "ProviderCommission");
+                        sqlBulkCopy.ColumnMappings.Add("ReInsurer", "ReInsurer");
+                        sqlBulkCopy.ColumnMappings.Add("ReInsurerRate", "ReInsurerRate");
+                    }
+                    if (TableName.Equals("dbo.TB_DiagnosticsMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("DiagnosticsCode", "DiagnosticsCode");
+                        sqlBulkCopy.ColumnMappings.Add("DiagnosticsName", "DiagnosticsName");
+                    }
+                    if (TableName.Equals("dbo.TB_DrugMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("DrugCode", "DrugCode");
+                        sqlBulkCopy.ColumnMappings.Add("DrugName", "DrugName");
+                    }
+                    if (TableName.Equals("dbo.TB_HospitalMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("HospitalName", "HospitalName");
+                        sqlBulkCopy.ColumnMappings.Add("State", "State");
+                        sqlBulkCopy.ColumnMappings.Add("Band", "Band");
+                    }
+                    if (TableName.Equals("dbo.TB_InsuranceCompanyMaster"))
+                    {
+                        sqlBulkCopy.ColumnMappings.Add("InsurancecompanyName", "InsurancecompanyName");
+                        sqlBulkCopy.ColumnMappings.Add("State", "State");
+                    }
+                    if (TableName.Equals("dbo.TB_LabMaster"))
+                    {
+                        //sqlBulkCopy.ColumnMappings.Add("LabCode", "LabCode");
+                        sqlBulkCopy.ColumnMappings.Add("LabName", "LabName");
+                        sqlBulkCopy.ColumnMappings.Add("State", "State");
+                    }
+                    if (TableName.Equals("dbo.TB_AgentMaster") || TableName.Equals("dbo.TB_BrokerMaster")
+                        || TableName.Equals("dbo.TB_ClientCompanyMaster") ||
+                        TableName.Equals("dbo.TB_HospitalMaster") || TableName.Equals("dbo.TB_InsuranceCompanyMaster")
+                        || TableName.Equals("dbo.TB_LabMaster"))
+                    {
 
 
-                    sqlBulkCopy.ColumnMappings.Add("Address", "Address");
-                    sqlBulkCopy.ColumnMappings.Add("City", "City");
-                    sqlBulkCopy.ColumnMappings.Add("Zipcode", "Zipcode");
-                    sqlBulkCopy.ColumnMappings.Add("ContactPerson", "ContactPerson");
-                    sqlBulkCopy.ColumnMappings.Add("MobileNumber", "MobileNumber");
-                    sqlBulkCopy.ColumnMappings.Add("EmailId", "EmailId");
+                        sqlBulkCopy.ColumnMappings.Add("Address", "Address");
+                        sqlBulkCopy.ColumnMappings.Add("City", "City");
+                        sqlBulkCopy.ColumnMappings.Add("Zipcode", "Zipcode");
+                        sqlBulkCopy.ColumnMappings.Add("ContactPerson", "ContactPerson");
+                        sqlBulkCopy.ColumnMappings.Add("MobileNumber", "MobileNumber");
+                        sqlBulkCopy.ColumnMappings.Add("EmailId", "EmailId");
+                    }
+                    con.Open();
+                    sqlBulkCopy.WriteToServer(dt);
+                    con.Close();
+                    returnCode = 1;
                 }
-                con.Open();
-                sqlBulkCopy.WriteToServer(dt);
-                con.Close();
-                long returnCode = 1;
-                return returnCode;
+
             }
-
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
+            return returnCode;
         }
     }
 }

@@ -319,6 +319,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Masters\Agentmaster.xlsx" />
+    <Content Include="Masters\BrokerMaster.xlsx" />
+    <Content Include="Masters\ClientMaster.xlsx" />
+    <Content Include="Masters\DiagnosticsMaster.xlsx" />
+    <Content Include="Masters\DrugMaster.xlsx" />
+    <Content Include="Masters\HospitalMaster.xlsx" />
+    <Content Include="Masters\InsuranceCompanyMaster.xlsx" />
+    <Content Include="Masters\LabMaster.xlsx" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />

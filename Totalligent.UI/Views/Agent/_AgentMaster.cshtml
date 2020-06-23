@@ -12,8 +12,10 @@
     <div>
         @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <input type="file" name="postedFile" />
+            <input type="file" name="postedFile" accept=".xls,.xlsx" />
             <input type="submit" value="Import" />
+            <a href="~/Masters/Agentmaster.xlsx"  download>Download Sample format</a>
+
         }
     </div>
     <div class="form-group">
@@ -24,13 +26,13 @@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.AgentCode, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.AgentCode, new { htmlAttributes = new { @class = "form-control" } })
 
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -88,15 +90,13 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-       
-    });
+
     $(function () {
         $('#btnSubmitAgent').click(function (e) {
             e.preventDefault();
             var formData = new FormData();
             formData.append("AgentName", $("#AgentName").val());
-            formData.append("AgentCode", $("#AgentCode").val());
+            //formData.append("AgentCode", $("#AgentCode").val());
             formData.append("Address", $("#Address").val());
             formData.append("City", $("#City").val());
             formData.append("Zipcode", $("#Zipcode").val());

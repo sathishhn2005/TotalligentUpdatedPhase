@@ -46,6 +46,7 @@ namespace Totalligent.UI.Controllers
                     ContactPerson = collection["ContactPerson"].ToString(),
                     MobileNumber = collection["MobileNumber"].ToString(),
                     EmailId = collection["EmailId"].ToString(),
+                    Band = collection["Band"].ToString(),
                 };
 
                 long returnCode = -1;

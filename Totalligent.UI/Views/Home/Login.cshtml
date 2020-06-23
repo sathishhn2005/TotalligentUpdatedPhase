@@ -55,7 +55,7 @@
                                 <div class="col-12 d-flex justify-content-between m-b-20">
                                     @*<button class="btn btn-primary btn-round">Register User</button>*@
 
-                                    <a id="divRegister" href="/Home/Registration" class="btn btn-primary btn-link btn-wd p-l-15">Register New User</a>
+                                    @*<a id="divRegister" href="#" class="btn btn-primary btn-link btn-wd p-l-15">Register New User</a>*@
 
                                     <button class="btn btn-primary btn-round">Login</button>
                                     @*<button id="btnReset" class="btn btn-primary btn-round">Reset Password?</button>*@
@@ -69,7 +69,7 @@
                             @if (ViewBag.Message != null)
                             {
                                 <div>
-                                    <label class="errorID">
+                                    <label id="lblMes" class="errorID">
                                         @ViewBag.Message
                                     </label>
                                 </div>
@@ -118,7 +118,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#RoleId").on("change", function () {
-
+            debugger;
+            $("#lblMes").text('');
+            $('#LoginUser_UserName').val('');
             $(this).find("option:selected").each(function () {
                 var optionValue = $(this).attr("value");
                 if (optionValue == 1) {
@@ -145,13 +147,13 @@
                 dataType: "",
                 contentType: 'application/json;charset=utf-8',
                 success: function (res) {
-                    
+
                     if (res > 0) {
                         $('#txtUserName').val('');
                         $("#lblMessage").html('Password reset request sent successfully to Admin.!');
                     }
                     else {
-                        
+
                         $("#lblMessage").html('Invalid username/You are already requested for reset password.Please reach out to admin for further assistance.');
                     }
                 },

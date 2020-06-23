@@ -12,8 +12,9 @@
     <div>
         @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <input type="file" name="postedFile" />
+            <input type="file" name="postedFile" accept=".xls,.xlsx" />
             <input type="submit" value="Import" />
+            <a href="~/Masters/BrokerMaster.xlsx" download>Download Sample format</a>
         }
     </div>
     <div class="form-group">
@@ -24,13 +25,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BrokerCode, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BrokerCode, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BrokerCode, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -94,7 +88,7 @@
             e.preventDefault();
             var formData = new FormData();
             formData.append("BrokerName", $("#BrokerName").val());
-            formData.append("BrokerCode", $("#BrokerCode").val());
+            //formData.append("BrokerCode", $("#BrokerCode").val());
             formData.append("Address", $("#Address").val());
             formData.append("City", $("#City").val());
             formData.append("State", $("#State").val());

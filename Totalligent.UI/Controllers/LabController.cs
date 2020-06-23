@@ -38,7 +38,7 @@ namespace Totalligent.UI.Controllers
                 LabMaster objLabMaster = new LabMaster
                 {
                     LabName = collection["LabName"].ToString(),
-                    LabCode = collection["LabCode"].ToString(),
+                   // LabCode = collection["LabCode"].ToString(),
                     State = collection["State"].ToString(),
                     Address = collection["Address"].ToString(),
                     City = collection["City"].ToString(),

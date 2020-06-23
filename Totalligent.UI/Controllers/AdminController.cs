@@ -18,16 +18,16 @@ namespace Totalligent.UI.Controllers
         [HttpPost]
         public JsonResult EmployeeRegister(Employee objEmployeRegistration)
         {
+            long returnCode = -1;
             try
             {
-                long returnCode = -1;
                 returnCode = objBALTot.SaveEmployee(objEmployeRegistration);
-                return Json(returnCode);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            return Json(returnCode);
         }
         [HttpPost]
         public JsonResult Register(Register objRegister)
@@ -149,7 +149,7 @@ namespace Totalligent.UI.Controllers
             }
             return PartialView("_ViewTicket", Model);
         }
-        
+
         [HttpPost]
         public ActionResult ResetNewPassword(FormCollection collection)
         {

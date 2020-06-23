@@ -39,7 +39,7 @@ namespace Totalligent.UI.Controllers
                 AgentMaster objAgentMaster = new AgentMaster
                 {
                     AgentName = collection["AgentName"].ToString(),
-                    AgentCode = collection["AgentCode"].ToString(),
+                    //AgentCode = collection["AgentCode"].ToString(),
                     Address = collection["Address"].ToString(),
                     City = collection["City"].ToString(),
                     Zipcode = collection["Zipcode"].ToString(),

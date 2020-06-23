@@ -12,7 +12,7 @@
                 <p class="card-category">Complete your registration of new employee details</p>
             </div>
             <div class="card-body">
-                <form>
+                <form id="empForm">
                     <div class="">
                         <div class="row m-b-15">
                             <div class="col-md-4">
@@ -31,8 +31,7 @@
                                 <label class="col-sm-12 col-form-label text-right">User Name</label>
                             </div>
                             <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.EmployeeRegistration.UserName, new {id="txtUserName", oninvalid = "this.setCustomValidity('User Name is required')",
-@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a username" })
+                                @Html.TextBoxFor(m => m.EmployeeRegistration.UserName, new {id="txtUserName", oninvalid = "this.setCustomValidity('User Name is required')",@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a username" })
                             </div>
                         </div>
                         <div class="row m-b-15">
@@ -80,14 +79,14 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default pull-left">Cancel</button>
+                    <button type="reset" class="btn btn-default pull-left">Reset</button>
                     <button type="submit" id="btnSubmitER" class="btn btn-primary pull-right">Submit<i class="m-l-5 material-icons">arrow_forward</i></button>
                     <div class="clearfix"></div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <div class="card card-profile">
             <div class="card-avatar">
                 <a href="#pablo">
@@ -103,7 +102,7 @@
                 <a href="#pablo" class="btn btn-primary btn-round">Profile</a>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 
 
@@ -145,6 +144,11 @@
     $(function () {
         $('#btnSubmitER').click(function (e) {
             e.preventDefault();
+            var $form = $('#empForm');
+            if (!$form[0].checkValidity()) {
+                $form[0].reportValidity();
+                return;
+            }
             var objEmployeRegistration = {
                 "UserName": $('#txtUserName').val(),
                 "UserEmployeeNo": $('#txtEmployeeNo').val(),
