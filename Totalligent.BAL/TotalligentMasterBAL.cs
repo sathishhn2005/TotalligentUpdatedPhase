@@ -5,12 +5,15 @@ using Totalligent.Utilities;
 
 using System;
 using System.Transactions;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Totalligent.BAL
 {
     public class TotalligentMasterBAL
     {
         TotalligentMasterDAL objMasterDAL = new TotalligentMasterDAL();
+        MailingServices objMail = new MailingServices();
         public long SaveAgent(AgentMaster objAgentMaster)
         {
             try
@@ -39,16 +42,31 @@ namespace Totalligent.BAL
         }
         public long SaveClientCom(ClientCompanyMaster objClientCom)
         {
-            try
-            {
-                long returnCode = objMasterDAL.SaveClientCompany(objClientCom);
+            long returnCode = -1;
 
-                return returnCode;
-            }
-            catch (Exception ex)
+            using (TransactionScope transactionScope = new TransactionScope())
             {
-                throw ex;
+
+                try
+                {
+                    byte[] b = ASCIIEncoding.ASCII.GetBytes(objClientCom.EmailId);
+                    string encryptedPswd = Convert.ToBase64String(b);
+                    objClientCom.Password = encryptedPswd;
+                    returnCode = objMasterDAL.SaveClientCompany(objClientCom, out string UserName, out string Password);
+
+
+                    returnCode = objMail.SendMailToAdmin(UserName, Password, objClientCom.EmailId);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
             }
+            return returnCode;
         }
         public long InsertDiagnostics(DiagnosticsMaster objDiag)
         {
@@ -115,14 +133,14 @@ namespace Totalligent.BAL
                 throw ex;
             }
         }
-        public long BulkUpload(string Extension, string filePath)
+        public long BulkUpload(string Extension, string filePath, string UserName)
         {
             long returnCode = -1;
             using (TransactionScope transactionScope = new TransactionScope())
             {
                 try
                 {
-                    returnCode = objMasterDAL.BulkUpload(Extension, filePath);
+                    returnCode = objMasterDAL.BulkUpload(Extension, filePath, UserName);
                     transactionScope.Complete();
                     transactionScope.Dispose();
 
@@ -135,6 +153,40 @@ namespace Totalligent.BAL
 
                 return returnCode;
             }
+        }
+        public long BulkUploadMotor(string Extension, string filePath, int reqFrom, out int rowsCnt, out string fileMismatchErr, string UserName)
+        {
+            long returnCode = -1;
+            rowsCnt = 0;
+            List<ProducerMaster> lstPMBulkUpload = new List<ProducerMaster>();
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+
+                    returnCode = objMasterDAL.BulkUploadMotor(Extension, filePath, reqFrom, out rowsCnt, out fileMismatchErr, UserName, out lstPMBulkUpload);
+                    if (returnCode > 0 && lstPMBulkUpload.Count > 0)
+                    {
+                        foreach (var item in lstPMBulkUpload)
+                        {
+                            byte[] b = ASCIIEncoding.ASCII.GetBytes(item.UserName);
+                            string encryptedPswd = Convert.ToBase64String(b);
+                            returnCode = objMail.SendMailToAdmin(item.UserName, encryptedPswd, item.EmailId);
+                        }
+                    }
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+
+                return returnCode;
+            }
+
         }
     }
 }

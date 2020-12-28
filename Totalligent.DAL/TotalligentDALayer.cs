@@ -639,5 +639,53 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
+        public long SavePM(ProducerMaster objPM, out string UserName, out string EmailId)
+        {
+            long returnCode = -1;
+            SqlDataReader reader;
+            UserName = string.Empty;
+            EmailId = string.Empty;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_InsertProducerMaster"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    cmd.Parameters.AddWithValue("@MasterType", objPM.MasterType);
+                    cmd.Parameters.AddWithValue("@Name", objPM.Name);
+                   // cmd.Parameters.AddWithValue("@UserName", objPM.UserName);
+                   cmd.Parameters.AddWithValue("@Password", objPM.Password);
+                    cmd.Parameters.AddWithValue("@EmailId", objPM.EmailId);
+                    cmd.Parameters.AddWithValue("@AddedBy", objPM.AddedBy);
+                    //  cmd.Parameters.AddWithValue("@MobileNumber", objPM.MobileNumber);
+                    //  cmd.Parameters.AddWithValue("@CreatedBy", "Admin");
+                    //  cmd.Parameters.AddWithValue("@RoleId", objPM.RoleId);
+                    //long returnCode = cmd.ExecuteNonQuery();
+
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UserName = reader.GetValue(0).ToString();
+                        EmailId = reader.GetValue(1).ToString();
+                    }
+                    reader.Close();
+                    cmd.Dispose();
+                    if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(EmailId))
+                        returnCode = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
     }
 }

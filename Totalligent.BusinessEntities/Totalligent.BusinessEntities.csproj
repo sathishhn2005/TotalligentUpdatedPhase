@@ -53,6 +53,7 @@
     <Compile Include="InsuranceCompanyMaster.cs" />
     <Compile Include="LabMaster.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="ProducerMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quotation.cs" />
     <Compile Include="RaiseTickets.cs" />

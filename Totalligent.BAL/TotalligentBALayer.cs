@@ -7,6 +7,7 @@ using Totalligent.DAL;
 using Totalligent.BusinessEntities;
 using System.Security.Cryptography;
 using Totalligent.Utilities;
+using System.Transactions;
 
 namespace Totalligent.BAL
 {
@@ -239,7 +240,7 @@ namespace Totalligent.BAL
                 if (i > 0)
                 {
                     MailingServices objMail = new MailingServices();
-                    i = objMail.PswdResetMailFromAdmin(lstUsers[0].UserName, lstUsers[0].MobileNumber, lstUsers[0].EmailId, lstUsers[0].TicketId,0);
+                    i = objMail.PswdResetMailFromAdmin(lstUsers[0].UserName, lstUsers[0].MobileNumber, lstUsers[0].EmailId, lstUsers[0].TicketId, 0);
 
                 }
             }
@@ -272,7 +273,7 @@ namespace Totalligent.BAL
                 {
                     MailingServices objMail = new MailingServices();
                     returnCode = objMail.PswdResetMailFromAdmin(lstMailNewPswd[0].UserName, lstMailNewPswd[0].Newpassword,
-                        lstMailNewPswd[0].EmailId, lstMailNewPswd[0].TicketId,1);
+                        lstMailNewPswd[0].EmailId, lstMailNewPswd[0].TicketId, 1);
 
                 }
 
@@ -282,6 +283,40 @@ namespace Totalligent.BAL
             {
                 throw ex;
             }
+        }
+        public long InsertPM(ProducerMaster objPM)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    byte[] b = ASCIIEncoding.ASCII.GetBytes(objPM.EmailId);
+                    string encryptedPswd = Convert.ToBase64String(b);
+
+                    objPM.Password = encryptedPswd;
+                    returnCode = objTotalligentDAL.SavePM(objPM, out string UserName, out string EmailId);
+                    if (returnCode > 0)
+                    {
+
+                        if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(encryptedPswd))
+                        {
+                            returnCode = objTotalligentDAL.SaveLogin(UserName, encryptedPswd, 1);
+                            MailingServices objMail = new MailingServices();
+                            returnCode = objMail.SendMailToAdmin(UserName, encryptedPswd, EmailId);
+                        }
+                        transactionScope.Complete();
+                        transactionScope.Dispose();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+            }
+            return returnCode;
         }
     }
 }

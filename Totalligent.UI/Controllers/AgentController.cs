@@ -104,31 +104,7 @@ namespace Totalligent.UI.Controllers
                 return View();
             }
         }
-        [HttpPost]
-        public ActionResult BulkUpload(HttpPostedFileBase postedFile)
-        {
-            string filePath = string.Empty;
-            if (postedFile != null)
-            {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                filePath = path + Path.GetFileName(postedFile.FileName);
-                string extension = Path.GetExtension(postedFile.FileName);
-                postedFile.SaveAs(filePath);
-                long returnCode = objMasterBAL.BulkUpload(extension, filePath);
-                if (returnCode > 0)
-                {
-                    ViewBag.BulkUpload = "Data has been uploaded Successfully.!";
-                }
-
-            }
-
-            return PartialView("_AgentMaster");
-        }
+       
     }
 }
 

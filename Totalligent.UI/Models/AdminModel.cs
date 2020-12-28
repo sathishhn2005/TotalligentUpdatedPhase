@@ -26,5 +26,19 @@ namespace Totalligent.UI.Models
                 throw ex;
             }
         }
+        public long ProducerMaster(ProducerMaster objPM)
+        {
+            try
+            {
+                long returnCode = -1;
+                returnCode = objBALTot.InsertPM(objPM);
+                return returnCode;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

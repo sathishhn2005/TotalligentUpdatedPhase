@@ -8,6 +8,7 @@ namespace Totalligent.BusinessEntities
         public int ClientComId { get; set; }
 
         public string ClientCompanyName { get; set; }
+        public string Password { get; set; }
 
         public string Address { get; set; }
 

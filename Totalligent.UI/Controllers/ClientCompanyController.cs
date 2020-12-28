@@ -31,8 +31,9 @@ namespace Totalligent.UI.Controllers
 
         // POST: ClientCompany/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Create(FormCollection collection)
         {
+            long returnCode = -1;
             try
             {
                 ClientCompanyMaster objClientComMaster = new ClientCompanyMaster
@@ -40,18 +41,14 @@ namespace Totalligent.UI.Controllers
                     ClientCompanyName = collection["ClientCompanyName"].ToString(),
                     Address = collection["Address"].ToString(),
                     City = collection["City"].ToString(),
-                    Zipcode = Convert.ToInt32(collection["Zipcode"]),
                     ContactPerson = collection["ContactPerson"].ToString(),
                     MobileNumber = collection["MobileNumber"].ToString(),
                     EmailId = collection["EmailId"].ToString(),
                     Currency = collection["Currency"].ToString(),
-                    Provider = collection["Provider"].ToString(),
-                    ProviderCommission = collection["ProviderCommission"].ToString(),
-                    ReInsurer = collection["ReInsurer"].ToString(),
-                    ReInsurerRate = collection["ReInsurerRate"].ToString()
+                    
                 };
 
-                long returnCode = -1;
+                
                 if (objClientComMaster != null)
                 {
                     returnCode = objMasterBAL.SaveClientCom(objClientComMaster);
@@ -60,7 +57,7 @@ namespace Totalligent.UI.Controllers
             }
             catch (Exception ex)
             {
-                return View();
+                return Json(returnCode);
             }
         }
 

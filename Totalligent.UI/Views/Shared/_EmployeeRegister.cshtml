@@ -5,7 +5,7 @@
 @*@using (Html.BeginForm("EmployeeRegister", "Admin", FormMethod.Post))
     {*@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">Register a New Employee</h4>
@@ -14,68 +14,110 @@
             <div class="card-body">
                 <form id="empForm">
                     <div class="">
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">Type of Employee</label>
-                            </div>
-                            <div class="col-md-6">
-                                <select id="ddlTypeOfEmp" class="form-control">
-                                    <option value="2">TPA Employee</option>
-                                    <option value="3">Client Employee</option>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">Type of Employee</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="ddlTypeOfEmp" class="form-control">
+                                        <option value="2">TPA Employee</option>
+                                        <option value="3">Client Employee</option>
 
-                                </select>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">User Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.EmployeeRegistration.UserName, new {id="txtUserName", oninvalid = "this.setCustomValidity('User Name is required')",@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a username" })
-                            </div>
-                        </div>
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">Employee Number</label>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.EmployeeRegistration.UserEmployeeNo, new {id="txtEmployeeNo", oninvalid = "this.setCustomValidity('Employee Number is required')",
-@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a Employee Number" })
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">User Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.EmployeeRegistration.UserName, new { id = "txtUserName", oninvalid = "this.setCustomValidity('User Name is required')", @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Enter a username" })
+                                </div>
                             </div>
                         </div>
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">Role</label>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.DropDownListFor(m => m.EmployeeRegistration.UserTypeId, new SelectList((new TotalligentBALayer()).GetUserType(), "UserTypeId", "Designation", 0), new { @id = "UserTypeId", @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">Reporting To</label>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.EmployeeRegistration.ReportingManager, new {id="txtReportingManager", oninvalid = "this.setCustomValidity('Reporting Manager is required')",
-@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Reporting Manager" })
-                            </div>
-                        </div>
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">Email ID</label>
-                            </div>
-                            <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.EmployeeRegistration.EmailId, new {id="txtEmailId", oninvalid = "this.setCustomValidity('Valid email is required: ex@abc.xyz')", oninput = "setCustomValidity('')",
-@required = "required", @class = "form-control", placeholder = "Email ID" })
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">Employee Number</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.EmployeeRegistration.UserEmployeeNo, new
+                                    {
+                                        id = "txtEmployeeNo",
+                                        oninvalid = "this.setCustomValidity('Employee Number is required')",
+                                        @required = "required",
+                                        oninput = "setCustomValidity('')",
+                                        @class = "form-control",
+                                        placeholder = "Enter a Employee Number"
+                                    })
+                                </div>
                             </div>
                         </div>
-                        <div class="row m-b-15">
-                            <div class="col-md-4">
-                                <label class="col-sm-12 col-form-label text-right">Mobile Number</label>
+                        <div class="form-group  m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">Role</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(m => m.EmployeeRegistration.UserTypeId, new SelectList((new TotalligentBALayer()).GetUserType(), "UserTypeId", "Designation", 0), new { @id = "UserTypeId", @class = "form-control" })
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.EmployeeRegistration.MobileNumber, new {id="txtEmpMobileNumber", oninvalid = "this.setCustomValidity('Mobile Number is required')",
-@required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Mobile Number" })
+                        </div>
+                        <div class="form-group  m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">Reporting To</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.EmployeeRegistration.ReportingManager, new
+                                    {
+                                        id = "txtReportingManager",
+                                        oninvalid = "this.setCustomValidity('Reporting Manager is required')",
+                                        @required = "required",
+                                        oninput = "setCustomValidity('')",
+                                        @class = "form-control",
+                                        placeholder = "Reporting Manager"
+                                    })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group  m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">Email ID</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.EmployeeRegistration.EmailId, new
+                                    {
+                                        id = "txtEmailId",
+                                        oninvalid = "this.setCustomValidity('Valid email is required: ex@abc.xyz')",
+                                        oninput = "setCustomValidity('')",
+                                        @required = "required",
+                                        @class = "form-control",
+                                        placeholder = "Email ID"
+                                    })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group  m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-sm-12 col-form-label text-right">Mobile Number</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.EmployeeRegistration.MobileNumber, new
+                                    {
+                                        id = "txtEmpMobileNumber",
+                                        oninvalid = "this.setCustomValidity('Mobile Number is required')",
+                                        @required = "required",
+                                        oninput = "setCustomValidity('')",
+                                        @class = "form-control",
+                                        placeholder = "Mobile Number"
+                                    })
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,26 +129,23 @@
         </div>
     </div>
     @*<div class="col-md-4">
-        <div class="card card-profile">
-            <div class="card-avatar">
-                <a href="#pablo">
-                    <img class="img" src="~/Content/images/marc.jpg" />
-                </a>
+            <div class="card card-profile">
+                <div class="card-avatar">
+                    <a href="#pablo">
+                        <img class="img" src="~/Content/images/marc.jpg" />
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-category text-gray">AMI SAOG ADMIN</h6>
+                    <h4 class="card-title">Alec Thompson</h4>
+                    <p class="card-description">
+                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    </p>
+                    <a href="#pablo" class="btn btn-primary btn-round">Profile</a>
+                </div>
             </div>
-            <div class="card-body">
-                <h6 class="card-category text-gray">AMI SAOG ADMIN</h6>
-                <h4 class="card-title">Alec Thompson</h4>
-                <p class="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                </p>
-                <a href="#pablo" class="btn btn-primary btn-round">Profile</a>
-            </div>
-        </div>
-    </div>*@
+        </div>*@
 </div>
-
-
-
 @*@Html.TextBoxFor(m => m.EmployeeRegistration.EmailId, new { oninvalid = "this.setCustomValidity('EmailId is required')",
     @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Email Id" })*@
 

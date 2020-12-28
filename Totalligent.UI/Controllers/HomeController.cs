@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 using Totalligent.UI.Models;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Totalligent.UI.Controllers
 {
@@ -15,6 +16,8 @@ namespace Totalligent.UI.Controllers
     {
         readonly RolesModel objRolesModel = new RolesModel();
         readonly TotalligentBALayer objBALTot = new TotalligentBALayer();
+        TotalligentMasterBAL objMasterBAL = new TotalligentMasterBAL();
+        static string U_Name = string.Empty;
         public ActionResult Error()
         {
             return View();
@@ -32,6 +35,10 @@ namespace Totalligent.UI.Controllers
 
         }
         public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult Userlogin()
         {
             return View();
         }
@@ -81,7 +88,9 @@ namespace Totalligent.UI.Controllers
                 if (!string.IsNullOrEmpty(objEmployee.UserName))
                 {
                     UName = objEmployee.UserName;
+                    U_Name = objEmployee.UserName;
                     TempData["uname"] = UName;
+                    TempData["u"] = U_Name;
                     if (IsFirstLogin.Equals("N"))
                         return View("NewPassword");
                     else
@@ -134,7 +143,7 @@ namespace Totalligent.UI.Controllers
                 if (!string.IsNullOrEmpty(UserId))
                 {
                     i = objRolesModel.IsUserExits(UserId);
-                   
+
                 }
             }
             catch (Exception ex)
@@ -142,12 +151,155 @@ namespace Totalligent.UI.Controllers
                 throw ex;
             }
 
-            return Json(i,JsonRequestBehavior.AllowGet);
+            return Json(i, JsonRequestBehavior.AllowGet);
 
         }
 
+        [HttpPost]
+        public long InsertProducerMaster(ProducerMaster model)
+        {
+            long returnCode = -1;
+            try
+            {
+                string UN = string.Empty;
 
+                //TempData["u"] = U_Name;
+                if (TempData["u"] == null)
+                {
+                    UN = U_Name;
+                }
+                else
+                {
+                    UN = TempData["u"].ToString() ?? "";
 
+                }
+                model.AddedBy = UN;
+                returnCode = objBALTot.InsertPM(model);
+                //if (model.ID > 0 && returnCode > 0)
+                //{
+                //    returnCode = 2;
+                //    TempData["un"] = u;
+                //}
+                if (model.Id.Equals(0) && returnCode > 0)
+                {
+                    returnCode = 1;
+                    TempData["u"] = UN;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        [HttpPost]
+        public ActionResult BulkUpload(HttpPostedFileBase postedFile)
+        {
+            string filePath = string.Empty;
+            string UN = string.Empty;
 
+            //TempData["u"] = U_Name;
+            if (TempData["u"] == null)
+            {
+                UN = U_Name;
+            }
+            else
+            {
+                UN = TempData["u"].ToString() ?? "";
+
+            }
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                filePath = path + Path.GetFileName(postedFile.FileName);
+                string extension = Path.GetExtension(postedFile.FileName);
+                postedFile.SaveAs(filePath);
+                long returnCode = objMasterBAL.BulkUpload(extension, filePath,UN);
+                if (returnCode > 0)
+                {
+                    returnCode = 1;
+                    TempData["u"] = UN;
+                }
+
+            }
+
+            return PartialView("_AgentMaster");
+        }
+        [HttpPost]
+        public ActionResult UploadFiles()
+        {
+            string filePath = string.Empty;
+            string textAlert = string.Empty;
+            int reqFrom = Convert.ToInt32(Request.Form["txtMotorMaster"]);
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    string fname; string alert = string.Empty; ;
+                    int rowsCnt = 0;
+                    // string fileMismatchErr = string.Empty ;
+                    fname = file.FileName;
+                    if (fname.Equals("ProducerMaster.xlsx"))
+                    {
+
+                        string path = Server.MapPath("~/Uploads/");
+                        filePath = path + Path.GetFileName(file.FileName);
+                        string extension = Path.GetExtension(file.FileName);
+                        file.SaveAs(filePath);
+                        // Returns message that successfully uploaded  
+                        if (extension.Equals(".xls") || extension.Equals(".xlsx"))
+                        {
+                            string UN = string.Empty;
+                            if (string.IsNullOrEmpty(UN))
+                            {
+                                UN = U_Name;
+                            }
+                            long returnCode = objMasterBAL.BulkUploadMotor(extension, filePath, reqFrom, out rowsCnt, out string fileMismatchErr, UN);
+                            if (returnCode.Equals(0))
+                            {
+                                alert = "All the Records already exists. Try uploading new data.";
+                                textAlert = "same";
+                                
+                            }
+                            else if (returnCode > 0)
+                            {
+                                alert = "File Uploaded Successfull & Mail has sent to all the users.!";
+                                textAlert = "success";
+                                
+                            }
+                            return Json(textAlert);
+
+                        }
+                        else
+                        {
+                            return Json("Incorrect file.! Please upload the file with the extension (.xls,xlsx)");
+                        }
+                    }
+                    else
+                    {
+                        reqFrom = -3;
+                        return Json(reqFrom);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+
+        }
     }
+
 }

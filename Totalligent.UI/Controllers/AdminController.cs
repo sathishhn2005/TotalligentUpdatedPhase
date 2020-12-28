@@ -172,5 +172,42 @@ namespace Totalligent.UI.Controllers
                 return View();
             }
         }
+
+        public ActionResult Masters()
+        {
+
+            return View();
+
+        }
+        public ActionResult Quotation()
+        {
+
+            return View();
+
+        }
+        public ActionResult EmployeeRegister()
+        {
+
+            return View();
+
+        }
+        public ActionResult UnderwritingDashboard()
+        {
+
+            return View();
+
+        }
+        public ActionResult ClientDashboard()
+        {
+
+            return View();
+
+        }
+        public ActionResult ProducerMaster()
+        {
+            return View();
+        }
+        
+        
     }
 }

@@ -84,10 +84,11 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long SaveClientCompany(ClientCompanyMaster objCCMaster)
+        public long SaveClientCompany(ClientCompanyMaster objCCMaster, out string UserName, out string Password)
         {
             long returnCode = -1;
-
+            UserName = string.Empty;
+            Password = string.Empty;
             try
             {
                 using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
@@ -103,18 +104,27 @@ namespace Totalligent.DAL
 
                     cmd.Parameters.AddWithValue("@ClientCompanyName", objCCMaster.ClientCompanyName);
                     cmd.Parameters.AddWithValue("@Address", objCCMaster.Address);
-                    cmd.Parameters.AddWithValue("@City", objCCMaster.City);
-                    cmd.Parameters.AddWithValue("@Zipcode", objCCMaster.Zipcode);
+                    //cmd.Parameters.AddWithValue("@City", objCCMaster.City);
+                    //cmd.Parameters.AddWithValue("@Zipcode", objCCMaster.Zipcode);
+                    cmd.Parameters.AddWithValue("@Password", objCCMaster.Password);
                     cmd.Parameters.AddWithValue("@ContactPerson", objCCMaster.ContactPerson);
                     cmd.Parameters.AddWithValue("@MobileNumber", objCCMaster.MobileNumber);
                     cmd.Parameters.AddWithValue("@EmailId", objCCMaster.EmailId);
                     cmd.Parameters.AddWithValue("@Currency", objCCMaster.Currency);
-                    cmd.Parameters.AddWithValue("@Provider", objCCMaster.Provider);
-                    cmd.Parameters.AddWithValue("@ProviderCommission", objCCMaster.ProviderCommission);
-                    cmd.Parameters.AddWithValue("@ReInsurer", objCCMaster.ReInsurer);
-                    cmd.Parameters.AddWithValue("@ReInsurerRate", objCCMaster.ReInsurerRate);
-                    returnCode = cmd.ExecuteNonQuery();
-
+                    //cmd.Parameters.AddWithValue("@Provider", objCCMaster.Provider);
+                    //cmd.Parameters.AddWithValue("@ProviderCommission", objCCMaster.ProviderCommission);
+                    //cmd.Parameters.AddWithValue("@ReInsurer", objCCMaster.ReInsurer);
+                    //cmd.Parameters.AddWithValue("@ReInsurerRate", objCCMaster.ReInsurerRate);
+                    SqlDataReader reader;
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UserName = reader.GetValue(0).ToString();
+                        Password = reader.GetValue(1).ToString();
+                        
+                    }
+                    reader.Close();
+                    cmd.Dispose();
 
                 }
             }
@@ -291,11 +301,12 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long BulkUpload(string Extension, string filePath)
+        public long BulkUpload(string Extension, string filePath, string UserName)
         {
             long returnCode = -1;
             string conString = string.Empty;
             string sheetName = string.Empty;
+            bool IsFileMatch = false;
             try
             {
 
@@ -329,12 +340,49 @@ namespace Totalligent.DAL
                         }
                     }
                 }
-                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
-                {
-                    string tableName = sheetName.Split('$')[0];
-                    returnCode = BulkInsertMaster(dt, con, "dbo.TB_" + tableName);
-                }
 
+                //string tableName = sheetName.Split('$')[0];
+                //   returnCode = BulkInsertMaster(dt, con, "dbo.TB_" + tableName);
+                if (sheetName.Contains("$"))
+                    sheetName = sheetName.Replace("$", "");
+
+                if (sheetName.Equals("ProducerMaster"))
+                {
+                    IsFileMatch = true;
+                }
+                if (IsFileMatch)
+                {
+                    using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                    {
+                        con.Open();
+                        if (dt.Rows.Count > 0)
+                        {
+                            int rowsCnt = dt.Rows.Count;
+                            SqlCommand cmd;
+                            cmd = new SqlCommand
+                            {
+                                CommandText = "SP_ProducerMasterBulkUpload",
+                                CommandTimeout = 180,
+                                Connection = con,
+                                CommandType = CommandType.StoredProcedure
+                            };
+                            SqlParameter UDTparam = new SqlParameter
+                            {
+                                //ParameterName = "@UDT_MotorBulkUpload",
+                                ParameterName = "@UDT_ProducerMaster",
+                                Size = -1,
+                                Value = dt
+                            };
+                            cmd.Parameters.AddWithValue("@UserName", UserName);
+                            cmd.Parameters.Add(UDTparam);
+                            returnCode = cmd.ExecuteNonQuery();
+                        }
+
+                    }
+
+                }
+                else
+                    returnCode = -2;
 
             }
             catch (Exception ex)
@@ -428,7 +476,107 @@ namespace Totalligent.DAL
             {
                 throw;
             }
+
+            return returnCode;
+        }
+        public long BulkUploadMotor(string Extension, string filePath, int reqFrom, out int rowsCnt, out string fileMismatchErr, string UserName,out List<ProducerMaster> lstPMBulkUpload)
+        {
+            lstPMBulkUpload = new List<ProducerMaster>();
+            long returnCode = -1;
+            reqFrom = 0;
+            string conString = string.Empty;
+            string sheetName = string.Empty;
+            string sp_name = string.Empty;
+            fileMismatchErr = string.Empty;
+            bool IsFileMatch = false;
+            rowsCnt = 0;
+
             
+            try
+            {
+
+                conString = objUtility.GetOLEDBConnectionString(Extension);
+                DataTable dt = new DataTable();
+                conString = string.Format(conString, filePath);
+
+                using (OleDbConnection connExcel = new OleDbConnection(conString))
+                {
+                    using (OleDbCommand cmdExcel = new OleDbCommand())
+                    {
+                        using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
+                        {
+                            cmdExcel.Connection = connExcel;
+
+                            //Get the name of First Sheet.
+                            connExcel.Open();
+                            DataTable dtExcelSchema;
+                            dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                            sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                            connExcel.Close();
+
+                            //Read Data from First Sheet.
+                            connExcel.Open();
+                            cmdExcel.CommandText = "SELECT * From [" + sheetName + "]";
+                            odaExcel.SelectCommand = cmdExcel;
+                            odaExcel.Fill(dt);
+                            connExcel.Close();
+                        }
+                    }
+                }
+               
+                //if (IsFileMatch)
+                //{
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    if (dt.Rows.Count > 0)
+                    {
+                        rowsCnt = dt.Rows.Count;
+                        SqlCommand cmd;
+                        cmd = new SqlCommand
+                        {
+                            CommandText = "SP_ProducerMasterUpload",
+                            CommandTimeout = 180,
+                            Connection = con,
+                            CommandType = CommandType.StoredProcedure
+                        };
+                        SqlParameter UDTparam = new SqlParameter
+                        {
+                            //ParameterName = "@UDT_MotorBulkUpload",
+                            ParameterName = "@UDT_ProducerMaster",
+                            Size = -1,
+                            Value = dt
+                        };
+                        cmd.Parameters.AddWithValue("@UserName", UserName);
+                        cmd.Parameters.Add(UDTparam);
+                        SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                        {
+                            SelectCommand = cmd
+                        };
+                        sdaAdapter.Fill(dt);
+                        returnCode = dt.Rows.Count;
+                        if (dt.Rows.Count > 0)
+                        {
+                            lstPMBulkUpload = (from DataRow dr in dt.Rows
+                                              select new ProducerMaster()
+                                              {
+                                                  UserName = dr["UserName"].ToString(),
+                                                  EmailId = dr["EmailId"].ToString(),
+                                              }).ToList();
+
+                        }
+                    }
+
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
             return returnCode;
         }
     }
