@@ -15,16 +15,14 @@
     <link href="~/Content/css/icons/weather-icons/css/weather-icons.css" rel="stylesheet" />
     <!-- toast CSS -->
     <link href="~/Content/vendor/jquery-toast-plugin-master/src/jquery.toast.css" rel="stylesheet" />
+    <!-- Bootstrap Switch -->
+    <link href="~/Content/vendor/bootstrap-switch/switch.css" rel="stylesheet" />
     <!-- theme style -->
     <link href="~/Content/css/style.css" rel="stylesheet" />
     <!-- VoiceX Admin skins -->
     <link href="~/Content/css/skin_color.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.material.min.css" rel="stylesheet" />
-    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/jquery.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/jszip.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.all.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.aspnetmvc.min.js"></script>
 
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-purple onlywave">
@@ -360,35 +358,7 @@
                                     </nav>
                                 </div>
                             </div>
-                            <div class="row w-p60">
-                                <div class="col-md-6 ">
-                                    @(Html.Kendo().DropDownList()
-                                                                                .Name("DProducerList")
-                                                                                .BindTo(new List<string>
-                                                                                    () {
-                                                                                        ">> Select Producer",
-                                                                                        "Broker",
-                                                                                        "Agent",
-                                                                                        "Branch",
-                                                                                        "Direct",
-                                                                                    })
-                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                                )
-                                </div>
-                                <div class="col-md-6 ">
-                                    @(Html.Kendo().DropDownList()
-                                                                                .Name("DSpecificList")
-                                                                                .BindTo(new List<string>
-                                                                                () {
-                                                                                "BA0001",
-                                                                                "BA0023",
-                                                                                "BA0183",
-                                                                                "BA0232",
-                                                                                "BA00432",                                                                                                            })
-                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                                )
-                                </div>
-                            </div>
+                            
                             <div class="right-title w-p30">
                                 <span class="subheader_daterange font-weight-600" id="dashboard_daterangepicker">
                                     <span class="subheader_daterange-label">
@@ -676,6 +646,9 @@
     </div>
     <!-- jQuery 3 -->
     <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.aspnetmvc.min.js"></script>
     <!-- fullscreen -->
     <script src="~/Content/vendor/screenfull/screenfull.js"></script>
     <!-- popper -->

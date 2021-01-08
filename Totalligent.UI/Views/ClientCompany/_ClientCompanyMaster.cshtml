@@ -1,78 +1,174 @@
 ﻿@model Totalligent.BusinessEntities.ClientCompanyMaster
+@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>ClientCompanyMaster</h4>
-    <hr />
-
-    <div>
-        @using (Html.BeginForm("Home", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="postedFile" accept=".xls,.xlsx" />
-            <input type="submit" value="Import" />
-            <a href="~/Masters/ClientMaster.xlsx" download>Download Sample format</a>
-        }
+<div class="box">
+    <div class="box-header with-border">
+        <h4 class="box-title"><strong>ClientCompanyMaster</strong></h4>
     </div>
+    <div class="box-body">
+        <div class="form-horizontal">
+          
+           
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClientCompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClientCompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientCompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ClientCompanyName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="btnClientMaster" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#uploadBulk">
+                <i class="fas fa-upload fa-sm"></i> Bulk Upload Policy
+            </button>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" id="btnClientMaster" value="Create" class="btn btn-default" />
-        </div>
+    <div class="box-footer">
+        <button class="btn btn-rounded btn-primary">Submit</button>
+        <button class="btn btn-rounded btn-secondary">Cancel</button>
     </div>
 </div>
+
+<div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-10 mx-auto">
+                        <div class="text-right">
+
+                            <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
+                                <i class="fas fa-download fa-sm"></i> Download Sample format
+                            </a>
+                        </div>
+                        @*
+                            <form method="post" enctype="multipart/form-data">
+                        *@
+                        <div class="fileuploader fileuploader-theme-dragdrop">
+                            
+                                <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
+                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="2">
+                            <input type="hidden" name="fileuploader-list-files" value="[]">
+                            <input type="file" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
+                            <div class="fileuploader-input">
+                                <div class="fileuploader-input-inner">
+                                    <div class="fileuploader-icon-main"></div>
+                                    <h3 class="fileuploader-input-caption">
+                                        <span>Drag and drop files here</span>
+                                    </h3>
+                                    <p></p>
+                                    <button type="button" class="fileuploader-input-button">
+                                        <span>Browse files</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="fileuploader-items">
+                                <ul class="fileuploader-items-list">
+                                    <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
+                                        <div id="fileContainer" class="columns" style="display: none;">
+                                            <div class="column-thumbnail">
+                                                <div class="fileuploader-item-image fileuploader-no-thumbnail">
+                                                    <div style="background-color: #591605" class="fileuploader-item-icon">
+                                                        <i>xlsx</i>
+                                                    </div>
+                                                </div>
+                                                <span class="fileuploader-action-popup"></span>
+                                            </div>
+                                            <div class="column-title">
+                                                <div id="fileName">SampleFile.xlsx</div>
+                                                <span id="fileSize">0 KB</span>
+                                            </div>
+                                            <div class="column-actions">
+                                                <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
+                                                    <i class="fas fa-check fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="progress-bar2" style="display: none;">
+                                            <div class="fileuploader-progressbar">
+                                                <div class="bar" style="width: 100%;"></div>
+                                            </div>
+                                            <span>100%</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-2">
+                                <button id="btnUpload" type="submit" class="btn btn-success btn-block">
+                                    <i class="fas fa-upload fa-sm"></i>
+                                    <span>Upload</span>
+                                </button>
+                            </div>
+                        </div>
+                        @*
+                            </form>
+                        *@
+                    </div>
+                </div>
+            </div>
+            @*
+                <div class="modal-footer justify-content-center">
+                   <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Renew</button>
+                </div>
+            *@
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <script type="text/javascript">
 
     $(function () {
@@ -92,7 +188,7 @@
             formData.append("ProviderCommission", $("#ProviderCommission").val());
             formData.append("ReInsurer", $("#ReInsurer").val());
             formData.append("ReInsurerRate", $("#ReInsurerRate").val());
-            
+
             $.ajax({
                 type: "POST",
                 url: "/ClientCompany/Create",
@@ -120,5 +216,123 @@
                 }
             })
         })
+        $('#btnUpload').click(function () {
+
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#fileUploadMotor").get(0);
+                var files = fileUpload.files;
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object
+                //  fileData.append('txtMotorMaster', '1');
+
+                $.ajax({
+                    url: '/Home/UploadFiles',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        if (result == 1) {
+                            alert("File Doesn't belongs to Producer Master");
+                            //Swal.fire({
+                            //    icon: 'error',
+                            //    title: 'Oops...',
+                            //    text: "File Doesn't belongs to Motor Policy",
+                            //});
+                        }
+                        else if (result == -3) {
+                            alert("File which you trying to upload is incorrect.!");
+                            //Swal.fire({
+                            //    icon: 'error',
+                            //    title: 'Oops...',
+                            //    text: "File which you trying to upload is incorrect.!",
+                            //});
+                        }
+                        else if (result == "success") {
+                            alert("File Uploaded Successfully!");
+                            //Swal.fire({
+                            //    icon: 'success',
+                            //    title: 'Success!',
+                            //    text: "File Uploaded Successfully!",
+
+                            //}).then(
+                            //    function () { window.location.href = "ProducerMaster"; });
+                        }
+                        else if (result == "same") {
+                            alert("All the Records already exists. Try uploading new data.");
+                            //Swal.fire({
+                            //    icon: 'warning',
+                            //    title: 'Warning!',
+                            //    text: "All the Records already exists. Try uploading new data.",
+                            //}).then(
+                            //    function () { window.location.href = "ProducerMaster"; });
+                        }
+                        else {
+                            //Swal.fire({
+                            //    icon: 'error',
+                            //    title: 'Oops...',
+                            //    text: err.statusText,
+                            //})
+                            alert('Error while uploading.');
+                        }
+                       
+                    },
+                    error: function (err) {
+                        //alert(err.statusText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.statusText,
+                        })
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: "FormData is not supported.",
+                })
+            }
+        });
+        $('.fileuploader-input').click(function () {
+            $("#fileUploadMotor").click();
+
+        });
+        $('#clearFiles').click(function () {
+            $("#fileContainer").hide();
+            $('#fileUploadMotor').val('');
+            $("#btnUpload").attr("disabled", "disabled");
+        });
+        $('#clearFiles').hover(
+            function () {
+                $('#clearFiles').removeClass("btn-success").addClass("btn-danger");
+                $('#clearFiles .fas').removeClass("fa-check").addClass("fa-trash");
+            },
+            function () {
+                $('#clearFiles').removeClass("btn-danger").addClass("btn-success");
+                $('#clearFiles .fas').removeClass("fa-trash").addClass("fa-check");
+            });
+        $('#fileUploadMotor').change(function (e) {
+            var fileName = e.target.files[0].name;
+            var fileSize = e.target.files[0].size;
+            $("#fileContainer").show();
+            $("#fileName").html(fileName);
+            fileSize = (fileSize / 1024).toFixed(2);
+            $("#fileSize").html(fileSize + " KB");
+            //if (document.getElementById("fileUploadMotor").files.length == 0) {
+            $("#btnUpload").removeAttr("disabled", "disabled");
+            //}
+            //alert('The file "' + fileName + '" has been selected.');
+        });
     });
 </script>

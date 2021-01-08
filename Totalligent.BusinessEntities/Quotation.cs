@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,75 +9,217 @@ namespace Totalligent.BusinessEntities
 {
     public class Quotation
     {
-        private long quotationId = 0;
-        private long annualbenefitLimit = 0;
-        private string geographicalscope = string.Empty;
-        private string geoScopeEmergencytreat = string.Empty;
+        public long QuotationId { get; set; }
 
-        private string covCriteriaforTreat = string.Empty;
-        private string networkApplicable = string.Empty;
-        private string uWterms = string.Empty;
-        private string hospitalClass = string.Empty;
-        private string hospitalaccomdation = string.Empty;
-        private string iCUTreat = string.Empty;
-        private string consultantsFees = string.Empty;
-        private string variousTherapies = string.Empty;
-        private string organtransplant = string.Empty;
-        private string medicalEquipments = string.Empty;
-        private string ambulanceServices = string.Empty;
-        private string beneficiaryexpences = string.Empty;
-        private string iPtreatmentinGOVhospita = string.Empty;
-        private string repatriationCosts = string.Empty;
-        private string physicianConsultation = string.Empty;
-        private string diagnostics = string.Empty;
-        private string pharmaceuticals = string.Empty;
-        private string physiotheraphy = string.Empty;
-        private string daycareTreatment = string.Empty;
-        private string outPatientSurgery = string.Empty;
-        private string workRelatedInjuries = string.Empty;
-        private string dentalTreatment = string.Empty;
-        private string newBornBabyCoverage = string.Empty;
-        private string nursingatHome = string.Empty;
-        private string alternativeMedicineBenefits = string.Empty;
-        private string outsideOmanfreeaccess = string.Empty;
-        private DateTime addedOn = DateTime.Now;
-        private DateTime updatedOn = DateTime.Now;
-        private string addedBy = string.Empty;
-        private string updatedBy = string.Empty;
+        public string DraftNo { get; set; }
+        public string PolicyNo { get; set; }
+        public string Status { get; set; }
 
-        public long QuotationId { get => quotationId; set => quotationId = value; }
-        public long AnnualbenefitLimit { get => annualbenefitLimit; set => annualbenefitLimit = value; }
-        public string Geographicalscope { get => geographicalscope; set => geographicalscope = value; }
-        public string GeoScopeEmergencytreat { get => geoScopeEmergencytreat; set => geoScopeEmergencytreat = value; }
-        public string CovCriteriaforTreat { get => covCriteriaforTreat; set => covCriteriaforTreat = value; }
-        public string NetworkApplicable { get => networkApplicable; set => networkApplicable = value; }
-        public string UWterms { get => uWterms; set => uWterms = value; }
-        public string HospitalClass { get => hospitalClass; set => hospitalClass = value; }
-        public string Hospitalaccomdation { get => hospitalaccomdation; set => hospitalaccomdation = value; }
-        public string ICUTreat { get => iCUTreat; set => iCUTreat = value; }
-        public string ConsultantsFees { get => consultantsFees; set => consultantsFees = value; }
-        public string VariousTherapies { get => variousTherapies; set => variousTherapies = value; }
-        public string Organtransplant { get => organtransplant; set => organtransplant = value; }
-        public string MedicalEquipments { get => medicalEquipments; set => medicalEquipments = value; }
-        public string AmbulanceServices { get => ambulanceServices; set => ambulanceServices = value; }
-        public string Beneficiaryexpences { get => beneficiaryexpences; set => beneficiaryexpences = value; }
-        public string IPtreatmentinGOVhospita { get => iPtreatmentinGOVhospita; set => iPtreatmentinGOVhospita = value; }
-        public string RepatriationCosts { get => repatriationCosts; set => repatriationCosts = value; }
-        public string PhysicianConsultation { get => physicianConsultation; set => physicianConsultation = value; }
-        public string Diagnostics { get => diagnostics; set => diagnostics = value; }
-        public string Pharmaceuticals { get => pharmaceuticals; set => pharmaceuticals = value; }
-        public string Physiotheraphy { get => physiotheraphy; set => physiotheraphy = value; }
-        public string DaycareTreatment { get => daycareTreatment; set => daycareTreatment = value; }
-        public string OutPatientSurgery { get => outPatientSurgery; set => outPatientSurgery = value; }
-        public string WorkRelatedInjuries { get => workRelatedInjuries; set => workRelatedInjuries = value; }
-        public string DentalTreatment { get => dentalTreatment; set => dentalTreatment = value; }
-        public string NewBornBabyCoverage { get => newBornBabyCoverage; set => newBornBabyCoverage = value; }
-        public string NursingatHome { get => nursingatHome; set => nursingatHome = value; }
-        public string AlternativeMedicineBenefits { get => alternativeMedicineBenefits; set => alternativeMedicineBenefits = value; }
-        public string OutsideOmanfreeaccess { get => outsideOmanfreeaccess; set => outsideOmanfreeaccess = value; }
-        public DateTime AddedOn { get => addedOn; set => addedOn = value; }
-        public DateTime UpdatedOn { get => updatedOn; set => updatedOn = value; }
-        public string AddedBy { get => addedBy; set => addedBy = value; }
-        public string UpdatedBy { get => updatedBy; set => updatedBy = value; }
+        public string CIInsuranceCompanyName { get; set; }
+
+        public string CIClientCompanyName { get; set; }
+
+        public string CIProducerType { get; set; }
+
+        public string CIProducerName { get; set; }
+
+        public decimal? CISelectCommission { get; set; }
+
+        public int? CINoOfPlanCategories { get; set; }
+
+        public string GBMedicalProviderNetwork { get; set; }
+
+        public string GBScopeOfCover { get; set; }
+
+        public string GBAreaOfCoverage { get; set; }
+
+        public string GBPersonCovered { get; set; }
+
+        public decimal? GBAnnualBenefitsLimit { get; set; }
+
+        public string GBIsPerClaimLimitIP { get; set; }
+
+        public decimal? GBPerClaimLimitIP { get; set; }
+
+        public string GBIsPerClaimLimitOP { get; set; }
+
+        public decimal? GBPerClaimLimitOP { get; set; }
+
+        public decimal? GBPreExisting_ChronicLimit { get; set; }
+
+        public string GBGeoThreateningEmergencyTreatment { get; set; }
+
+        public string GBGeoElectiveTreatement { get; set; }
+
+        public string GBGeoOutsideResidentCountry { get; set; }
+
+        public string IPHospitalizationClass { get; set; }
+
+        public decimal? IPHospitalizationClassLimit { get; set; }
+
+        public string IPICUCoronaryTreatement { get; set; }
+
+        public decimal? IPICUCoronaryTreatementLimit { get; set; }
+
+        public string IPVariousTherapies { get; set; }
+
+        public decimal? IPVariousTherapiesLimit { get; set; }
+
+        public string IPOrganTransplantationServices { get; set; }
+
+        public decimal? IPOrganTransplantationServicesLimit { get; set; }
+
+        public string IPAmbulanceServices { get; set; }
+
+        public decimal? IPAmbulanceServicesLimit { get; set; }
+
+        public string IPCompanionRoomBoardExpenses { get; set; }
+
+        public decimal? IPCompanionRoomBoardExpensesLimit { get; set; }
+
+        public decimal? IPHospitalCashBenefitsCashPerDay { get; set; }
+
+        public decimal? IPHospitalCashBenefitsCashTotal { get; set; }
+
+        public decimal? IPRepatriationCostTraansport { get; set; }
+
+        public string IPAddBenefits { get; set; }
+
+        public string OPPhysicianConsultationDeductible { get; set; }
+
+        public decimal? OPPhysicianConsultationDeductibleLimit { get; set; }
+
+        public string OPDiagnostics { get; set; }
+
+        public decimal? OPDiagnosticsLimit { get; set; }
+
+        public string OPPharmaceuticals { get; set; }
+
+        public decimal? OPPharmaceuticalsLimit { get; set; }
+
+        public string OPPhysiotheraphy { get; set; }
+
+        public decimal? OPPhysiotheraphyLimit { get; set; }
+
+        public string OPDaycareTreatment { get; set; }
+
+        public decimal? OPDaycareTreatmentLimit { get; set; }
+
+        public string OPOutPatientSurgery { get; set; }
+
+        public decimal? OPOutPatientSurgeryLimit { get; set; }
+
+        public string OPWorkRelatedInjuries { get; set; }
+
+        public decimal? OPWorkRelatedInjuriesLimit { get; set; }
+
+        public string OPAccidentalDamageNaturalTeeth { get; set; }
+
+        public decimal? OPAccidentalDamageNaturalTeethLimit { get; set; }
+
+        public string OPNewBornBabyCoverage { get; set; }
+
+        public decimal? OPNewBornBabyCoverageLimit { get; set; }
+
+        public string OPNursingAtHome { get; set; }
+
+        public decimal? OPNursingAtHomeLimit { get; set; }
+
+        public string OPAlternativeMedicine { get; set; }
+
+        public string OPAlternativeMedicineCoverage { get; set; }
+
+        public decimal? OPAlternativeMedicineCoverageLimit { get; set; }
+
+        public string OPAlternativeMedicineDeductible { get; set; }
+
+        public decimal? OPAlternativeMedicineDeductibleLimit { get; set; }
+
+        public string OPFreeAccessOutsideOMAN { get; set; }
+
+        public string EBFreeAccessTPANetwork { get; set; }
+
+        public string EBFreeAccessTPANetworkLimit { get; set; }
+
+        public string EBReimbursementNonNetworkMedicalProviders { get; set; }
+
+        public string EBReimbursementNonNetworkMedicalProvidersLimit { get; set; }
+
+        public string EBEmergencyTreatment { get; set; }
+
+        public string EBEmergencyTreatmentLimit { get; set; }
+
+        public string EBEmergencyTreatmentCountry { get; set; }
+
+        public string ABBenefits { get; set; }
+
+        public string ABDescription { get; set; }
+
+        public string ABExclusions { get; set; }
+
+        public string AddedBy { get; set; }
+
+        public DateTime? AddedOn { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
+    }
+
+
+    public class Q
+    {
+        [Display(Name = "custom Percentage")]
+        public string custom_Percentage { get; set; }
+        [Display(Name = "Scope Of Cover IP ")]
+        public string ScopeOfCoverIP { get; set; }
+        [Display(Name = "Scope Of Cover OP ")]
+        public string ScopeOfCoverOP { get; set; }
+        [Display(Name = " Chronic Limit Input")]
+        public string ChronicLimitInput { get; set; }
+        [Display(Name = "Reasonable Charges ")]
+        public string ReasonableCharges { get; set; }
+        [Display(Name = "Actual Cost Incurred ")]
+        public string ActualCostIncurred { get; set; }
+        [Display(Name = "AC Incurred ")]
+        public string ACIncurred { get; set; }
+        [Display(Name = "Criteria Input ")]
+        public string CriteriaInput { get; set; }
+        [Display(Name = " Limit Per Day")]
+        public string LimitPerDay { get; set; }
+        [Display(Name = "Intensive Care Limit")]
+        public string IntensiveCareLimit { get; set; }
+        [Display(Name = "Various Therapies Limit")]
+        public string VariousTherapiesLimit { get; set; }
+        [Display(Name = "Recepient Organ Limit")]
+        public string RecepientOrganLimit { get; set; }
+        [Display(Name = "Ambulance Services Limit")]
+        public string AmbulanceServicesLimit { get; set; }
+        [Display(Name = "Companion Room Limit")]
+        public string CompanionRoomLimit { get; set; }
+        [Display(Name = "Hospital Cash Per Day")]
+        public string HospitalCashPerDay { get; set; }
+        [Display(Name = "Hospital Cash Total")]
+        public string HospitalCashTotal { get; set; }
+        [Display(Name = "Repatriation Costs Limit Per Person")]
+        public string RepatriationCostsLimitPerPerson { get; set; }
+        [Display(Name = "Day care Treatment Limit")]
+        public string DaycareTreatmentLimit { get; set; }
+        [Display(Name = "Out Patient Surgery Limit")]
+        public string OutPatientSurgeryLimit { get; set; }
+        [Display(Name = "Work Related Limit")]
+        public string WorkRelatedLimit { get; set; }
+        [Display(Name = "Emergency Dental Limit")]
+        public string EmergencyDentalLimit { get; set; }
+        [Display(Name = "New Born Baby Limit")]
+        public string NewBornBabyLimit { get; set; }
+        [Display(Name = "Nursing at Home Limit")]
+        public string NursingatHomeLimit { get; set; }
+        [Display(Name = "Benefits")]
+        public string Benefits { get; set; }
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
     }
 }

@@ -191,10 +191,42 @@ namespace Totalligent.UI.Controllers
             return View();
 
         }
+        [HttpGet]
+        public ActionResult Edit(int QuotationId)
+        {
+            Quotation objQuotation = null;
+            string UserName = string.Empty;
+            UserName = "sathish";
+            try
+            {
+                objBALTot.EditQutation(UserName, QuotationId,out objQuotation);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+                return View("Quotation", objQuotation);
+            
+        }
         public ActionResult UnderwritingDashboard()
         {
+            long returnCode = -1;
+            UnderWriter obj = null;
+            try
+            {
+                string UserName = "Sathish";
+                returnCode = objBALTot.GetUWDB(UserName, out obj);
+                if (obj != null)
+                {
+                    return View(obj);
+                }
+            }
+            catch (Exception ex)
+            {
 
-            return View();
+                throw ex;
+            }
+            return View(obj);
 
         }
         public ActionResult ClientDashboard()
@@ -207,7 +239,7 @@ namespace Totalligent.UI.Controllers
         {
             return View();
         }
-        
-        
+
+
     }
 }

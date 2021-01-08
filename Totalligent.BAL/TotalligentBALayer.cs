@@ -318,5 +318,62 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
+        public long CreateQuotation(Quotation objPM,out string draftNo)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.CreateQuotation(objPM, out draftNo);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+            }
+            return returnCode;
+        }
+        public long GetUWDB(string UserName, out UnderWriter lstInfo)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.GetUWDashBoardDetails(UserName, out lstInfo);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+            }
+            return returnCode;
+        }
+        public long EditQutation(string UserName,int QuotationId, out Quotation lstInfo)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.EditQuotation(UserName, QuotationId, out lstInfo);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+            }
+            return returnCode;
+        }
     }
 }

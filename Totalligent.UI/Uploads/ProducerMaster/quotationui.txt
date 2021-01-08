@@ -1,0 +1,21 @@
+Area of coverage--Multi select
+Scope of cover radion button
+person covered check box
+Annual Benefits Limit--add new option
+Pre-Existing / Chronic Limit --full limit/Sub limit
+Coverage Criteria for Treatment Outside Resident Country--add new checkbox
+Hospitalization Class--Enable textbox when user choose the option limit per day
+if user choose covered in full automatically value should be enabled from the general benefits --annual benefits limit
+
+Diagnostics (X-Ray, MRI, CT-Scan, Ultrasound, and Laboratory Tests--textbox
+Pharmaceuticals--textbox
+Alternative Medicine-ddl
+Alternative Medicine Coverage--txtbox
+Alternative Medicine Deductible--txtbox
+Free Access Outside OMAN-ddl
+
+Free Access At Applicable TPA Network--textbox
+Reimbursement in Non Network Medical Providers--textbox
+Emergency Treatment--textbox
+
+

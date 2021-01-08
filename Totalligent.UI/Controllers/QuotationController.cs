@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Totalligent.BAL;
+using Totalligent.UI.Models;
+using Totalligent.BusinessEntities;
 
 namespace Totalligent.UI.Controllers
 {
     public class QuotationController : Controller
     {
+        readonly AdminModel objAdminModel = new AdminModel();
+        readonly TotalligentBALayer objBALTot = new TotalligentBALayer();
         // GET: Quotation
         public ActionResult Index()
         {
@@ -86,6 +88,25 @@ namespace Totalligent.UI.Controllers
             {
                 return View();
             }
+        }
+        // POST: Quotation/Create
+        [HttpPost]
+        public JsonResult QuotationMaster(Quotation collection)
+        {
+            long returnCode = -1;
+            string draftNo = string.Empty;
+            try
+            {
+               // string str = collection["annualbenefit"].ToString();
+                returnCode = objBALTot.CreateQuotation(collection, out draftNo);
+                // TODO: Add insert logic here
+
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            return Json(draftNo);
         }
     }
 }

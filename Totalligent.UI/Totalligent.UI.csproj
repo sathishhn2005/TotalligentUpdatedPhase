@@ -1069,6 +1069,7 @@
     <Content Include="Content\vendor\bootstrap-daterangepicker\demo.html" />
     <Content Include="Content\vendor\bootstrap-daterangepicker\drp.png" />
     <Content Include="Content\vendor\bootstrap-daterangepicker\package.js" />
+    <Content Include="Content\vendor\bootstrap-switch\switch.css" />
     <Content Include="Content\vendor\bootstrap\dist\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\dist\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\dist\css\bootstrap-reboot.css" />

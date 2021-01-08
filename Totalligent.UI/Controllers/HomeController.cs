@@ -270,7 +270,7 @@ namespace Totalligent.UI.Controllers
                             }
                             else if (returnCode > 0)
                             {
-                                alert = "File Uploaded Successfull & Mail has sent to all the users.!";
+                                alert = "File Uploaded Successfull & Mail has sent to the users.!";
                                 textAlert = "success";
                                 
                             }

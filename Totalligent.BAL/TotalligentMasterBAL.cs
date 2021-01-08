@@ -165,7 +165,7 @@ namespace Totalligent.BAL
                 {
 
                     returnCode = objMasterDAL.BulkUploadMotor(Extension, filePath, reqFrom, out rowsCnt, out fileMismatchErr, UserName, out lstPMBulkUpload);
-                    if (returnCode > 0 && lstPMBulkUpload.Count > 0)
+                    /*if (returnCode > 0 && lstPMBulkUpload.Count > 0)
                     {
                         foreach (var item in lstPMBulkUpload)
                         {
@@ -173,7 +173,7 @@ namespace Totalligent.BAL
                             string encryptedPswd = Convert.ToBase64String(b);
                             returnCode = objMail.SendMailToAdmin(item.UserName, encryptedPswd, item.EmailId);
                         }
-                    }
+                    }*/
                     transactionScope.Complete();
                     transactionScope.Dispose();
 

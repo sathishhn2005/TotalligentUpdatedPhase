@@ -1,12 +1,8 @@
 ﻿@model Totalligent.BusinessEntities.ProducerMaster
-
-@{
-    ViewBag.Title = "ProducerMaster";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
-    List<SelectListItem> listItems = new List<SelectListItem>();
+@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");
+@{ ViewBag.Title = "ProducerMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{ List<SelectListItem> listItems = new List<SelectListItem>();
     listItems.Add(new SelectListItem
     {
         Text = "Broker",
@@ -26,58 +22,65 @@
     {
         Text = "Branches",
         Value = "Branches",
-    });
-}
+    }); }
 
 @Html.AntiForgeryToken()
-<div class="form-horizontal">
-
-    @*<div>
-            @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <input type="file" name="postedFile" accept=".xls,.xlsx" />
-                <input type="submit" value="Import" />
-                <a href="~/Masters/Agentmaster.xlsx" download>Download Sample format</a>
-
-            }
-        </div>*@
-    <div>
-
-        <button class="btn btn-primary btn-sm mx-1" type="button" data-toggle="modal" data-backdrop="static"
-                data-target="#uploadBulk">
-            <i class="fas fa-upload fa-sm"></i> Bulk Upload Policy
-        </button>
-
+<div class="box">
+    <div class="box-header with-border">
+        <h4 class="box-title"><strong>Producer Master</strong></h4>
     </div>
-    <form id="formProducer">
-        <div class="form-group">
-            @Html.LabelFor(model => model.MasterType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MasterType", listItems, "-- Select Status --", new { @class = "form-control" })
+    <div class="box-body">
+        <form id="formProducer">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MasterType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("MasterType", listItems, "-- Select Status --", new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
-        </div>
-      
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnSubmitProducerMaster" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="btnSubmitProducerMaster" value="Create" class="btn btn-default" />
+                </div>
             </div>
+        </form>
+        <div>
+            <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#uploadBulk">
+                <i class="fas fa-upload fa-sm"></i> Bulk Upload Policy
+            </button>
         </div>
-    </form>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-rounded btn-primary">Submit</button>
+        <button class="btn btn-rounded btn-secondary">Cancel</button>
+    </div>
 </div>
-<div id="uploadBulk" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+@*<div>
+        @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" accept=".xls,.xlsx" />
+            <input type="submit" value="Import" />
+            <a href="~/Masters/Agentmaster.xlsx" download>Download Sample format</a>
+
+        }
+    </div>*@
+
+
+<div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -99,10 +102,9 @@
                             <form method="post" enctype="multipart/form-data">
                         *@
                         <div class="fileuploader fileuploader-theme-dragdrop">
-                            @*
+                            
                                 <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
-                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="1">*@
-                            <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
+                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="1">
                             <input type="hidden" id="uploadFilesInptHdn" name="fileuploader-list-files" value="[]">
                             <input type="file" id="uploadFilesInpt" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
                             <div class="fileuploader-input">
@@ -173,7 +175,7 @@
     <!-- /.modal-dialog -->
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(window).on("load", function () {
         $('#btnSubmitProducerMaster').on('click', function () {
             var formData = $('#formProducer').serialize();
             $.ajax({
@@ -217,7 +219,7 @@
             }
 
             // Adding one more key to FormData object
-          //  fileData.append('txtMotorMaster', '1');
+            //  fileData.append('txtMotorMaster', '1');
 
             $.ajax({
                 url: '/Home/UploadFiles',
@@ -228,52 +230,57 @@
                 success: function (result) {
 
                     if (result == 1) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: "File Doesn't belongs to Motor Policy",
-                        });
+                        alert("File Doesn't belongs to Producer Master");
+                        //Swal.fire({
+                        //    icon: 'error',
+                        //    title: 'Oops...',
+                        //    text: "File Doesn't belongs to Motor Policy",
+                        //});
                     }
-                    if (result == -3) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: "File which you trying to upload is incorrect.!",
-                        });
+                    else if (result == -3) {
+                        alert("File which you trying to upload is incorrect.!");
+                        //Swal.fire({
+                        //    icon: 'error',
+                        //    title: 'Oops...',
+                        //    text: "File which you trying to upload is incorrect.!",
+                        //});
                     }
-                    if (result == "success") {
+                    else if (result == "success") {
+                        alert("File Uploaded Successfully!");
+                        //Swal.fire({
+                        //    icon: 'success',
+                        //    title: 'Success!',
+                        //    text: "File Uploaded Successfully!",
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: "File Uploaded Successfully!",
-
-                        }).then(
-                            function () { window.location.href = "ProducerMaster"; });
+                        //}).then(
+                        //    function () { window.location.href = "ProducerMaster"; });
                     }
-                    if (result == "same") {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Warning!',
-                            text: "All the Records already exists. Try uploading new data.",
-                        }).then(
-                            function () { window.location.href = "ProducerMaster"; });
+                    else if (result == "same") {
+                        alert("All the Records already exists. Try uploading new data.");
+                        //Swal.fire({
+                        //    icon: 'warning',
+                        //    title: 'Warning!',
+                        //    text: "All the Records already exists. Try uploading new data.",
+                        //}).then(
+                        //    function () { window.location.href = "ProducerMaster"; });
                     }
                     else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: err.statusText,
-                        })
+                        //Swal.fire({
+                        //    icon: 'error',
+                        //    title: 'Oops...',
+                        //    text: err.statusText,
+                        //})
+                        alert('Error while uploading.');
                     }
                 },
                 error: function (err) {
-                    //alert(err.statusText);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: err.statusText,
-                    })
+                    alert('Error while uploading.');
+
+                    //Swal.fire({
+                    //    icon: 'error',
+                    //    title: 'Oops...',
+                    //    text: err.statusText,
+                    //})
                 }
             });
         } else {

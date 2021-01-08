@@ -588,7 +588,7 @@ namespace Totalligent.DAL
             }
             return lstViewTickets;
         }
-        public long CloseRaisedTicket(RaiseTickets objRaiseTickets,out List<Employee> lstMailNewPwsd)
+        public long CloseRaisedTicket(RaiseTickets objRaiseTickets, out List<Employee> lstMailNewPwsd)
         {
             long returnCode = -1;
             lstMailNewPwsd = new List<Employee>();
@@ -620,14 +620,14 @@ namespace Totalligent.DAL
                     if (dt.Rows.Count > 0)
                     {
                         lstMailNewPwsd = (from DataRow dr in dt.Rows
-                                    select new Employee()
-                                    {
-                                        UserName = dr["UserName"].ToString(),
-                                        Newpassword = dr["Newpassword"].ToString(),
-                                        EmailId = dr["EmailId"].ToString(),
-                                        TicketId = (int)dr["TicketId"],
+                                          select new Employee()
+                                          {
+                                              UserName = dr["UserName"].ToString(),
+                                              Newpassword = dr["Newpassword"].ToString(),
+                                              EmailId = dr["EmailId"].ToString(),
+                                              TicketId = (int)dr["TicketId"],
 
-                                    }).ToList();
+                                          }).ToList();
 
                     }
 
@@ -660,8 +660,8 @@ namespace Totalligent.DAL
 
                     cmd.Parameters.AddWithValue("@MasterType", objPM.MasterType);
                     cmd.Parameters.AddWithValue("@Name", objPM.Name);
-                   // cmd.Parameters.AddWithValue("@UserName", objPM.UserName);
-                   cmd.Parameters.AddWithValue("@Password", objPM.Password);
+                    // cmd.Parameters.AddWithValue("@UserName", objPM.UserName);
+                    cmd.Parameters.AddWithValue("@Password", objPM.Password);
                     cmd.Parameters.AddWithValue("@EmailId", objPM.EmailId);
                     cmd.Parameters.AddWithValue("@AddedBy", objPM.AddedBy);
                     //  cmd.Parameters.AddWithValue("@MobileNumber", objPM.MobileNumber);
@@ -680,6 +680,262 @@ namespace Totalligent.DAL
                     if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(EmailId))
                         returnCode = 1;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long CreateQuotation(Quotation obj, out string draftNo)
+        {
+            long returnCode = -1;
+            SqlDataReader reader;
+            draftNo = string.Empty;
+            try
+            {
+                DataTable dt = objUtility.ConvertToQuotationGenerator(obj);
+                if (dt.Rows.Count > 0)
+                {
+
+
+                    using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                    {
+                        con.Open();
+                        SqlCommand cmd = new SqlCommand
+                        {
+                            CommandText = "SP_CreateQuotation"
+                        };
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+                        SqlParameter UDTparam = new SqlParameter
+                        {
+                            ParameterName = "@UDT_QuotationGenerator",
+                            Size = -1,
+                            Value = dt
+                        };
+                        cmd.Parameters.Add(UDTparam);
+                        reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            draftNo = reader.GetValue(0).ToString();
+                            // EmailId = reader.GetValue(1).ToString();
+                        }
+                        reader.Close();
+                        cmd.Dispose();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long GetUWDashBoardDetails(string UserName, out UnderWriter lstInfo)
+        {
+            long returnCode = -1;
+            lstInfo = new UnderWriter();
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetUWDashboard"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@UserName", UserName);
+                    //cmd.Parameters.AddWithValue("@Password", lstInput.Password);
+                    //cmd.Parameters.AddWithValue("@RoleId", lstInput.Role);
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    //DataSet ds = new DataSet();
+                    sdaAdapter.Fill(ds);
+                    List<Quotation> lst = new List<Quotation>();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            lstInfo.TNPYear = Convert.ToInt64(dr["TNPYear"]);
+                            lstInfo.TotalNoPolQuotationDrafted = Convert.ToInt64(dr["TotalNoPolQuotationDrafted"]);
+                            lstInfo.TotNoPolIssued = Convert.ToInt64(dr["TotNoPolIssued"]);
+                            lstInfo.TotalNoPolRejected = Convert.ToInt64(dr["TotalNoPolRejected"]);
+                        }
+
+                    }
+                    if (ds.Tables[1].Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(ds.Tables[1], out lst);
+                        lstInfo.lstQuotation = lst;
+                    }
+                    //while (reader.Read())
+                    //{
+                    //    lstInfo.TNPYear = (long)reader.GetValue(0);
+                    //    lstInfo.TotalNoPolQuotationDrafted = (long)reader.GetValue(1);
+                    //    lstInfo.TotNoPolIssued = (long)reader.GetValue(2);
+                    //    lstInfo.TotalNoPolRejected = (long)reader.GetValue(3);
+                    //    //lstInfo.PercentageRenewedYear = (decimal)reader.GetValue(4);
+                    //    //lstInfo.TNPMonth = (long)reader.GetValue(5);
+                    //    //lstInfo.TNPLostMonth = (long)reader.GetValue(6);
+                    //    //lstInfo.TNPUnderProcessMonth = (long)reader.GetValue(7);
+                    //    //lstInfo.TNPRenewedMonth = (long)reader.GetValue(8);
+                    //    //lstInfo.PercentageRenewedMonth = (decimal)reader.GetValue(9);
+                    //    //lstInfo.TNPYearPremium = (long)reader.GetValue(10);
+                    //    //lstInfo.TNPUPYearPremium = (long)reader.GetValue(11);
+                    //    //lstInfo.TNPLostYearPremium = (long)reader.GetValue(12);
+                    //    //lstInfo.TNPRenewedYearPremium = (long)reader.GetValue(13);
+                    //    //lstInfo.PercentPremiumRenewedYear = (decimal)reader.GetValue(14);
+                    //    //lstInfo.TNPMonthPremium = (long)reader.GetValue(15);
+                    //    //lstInfo.TNPLostMonthPremium = (long)reader.GetValue(16);
+                    //    //lstInfo.TNPUPMonthPremium = (long)reader.GetValue(17);
+                    //    //lstInfo.TNPRenewedMonthPremium = (long)reader.GetValue(18);
+                    //    //lstInfo.PercentPremiumRenewedMonth = (decimal)reader.GetValue(19);
+                    //    //lstInfo.UserName = (string)reader.GetValue(20);
+
+                    //    //lstInfo.TotPoltoBeRenewed = 0;
+                    //    //lstInfo.TotPolforRenewal = 0;
+                    //    //lstInfo.NoOfPoRenewed = 0;
+                    //    //lstInfo.PolicyLost = 0;
+
+                    //    //lstInfo.TotPoltoBeRenewedCM = 0;
+                    //    //lstInfo.TotPolforRenewalCM = 0;
+
+                    //    //lstInfo.NoOfPoRenewedCM = 0;
+                    //    //lstInfo.PolicyLostCM = 0;
+
+                    //    returnCode = 1;
+                    //}
+                    //reader.Close();
+                    //cmd.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long EditQuotation(string UserName,long QuotationId, out Quotation lstInfo)
+        {
+            long returnCode = -1;
+            lstInfo = new Quotation();
+            try
+            {
+
+
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetQuotation"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@QuotationId", QuotationId);
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    
+                    DataSet ds = new DataSet();
+                    sdaAdapter.Fill(ds);
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            lstInfo.QuotationId = Convert.ToInt64(dr["QuotationId"]);
+                            lstInfo.DraftNo = Convert.ToString(dr["DraftNo"]);
+                            lstInfo.Status = Convert.ToString(dr["Status"]);
+                            lstInfo.CIInsuranceCompanyName = Convert.ToString(dr["CIInsuranceCompanyName"]);
+                            lstInfo.CIClientCompanyName = Convert.ToString(dr["CIClientCompanyName"]);
+                            lstInfo.CIProducerType = Convert.ToString(dr["CIProducerType"]);
+                            lstInfo.CIProducerName = Convert.ToString(dr["CIProducerName"]);
+                            lstInfo.CISelectCommission = Convert.ToDecimal(dr["CISelectCommission"]);
+                            lstInfo.CINoOfPlanCategories = Convert.ToInt32(dr["CINoOfPlanCategories"]);
+                            lstInfo.GBMedicalProviderNetwork = Convert.ToString(dr["GBMedicalProviderNetwork"]);
+                            lstInfo.GBScopeOfCover = Convert.ToString(dr["GBScopeOfCover"]);
+                            lstInfo.GBAreaOfCoverage = Convert.ToString(dr["GBAreaOfCoverage"]);
+                            lstInfo.GBPersonCovered = Convert.ToString(dr["GBPersonCovered"]);
+                            lstInfo.GBAnnualBenefitsLimit = Convert.ToDecimal(dr["GBAnnualBenefitsLimit"]);
+                            lstInfo.GBIsPerClaimLimitIP = Convert.ToString(dr["GBIsPerClaimLimitIP"]);
+                            lstInfo.GBPerClaimLimitIP = Convert.ToDecimal(dr["GBPerClaimLimitIP"]);
+                            lstInfo.GBIsPerClaimLimitOP = Convert.ToString(dr["GBIsPerClaimLimitOP"]);
+                            lstInfo.GBPerClaimLimitOP = Convert.ToDecimal(dr["GBPerClaimLimitOP"]);
+                            lstInfo.GBPreExisting_ChronicLimit = Convert.ToDecimal(dr["GBPreExisting_ChronicLimit"]);
+                            lstInfo.GBGeoThreateningEmergencyTreatment = Convert.ToString(dr["GBGeoThreateningEmergencyTreatment"]);
+                            lstInfo.GBGeoElectiveTreatement = Convert.ToString(dr["GBGeoElectiveTreatement"]);
+                            lstInfo.GBGeoOutsideResidentCountry = Convert.ToString(dr["GBGeoOutsideResidentCountry"]);
+                            lstInfo.IPHospitalizationClass = Convert.ToString(dr["IPHospitalizationClass"]);
+                            lstInfo.IPHospitalizationClassLimit = Convert.ToDecimal(dr["IPHospitalizationClassLimit"]);
+                            lstInfo.IPICUCoronaryTreatement = Convert.ToString(dr["IPICUCoronaryTreatement"]);
+                            lstInfo.IPICUCoronaryTreatementLimit = Convert.ToDecimal(dr["IPICUCoronaryTreatementLimit"]);
+                            lstInfo.IPVariousTherapies = Convert.ToString(dr["IPVariousTherapies"]);
+                            lstInfo.IPVariousTherapiesLimit = Convert.ToDecimal(dr["IPVariousTherapiesLimit"]);
+                            lstInfo.IPOrganTransplantationServices = Convert.ToString(dr["IPOrganTransplantationServices"]);
+                            lstInfo.IPOrganTransplantationServicesLimit = Convert.ToDecimal(dr["IPOrganTransplantationServicesLimit"]);
+                            lstInfo.IPAmbulanceServices = Convert.ToString(dr["IPAmbulanceServices"]);
+                            lstInfo.IPAmbulanceServicesLimit = Convert.ToDecimal(dr["IPAmbulanceServicesLimit"]);
+                            lstInfo.IPCompanionRoomBoardExpenses = Convert.ToString(dr["IPCompanionRoomBoardExpenses"]);
+                            lstInfo.IPCompanionRoomBoardExpensesLimit = Convert.ToDecimal(dr["IPCompanionRoomBoardExpensesLimit"]);
+                            lstInfo.IPHospitalCashBenefitsCashPerDay = Convert.ToDecimal(dr["IPHospitalCashBenefitsCashPerDay"]);
+                            lstInfo.IPHospitalCashBenefitsCashTotal = Convert.ToDecimal(dr["IPHospitalCashBenefitsCashTotal"]);
+                            lstInfo.IPRepatriationCostTraansport = Convert.ToDecimal(dr["IPRepatriationCostTraansport"]);
+                            lstInfo.IPAddBenefits = Convert.ToString(dr["IPAddBenefits"]);
+                            lstInfo.OPPhysicianConsultationDeductible = Convert.ToString(dr["OPPhysicianConsultationDeductible"]);
+                            lstInfo.OPPhysicianConsultationDeductibleLimit = Convert.ToDecimal(dr["OPPhysicianConsultationDeductibleLimit"]);
+                            lstInfo.OPDiagnostics = Convert.ToString(dr["OPDiagnostics"]);
+                            lstInfo.OPDiagnosticsLimit = Convert.ToDecimal(dr["OPDiagnosticsLimit"]);
+                            lstInfo.OPPharmaceuticals = Convert.ToString(dr["OPPharmaceuticals"]);
+                            lstInfo.OPPharmaceuticalsLimit = Convert.ToDecimal(dr["OPPharmaceuticalsLimit"]);
+                            lstInfo.OPPhysiotheraphy = Convert.ToString(dr["OPPhysiotheraphy"]);
+                            lstInfo.OPPhysiotheraphyLimit = Convert.ToDecimal(dr["OPPhysiotheraphyLimit"]);
+                            lstInfo.OPDaycareTreatment = Convert.ToString(dr["OPDaycareTreatment"]);
+                            lstInfo.OPDaycareTreatmentLimit = Convert.ToDecimal(dr["OPDaycareTreatmentLimit"]);
+                            lstInfo.OPOutPatientSurgery = Convert.ToString(dr["OPOutPatientSurgery"]);
+                            lstInfo.OPOutPatientSurgeryLimit = Convert.ToDecimal(dr["OPOutPatientSurgeryLimit"]);
+                            lstInfo.OPWorkRelatedInjuries = Convert.ToString(dr["OPWorkRelatedInjuries"]);
+                            lstInfo.OPWorkRelatedInjuriesLimit = Convert.ToDecimal(dr["OPWorkRelatedInjuriesLimit"]);
+                            lstInfo.OPAccidentalDamageNaturalTeeth = Convert.ToString(dr["OPAccidentalDamageNaturalTeeth"]);
+                            lstInfo.OPAccidentalDamageNaturalTeethLimit = Convert.ToDecimal(dr["OPAccidentalDamageNaturalTeethLimit"]);
+                            lstInfo.OPNewBornBabyCoverage = Convert.ToString(dr["OPNewBornBabyCoverage"]);
+                            lstInfo.OPNewBornBabyCoverageLimit = Convert.ToDecimal(dr["OPNewBornBabyCoverageLimit"]);
+                            lstInfo.OPNursingAtHome = Convert.ToString(dr["OPNursingAtHome"]);
+                            lstInfo.OPNursingAtHomeLimit = Convert.ToDecimal(dr["OPNursingAtHomeLimit"]);
+                            lstInfo.OPAlternativeMedicine = Convert.ToString(dr["OPAlternativeMedicine"]);
+                            lstInfo.OPAlternativeMedicineCoverage = Convert.ToString(dr["OPAlternativeMedicineCoverage"]);
+                            lstInfo.OPAlternativeMedicineCoverageLimit = Convert.ToDecimal(dr["OPAlternativeMedicineCoverageLimit"]);
+                            lstInfo.OPAlternativeMedicineDeductible = Convert.ToString(dr["OPAlternativeMedicineDeductible"]);
+                            lstInfo.OPAlternativeMedicineDeductibleLimit = Convert.ToDecimal(dr["OPAlternativeMedicineDeductibleLimit"]);
+                            lstInfo.OPFreeAccessOutsideOMAN = Convert.ToString(dr["OPFreeAccessOutsideOMAN"]);
+                            lstInfo.EBFreeAccessTPANetwork = Convert.ToString(dr["EBFreeAccessTPANetwork"]);
+                            lstInfo.EBFreeAccessTPANetworkLimit = Convert.ToString(dr["EBFreeAccessTPANetworkLimit"]);
+                            lstInfo.EBReimbursementNonNetworkMedicalProviders = Convert.ToString(dr["EBReimbursementNonNetworkMedicalProviders"]);
+                            lstInfo.EBReimbursementNonNetworkMedicalProvidersLimit = Convert.ToString(dr["EBReimbursementNonNetworkMedicalProvidersLimit"]);
+                            lstInfo.EBEmergencyTreatment = Convert.ToString(dr["EBEmergencyTreatment"]);
+                            lstInfo.EBEmergencyTreatmentLimit = Convert.ToString(dr["EBEmergencyTreatmentLimit"]);
+                            lstInfo.EBEmergencyTreatmentCountry = Convert.ToString(dr["EBEmergencyTreatmentCountry"]);
+                            lstInfo.ABBenefits = Convert.ToString(dr["ABBenefits"]);
+                            lstInfo.ABDescription = Convert.ToString(dr["ABDescription"]);
+                            lstInfo.ABExclusions = Convert.ToString(dr["ABExclusions"]);
+                            lstInfo.PolicyNo = Convert.ToString(dr["PolicyNo"]);
+
+                        }
+                    }
+
+                }
+
             }
             catch (Exception ex)
             {
