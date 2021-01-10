@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +46,7 @@
     <Compile Include="AgentMaster.cs" />
     <Compile Include="BrokerMaster.cs" />
     <Compile Include="ClientCompanyMaster.cs" />
+    <Compile Include="DataPoint.cs" />
     <Compile Include="DiagnosticsMaster.cs" />
     <Compile Include="DrugMaster.cs" />
     <Compile Include="Employee.cs" />

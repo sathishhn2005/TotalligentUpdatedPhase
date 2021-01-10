@@ -10,6 +10,14 @@
                     <h6>Client Information</h6>
                     <section>
                         <div class="row">
+                            <div class="hide">
+                                @if (Model != null)
+                                {
+                                   @(Html.Kendo().Editor()
+                                   .Name("QuotationId")
+                                   .HtmlAttributes(new { style = "width: 100%; height:840px", aria_label = "editor" }))
+                                }
+                            </div>
                             <div class="col-md-10 m-b-15 m-t-15 offset-md-1">
                                 <div class="row m-b-15 m-t-15">
                                     <div class="col-md-5">
@@ -17,14 +25,14 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                            .Name("CIInsuranceCompanyName")
-                                                                            .Placeholder(">> Select Insurance Company Name ")
-                                                                            .BindTo(new List<string>() {
-                                                                                                                                "ICICI Lombard",
-                                                                                                                                "HDFC Prudential",
-                                                                                                                                "Bajaj Allianz Life Insurance Company",
-                                                                            })
-                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                    .Name("CIInsuranceCompanyName")
+                                                                                                    .Placeholder(">> Select Insurance Company Name ")
+                                                                                                    .BindTo(new List<string>() {
+                                                                                                                                                                                                                                "ICICI Lombard",
+                                                                                                                                                                                                                                "HDFC Prudential",
+                                                                                                                                                                                                                                "Bajaj Allianz Life Insurance Company",
+                                                                                                    })
+                                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -34,14 +42,14 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                                .Name("CIClientCompanyName")
-                                                                                .Placeholder(">> Select Client Company Name ")
-                                                                                .BindTo(new List<string>() {
-                                                                                                                                    "CTS",
-                                                                                                                                    "TCS",
-                                                                                                                                    "Dun & Bradstreet",
-                                                                                })
-                                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;", autocomplete = "off " })
+                                                                                                        .Name("CIClientCompanyName")
+                                                                                                        .Placeholder(">> Select Client Company Name ")
+                                                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                                                                                    "CTS",
+                                                                                                                                                                                                                                    "TCS",
+                                                                                                                                                                                                                                    "Dun & Bradstreet",
+                                                                                                        })
+                                                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;", autocomplete = "off " })
                                         )
                                     </div>
                                 </div>
@@ -51,25 +59,25 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                            .Name("CIProducerType")
-                                                                            .BindTo(new List<SelectListItem>()
-                                                                            {
-                                                                                                                                new SelectListItem() {
-                                                                                                                                    Text = "Direct", Value = "1"
-                                                                                                                                },
-                                                                                                                                new SelectListItem() {
-                                                                                                                                    Text = "Broker", Value = "2"
-                                                                                                                                },
-                                                                                                                                new SelectListItem() {
-                                                                                                                                    Text = "Agent", Value = "3"
-                                                                                                                                }
-                                                                            })
-                                                                            .Enable(true)
-                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                            .Events(e =>
-                                                                            {
-                                                                                e.Select("onProviderNameSelect");
-                                                                            })
+                                                                                                    .Name("CIProducerType")
+                                                                                                    .BindTo(new List<SelectListItem>()
+                                                                                                    {
+                                                                                                                                                                                                                                new SelectListItem() {
+                                                                                                                                                                                                                                    Text = "Direct", Value = "1"
+                                                                                                                                                                                                                                },
+                                                                                                                                                                                                                                new SelectListItem() {
+                                                                                                                                                                                                                                    Text = "Broker", Value = "2"
+                                                                                                                                                                                                                                },
+                                                                                                                                                                                                                                new SelectListItem() {
+                                                                                                                                                                                                                                    Text = "Agent", Value = "3"
+                                                                                                                                                                                                                                }
+                                                                                                    })
+                                                                                                    .Enable(true)
+                                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                    .Events(e =>
+                                                                                                    {
+                                                                                                        e.Select("onProviderNameSelect");
+                                                                                                    })
                                         )
                                     </div>
                                 </div>
@@ -79,23 +87,23 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                                .Name("CIProducerName")
-                                                                                .Placeholder(">> Select Producer Name ")
-                                                                                .BindTo(new List<SelectListItem>()
-                                                                                {
-                                                                                                                                    new SelectListItem() {
-                                                                                                                                        Text = "OSI Broker", Value = "1"
-                                                                                                                                    },
-                                                                                                                                    new SelectListItem() {
-                                                                                                                                        Text = "TTK Broker", Value = "2"
-                                                                                                                                    }
-                                                                                })
-                                                                                .Enable(true)
-                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                                .Events(e =>
-                                                                                {
-                                                                                    e.Select("onBrokerNameSelect");
-                                                                                })
+                                                                                                        .Name("CIProducerName")
+                                                                                                        .Placeholder(">> Select Producer Name ")
+                                                                                                        .BindTo(new List<SelectListItem>()
+                                                                                                        {
+                                                                                                                                                                                                                                    new SelectListItem() {
+                                                                                                                                                                                                                                        Text = "OSI Broker", Value = "1"
+                                                                                                                                                                                                                                    },
+                                                                                                                                                                                                                                    new SelectListItem() {
+                                                                                                                                                                                                                                        Text = "TTK Broker", Value = "2"
+                                                                                                                                                                                                                                    }
+                                                                                                        })
+                                                                                                        .Enable(true)
+                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                        .Events(e =>
+                                                                                                        {
+                                                                                                            e.Select("onBrokerNameSelect");
+                                                                                                        })
                                         )
                                     </div>
                                 </div>
@@ -105,20 +113,20 @@
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                .Name("CISelectCommission")
-                                                                                .BindTo(new List<string>() {
-                                                                                                                                    "3%",
-                                                                                                                                    "5%",
-                                                                                                                                    "10%",
-                                                                                                                                    "15%",
-                                                                                                                                    "Add New"
-                                                                                })
-                                                                                .Enable(true)
-                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                                .Events(e =>
-                                                                                {
-                                                                                    e.Select("onBrokerCommissionSelect");
-                                                                                })
+                                                                                                        .Name("CISelectCommission")
+                                                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                                                                                    "3%",
+                                                                                                                                                                                                                                    "5%",
+                                                                                                                                                                                                                                    "10%",
+                                                                                                                                                                                                                                    "15%",
+                                                                                                                                                                                                                                    "Add New"
+                                                                                                        })
+                                                                                                        .Enable(true)
+                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                        .Events(e =>
+                                                                                                        {
+                                                                                                            e.Select("onBrokerCommissionSelect");
+                                                                                                        })
                                         )
                                     </div>
                                     @*<div class="col-md-3 demo-section k-content">
@@ -131,15 +139,15 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                .Name("CINoOfPlanCategories")
-                                                                                .BindTo(new List<string>() {
-                                                                                                                                    "1",
-                                                                                                                                    "2",
-                                                                                                                                    "3",
-                                                                                                                                    "4",
-                                                                                                                                    "5"
-                                                                                })
-                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                        .Name("CINoOfPlanCategories")
+                                                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                                                                                    "1",
+                                                                                                                                                                                                                                    "2",
+                                                                                                                                                                                                                                    "3",
+                                                                                                                                                                                                                                    "4",
+                                                                                                                                                                                                                                    "5"
+                                                                                                        })
+                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -166,29 +174,29 @@
                                                 </div>
                                                 <div class="col-md-3 demo-section k-content">
                                                     @(Html.Kendo().DropDownList()
-                                                                                                        .Name("GBMedicalProviderNetwork")
-                                                                                                        .BindTo(new List<string>
-                                                                                                            () {
-                                                                                                                                                                                                                            ">> Select Elective Treatement",
-                                                                                                                                                                                                                            "BAND - A",
-                                                                                                                                                                                                                            "BAND - B",
-                                                                                                                                                                                                                            "BAND - C",
-                                                                                                                                                                                                                            "Create Band",
-                                                                                                            })
-                                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                .Name("GBMedicalProviderNetwork")
+                                                                                                                .BindTo(new List<string>
+                                                                                                                    () {
+                                                                                                                                                                                                                                                                        ">> Select Elective Treatement",
+                                                                                                                                                                                                                                                                        "BAND - A",
+                                                                                                                                                                                                                                                                        "BAND - B",
+                                                                                                                                                                                                                                                                        "BAND - C",
+                                                                                                                                                                                                                                                                        "Create Band",
+                                                                                                                    })
+                                                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                                     )
                                                 </div>
                                                 <div class="col-md-4 demo-section k-content">
                                                     @(Html.Kendo().DropDownList()
-                                                                                                        .Name("AllHospital")
-                                                                                                        .BindTo(new List<string>
-                                                                                                        () {
-                                                                                                                                                                                                                    ">> Add Specific Hospital / Clinic",
-                                                                                                                                                                                                                    "Fortis Hospital",
-                                                                                                                                                                                                                    "Shanthi Hospital",
-                                                                                                                                                                                                                    "Stanely Hospital",
-                                                                                                                                                                                                                    "Goverment Hospital",                                                                                                            })
-                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                .Name("AllHospital")
+                                                                                                                .BindTo(new List<string>
+                                                                                                                () {
+                                                                                                                                                                                                                                                                ">> Add Specific Hospital / Clinic",
+                                                                                                                                                                                                                                                                "Fortis Hospital",
+                                                                                                                                                                                                                                                                "Shanthi Hospital",
+                                                                                                                                                                                                                                                                "Stanely Hospital",
+                                                                                                                                                                                                                                                                "Goverment Hospital",                                                                                                            })
+                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                                     )
                                                 </div>
                                             </div>
@@ -215,20 +223,20 @@
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
                                                     @(Html.Kendo().MultiSelect()
-                                                                                                                .Name("GBAreaOfCoverage")
-                                                                                                                .AutoClose(false)
-                                                                                                                .Placeholder(">> Select Area Coverage...")
-                                                                                                                .BindTo(new List<string>() {
-                                                                                                                                                                                                                                "India",
-                                                                                                                                                                                                                                "Dubai",
-                                                                                                                                                                                                                                "kuwait",
-                                                                                                                                                                                                                                "England",
-                                                                                                                                                                                                                                "Australia",
-                                                                                                                                                                                                                                "America",
-                                                                                                                                                                                                                                "South Africa",
-                                                                                                                                                                                                                                "Brazil",
-                                                                                                                })
-                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                                                                        .Name("GBAreaOfCoverage")
+                                                                                                                        .AutoClose(false)
+                                                                                                                        .Placeholder(">> Select Area Coverage...")
+                                                                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                                                                                                                            "India",
+                                                                                                                                                                                                                                                                            "Dubai",
+                                                                                                                                                                                                                                                                            "kuwait",
+                                                                                                                                                                                                                                                                            "England",
+                                                                                                                                                                                                                                                                            "Australia",
+                                                                                                                                                                                                                                                                            "America",
+                                                                                                                                                                                                                                                                            "South Africa",
+                                                                                                                                                                                                                                                                            "Brazil",
+                                                                                                                        })
+                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                                     )
                                                 </div>
                                             </div>
@@ -257,17 +265,17 @@
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
                                                     @(Html.Kendo().DropDownList()
-                                                                                                                        .Name("GBAnnualBenefitsLimit")
-                                                                                                                        .BindTo(new List<string>
-                                                                                                                            () {
-                                                                                                                                                                                                                                            ">> Select Annual Benefits Limit",
-                                                                                                                                                                                                                                            "10000",
-                                                                                                                                                                                                                                            "20000",
-                                                                                                                                                                                                                                            "50000",
-                                                                                                                                                                                                                                            "100000",
-                                                                                                                                                                                                                                            "150000",
-                                                                                                                            })
-                                                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                                .Name("GBAnnualBenefitsLimit")
+                                                                                                                                .BindTo(new List<string>
+                                                                                                                                    () {
+                                                                                                                                                                                                                                                                                        ">> Select Annual Benefits Limit",
+                                                                                                                                                                                                                                                                                        "10000",
+                                                                                                                                                                                                                                                                                        "20000",
+                                                                                                                                                                                                                                                                                        "50000",
+                                                                                                                                                                                                                                                                                        "100000",
+                                                                                                                                                                                                                                                                                        "150000",
+                                                                                                                                    })
+                                                                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                                     )
                                                 </div>
                                             </div>
@@ -280,24 +288,45 @@
                                                     <label class="col-sm-12 col-form-label text-left">Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    <input class="form-control" name="Premium" id="Premium" />
+                                                    @*<input class="form-control" onchange="CalcRenewalAdmin()" name="GBPremium" id="GBPremium" />*@
+                                                    @(Html.Kendo().NumericTextBox()
+.Name("GBPremium")
+.Events(e => e
+.Change("CalcRenewalAdmin()"))
+.HtmlAttributes(new { style = "width: 100%" })
+                                                    )
+                                                    
+
                                                 </div>
+
                                             </div>
                                             <div class="row m-b-15 m-t-15">
                                                 <div class="col-md-5">
                                                     <label class="col-sm-12 col-form-label text-left">Insurance levy @@0.55%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    <input class="form-control" name="InsuranceLevy" id="InsuranceLevy" />
+                                                    @*<input class="form-control" readonly name="GBInsuranceLevy" id="GBInsuranceLevy" />*@
+
+                                                    @(Html.Kendo().TextBox()
+.Name("GBInsuranceLevy")
+.HtmlAttributes(new { @readonly = "readonly", style = "width: 100%" })
+                                                    )
+
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
                                                 <div class="col-md-5">
                                                     <label class="col-sm-12 col-form-label text-left">Policy Fee</label>
                                                 </div>
-                                               
+
                                                 <div class="col-md-7 demo-section k-content">
-                                                    <input class="form-control" name="GBPolicyFee" id="GBPolicyFee" />
+                                                    @*<input class="form-control" onchange="CalcTotalPremium()" name="GBPolicyFee" id="GBPolicyFee" />*@
+                                                    @(Html.Kendo().NumericTextBox()
+.Name("GBPolicyFee")
+.Events(e => e
+             .Change("CalcTotalPremium()"))
+.HtmlAttributes(new { style = "width: 100%" })
+                                                    )
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -305,7 +334,13 @@
                                                     <label class="col-sm-12 col-form-label text-left">Total Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    <input class="form-control" name="GBTotalPremium" id="GBTotalPremium"/>
+                                                    @*<input class="form-control" readonly name="GBTotalPremium" id="GBTotalPremium" />*@
+
+                                                    @(Html.Kendo().TextBox()
+.Name("GBTotalPremium")
+.HtmlAttributes(new {@readonly="readonly", style = "width: 100%" })
+                                                    )
+
                                                 </div>
                                             </div>
                                             @*--sathish*@
@@ -321,7 +356,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5 demo-section k-content">
-                                                    <input class="form-control" name="GBPerClaimLimitIP" placeholder="Enter Claim Limit for In-Patient" />
+                                                    @*<input class="form-control" name="GBPerClaimLimitIP" placeholder="Enter Claim Limit for In-Patient" />*@
+                                                    @(Html.Kendo().NumericTextBox()
+.Name("GBPerClaimLimitIP")
+.HtmlAttributes(new { style = "width: 100%" })
+                                                    )
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -334,7 +373,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-md-5 demo-section k-content">
-                                                    <input class="form-control" name="GBPerClaimLimitOP" placeholder="Enter Claim Limit for Out-Patient" />
+                                                    @*<input class="form-control" name="GBPerClaimLimitOP" placeholder="Enter Claim Limit for Out-Patient" />*@
+                                                    @(Html.Kendo().NumericTextBox()
+.Name("GBPerClaimLimitOP")
+.HtmlAttributes(new { style = "width: 100%" })
+                                                    )
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -352,7 +395,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5 demo-section k-content">
-                                                    <input id="ChronicLimitInput" class="form-control" name="GBPreExisting_ChronicLimit" placeholder="Enter Chronic Limit" />
+                                                    @*<input id="ChronicLimitInput" class="form-control" name="GBPreExisting_ChronicLimit" placeholder="Enter Chronic Limit" />*@
+                                                    @(Html.Kendo().NumericTextBox()
+.Name("GBPreExisting_ChronicLimit")
+.HtmlAttributes(new { style = "width: 100%" })
+                                                    )
                                                 </div>
                                             </div>
 
@@ -362,32 +409,32 @@
                                                 </div>
                                                 <div class="col-md-3 demo-section k-content">
                                                     @(Html.Kendo().DropDownList()
-                                                                                                                .Name("GBGeoThreateningEmergencyTreatment")
-                                                                                                                .BindTo(new List<string>
-                                                                                                                    () {
-                                                                                                                                                                                                                                    ">> Select Region",
-                                                                                                                                                                                                                                    "Worldwide",
-                                                                                                                                                                                                                                    "Specific Country",
-                                                                                                                    })
-                                                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                        .Name("GBGeoThreateningEmergencyTreatment")
+                                                                                                                        .BindTo(new List<string>
+                                                                                                                            () {
+                                                                                                                                                                                                                                                                                ">> Select Region",
+                                                                                                                                                                                                                                                                                "Worldwide",
+                                                                                                                                                                                                                                                                                "Specific Country",
+                                                                                                                            })
+                                                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                                     )
                                                 </div>
                                                 <div class="col-md-4 demo-section k-content">
                                                     @(Html.Kendo().MultiSelect()
-                                                                                                                .Name("LifeEmgAreaCoverage")
-                                                                                                                .AutoClose(false)
-                                                                                                                .Placeholder(">> Select Specific Country...")
-                                                                                                                .BindTo(new List<string>() {
-                                                                                                                                                                                                                                "India",
-                                                                                                                                                                                                                                "Dubai",
-                                                                                                                                                                                                                                "kuwait",
-                                                                                                                                                                                                                                "England",
-                                                                                                                                                                                                                                "Australia",
-                                                                                                                                                                                                                                "America",
-                                                                                                                                                                                                                                "South Africa",
-                                                                                                                                                                                                                                "Brazil",
-                                                                                                                })
-                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                                                                        .Name("LifeEmgAreaCoverage")
+                                                                                                                        .AutoClose(false)
+                                                                                                                        .Placeholder(">> Select Specific Country...")
+                                                                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                                                                                                                            "India",
+                                                                                                                                                                                                                                                                            "Dubai",
+                                                                                                                                                                                                                                                                            "kuwait",
+                                                                                                                                                                                                                                                                            "England",
+                                                                                                                                                                                                                                                                            "Australia",
+                                                                                                                                                                                                                                                                            "America",
+                                                                                                                                                                                                                                                                            "South Africa",
+                                                                                                                                                                                                                                                                            "Brazil",
+                                                                                                                        })
+                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                                     )
                                                 </div>
                                             </div>
@@ -397,31 +444,31 @@
                                                 </div>
                                                 <div class="col-md-3 demo-section k-content">
                                                     @(Html.Kendo().DropDownList()
-                                                                                                                .Name("GBGeoElectiveTreatement")
-                                                                                                                .BindTo(new List<string>
-                                                                                                                    () {
-                                                                                                                                                                                                                                    ">> Select Region",
-                                                                                                                                                                                                                                    "Worldwide",
-                                                                                                                                                                                                                                    "Specific Country",
-                                                                                                                    })
-                                                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                        .Name("GBGeoElectiveTreatement")
+                                                                                                                        .BindTo(new List<string>
+                                                                                                                            () {
+                                                                                                                                                                                                                                                                                ">> Select Region",
+                                                                                                                                                                                                                                                                                "Worldwide",
+                                                                                                                                                                                                                                                                                "Specific Country",
+                                                                                                                            })
+                                                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                                     )
                                                 </div>
                                                 <div class="col-md-4 demo-section k-content">
                                                     @(Html.Kendo().MultiSelect()
-                                                                                                                .Name("ElectiveAreaCoverage")
-                                                                                                                .AutoClose(false)
-                                                                                                                .Placeholder(">> Select Specific Country...")
-                                                                                                                .BindTo(new List<string>() {
-                                                                                                                                                                                                                                "India",
-                                                                                                                                                                                                                                "Dubai",
-                                                                                                                                                                                                                                "kuwait",
-                                                                                                                                                                                                                                "England",
-                                                                                                                                                                                                                                "Australia",
-                                                                                                                                                                                                                                "America",
-                                                                                                                                                                                                                                "South Africa",
-                                                                                                                                                                                                                                "Brazil",})
-                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                                                                        .Name("ElectiveAreaCoverage")
+                                                                                                                        .AutoClose(false)
+                                                                                                                        .Placeholder(">> Select Specific Country...")
+                                                                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                                                                                                                            "India",
+                                                                                                                                                                                                                                                                            "Dubai",
+                                                                                                                                                                                                                                                                            "kuwait",
+                                                                                                                                                                                                                                                                            "England",
+                                                                                                                                                                                                                                                                            "Australia",
+                                                                                                                                                                                                                                                                            "America",
+                                                                                                                                                                                                                                                                            "South Africa",
+                                                                                                                                                                                                                                                                            "Brazil",})
+                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                                     )
                                                 </div>
                                             </div>
@@ -446,7 +493,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <input id="CriteriaInput" class="form-control" placeholder="Add Criteria" />
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -491,18 +538,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("IPHospitalizationClass")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                    ">> Select",
-                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                    "Limit Per Day",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("IPHospitalizationClass")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                    ">> Select",
+                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                    "Limit Per Day",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPHospitalizationClassLimit" id="IPHospitalizationClassLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="IPHospitalizationClassLimit" id="IPHospitalizationClassLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPHospitalizationClassLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -511,18 +559,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("IPICUCoronaryTreatement")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                    ">> Select",
-                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                    "Limit Per Day",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("IPICUCoronaryTreatement")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                    ">> Select",
+                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                    "Limit Per Day",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPICUCoronaryTreatementLimit" id="IPICUCoronaryTreatementLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="IPICUCoronaryTreatementLimit" id="IPICUCoronaryTreatementLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPICUCoronaryTreatementLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -531,18 +580,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("IPVariousTherapies")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                    ">> Select",
-                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                    "Number of Sessions",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("IPVariousTherapies")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                    ">> Select",
+                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                    "Number of Sessions",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPVariousTherapiesLimit" id="IPVariousTherapiesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="IPVariousTherapiesLimit" id="IPVariousTherapiesLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPVariousTherapiesLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -551,18 +601,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("IPOrganTransplantationServices")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                    ">> Select",
-                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                    "Pool Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("IPOrganTransplantationServices")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                    ">> Select",
+                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                    "Pool Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPOrganTransplantationServicesLimit" id="IPOrganTransplantationServicesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="IPOrganTransplantationServicesLimit" id="IPOrganTransplantationServicesLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPOrganTransplantationServicesLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
 
@@ -572,19 +623,20 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("IPAmbulanceServices")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                    ">> Select",
-                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                    "Limit Per Trip",
-                                                                                                                                                                    "Pool Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("IPAmbulanceServices")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                    ">> Select",
+                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                    "Limit Per Trip",
+                                                                                                                                                                                                    "Pool Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPAmbulanceServicesLimit" id="IPAmbulanceServicesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="IPAmbulanceServicesLimit" id="IPAmbulanceServicesLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPAmbulanceServicesLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -593,18 +645,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("IPCompanionRoomBoardExpenses")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                    ">> Select",
-                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                    "Limit Per Person",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("IPCompanionRoomBoardExpenses")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                    ">> Select",
+                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                    "Limit Per Person",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPCompanionRoomBoardExpensesLimit" id="IPCompanionRoomBoardExpensesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="IPCompanionRoomBoardExpensesLimit" id="IPCompanionRoomBoardExpensesLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPCompanionRoomBoardExpensesLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -612,10 +665,12 @@
                                         <label class="col-sm-12 col-form-label text-left">Hospital Cash Benefits If Inpatient Treatment is Received Free of Charge in a Goverment Hospital (Within OMAN Only)</label>
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
-                                        <input name="IPHospitalCashBenefitsCashPerDay" id="IPHospitalCashBenefitsCashPerDay" class="form-control" placeholder="Enter Per Day Limit" />
+                                        @*<input name="IPHospitalCashBenefitsCashPerDay" id="IPHospitalCashBenefitsCashPerDay" class="form-control" placeholder="Enter Per Day Limit" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPHospitalCashBenefitsCashPerDay").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="IPHospitalCashBenefitsCashTotal" id="IPHospitalCashBenefitsCashTotal" class="form-control" placeholder="Enter Total Limit" />
+                                        @*<input name="IPHospitalCashBenefitsCashTotal" id="IPHospitalCashBenefitsCashTotal" class="form-control" placeholder="Enter Total Limit" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPHospitalCashBenefitsCashTotal").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -623,7 +678,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Repatriation Costs for the treansport of Mortal Remains to the Contry Origin</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        <input name="IPRepatriationCostTraansport" id="IPRepatriationCostTraansport" class="form-control" placeholder="Enter Total Limit" />
+                                        @*<input name="IPRepatriationCostTraansport" id="IPRepatriationCostTraansport" class="form-control" placeholder="Enter Total Limit" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("IPRepatriationCostTraansport").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -632,6 +688,13 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         <textarea id="IPAddBenefits" name="IPAddBenefits" class="form-control" placeholder="Enter Benefits"></textarea>
+                                        @*@(Html.Kendo().TextArea()
+.Name("IPAddBenefits")
+.Placeholder("Enter your text here.")
+.Rows(10)
+.MaxLength(200)
+.HtmlAttributes(new { style = "width: 100%", required = true, data_required_msg = "Please Add benefits.", data_max_msg = "Enter data between 1 and 500" })
+                                        )*@
                                     </div>
                                 </div>
                             </div>
@@ -648,29 +711,29 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPPhysicianConsultationDeductible")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "NIL",
-                                                                                                                                                                                        "Limit Per Person",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPPhysicianConsultationDeductible")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "NIL",
+                                                                                                                                                                                                                        "Limit Per Person",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                                    .Name("OPPhysicianConsultationDeductibleLimit")
-                                                                                    .Placeholder(">> Select Limit ")
-                                                                                    .BindTo(new List<string>() {
-                                                                                                                                                                                    "NIL",
-                                                                                                                                                                                    "1",
-                                                                                                                                                                                    "2",
-                                                                                                                                                                                    "3",
-                                                                                                                                                                                    "4",
-                                                                                                                                                                                    "5",
-                                                                                    })
-                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPPhysicianConsultationDeductibleLimit")
+                                                                                            .Placeholder(">> Select Limit ")
+                                                                                            .BindTo(new List<string>() {
+                                                                                                                                                                                                                    "NIL",
+                                                                                                                                                                                                                    "1",
+                                                                                                                                                                                                                    "2",
+                                                                                                                                                                                                                    "3",
+                                                                                                                                                                                                                    "4",
+                                                                                                                                                                                                                    "5",
+                                                                                            })
+                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -680,28 +743,28 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPDiagnostics")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Per Claim Limit",
-                                                                                                                                                                                        "Co-Pay"
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPDiagnostics")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Per Claim Limit",
+                                                                                                                                                                                                                        "Co-Pay"
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                                    .Name("OPDiagnosticsLimit")
-                                                                                    .Placeholder(">> Enter Value in Percentage (2%) ")
-                                                                                    .BindTo(new List<string>() {
-                                                                                                                                                                                    "5%",
-                                                                                                                                                                                    "10%",
-                                                                                                                                                                                    "15%",
-                                                                                                                                                                                    "20%",
-                                                                                    })
-                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPDiagnosticsLimit")
+                                                                                            .Placeholder(">> Enter Value in Percentage (2%) ")
+                                                                                            .BindTo(new List<string>() {
+                                                                                                                                                                                                                    "5%",
+                                                                                                                                                                                                                    "10%",
+                                                                                                                                                                                                                    "15%",
+                                                                                                                                                                                                                    "20%",
+                                                                                            })
+                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -711,28 +774,28 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPPharmaceuticals")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Per Claim Limit",
-                                                                                                                                                                                        "Co-Pay"
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPPharmaceuticals")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Per Claim Limit",
+                                                                                                                                                                                                                        "Co-Pay"
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                                    .Name("OPPharmaceuticalsLimit")
-                                                                                    .Placeholder(">> Enter Value in Percentage (2%) ")
-                                                                                    .BindTo(new List<string>() {
-                                                                                                                                                                                    "5%",
-                                                                                                                                                                                    "10%",
-                                                                                                                                                                                    "15%",
-                                                                                                                                                                                    "20%",
-                                                                                    })
-                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPPharmaceuticalsLimit")
+                                                                                            .Placeholder(">> Enter Value in Percentage (2%) ")
+                                                                                            .BindTo(new List<string>() {
+                                                                                                                                                                                                                    "5%",
+                                                                                                                                                                                                                    "10%",
+                                                                                                                                                                                                                    "15%",
+                                                                                                                                                                                                                    "20%",
+                                                                                            })
+                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -742,18 +805,20 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPPhysiotheraphy")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "No of Sessions Per Ailment",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPPhysiotheraphy")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "No of Sessions Per Ailment",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input name="OPPhysiotheraphyLimit" id="OPPhysiotheraphyLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input name="OPPhysiotheraphyLimit" id="OPPhysiotheraphyLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPPhysiotheraphyLimit").HtmlAttributes(new { style = "width: 100%" }))
+
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -762,18 +827,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPDaycareTreatment")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPDaycareTreatment")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input id="OPDaycareTreatmentLimit" name="OPDaycareTreatmentLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input id="OPDaycareTreatmentLimit" name="OPDaycareTreatmentLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPDaycareTreatmentLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -782,18 +848,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPOutPatientSurgery")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPOutPatientSurgery")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input id="OPOutPatientSurgeryLimit" name="OPOutPatientSurgeryLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input id="OPOutPatientSurgeryLimit" name="OPOutPatientSurgeryLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPOutPatientSurgeryLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -802,18 +869,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPWorkRelatedInjuries")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPWorkRelatedInjuries")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input id="OPWorkRelatedInjuriesLimit" name="OPWorkRelatedInjuriesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input id="OPWorkRelatedInjuriesLimit" name="OPWorkRelatedInjuriesLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPWorkRelatedInjuriesLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -822,18 +890,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPAccidentalDamageNaturalTeeth")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPAccidentalDamageNaturalTeeth")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input id="OPAccidentalDamageNaturalTeethLimit" name="OPAccidentalDamageNaturalTeethLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input id="OPAccidentalDamageNaturalTeethLimit" name="OPAccidentalDamageNaturalTeethLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPAccidentalDamageNaturalTeethLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -842,18 +911,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPNewBornBabyCoverage")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Limit Per Baby",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPNewBornBabyCoverage")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Limit Per Baby",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input id="OPNewBornBabyCoverageLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input id="OPNewBornBabyCoverageLimit" name="OPNewBornBabyCoverageLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPNewBornBabyCoverageLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -862,18 +932,19 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                    .Name("OPNursingAtHome")
-                                                                                    .BindTo(new List<string>
-                                                                                        () {
-                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                        "Pool Limit",
-                                                                                        })
-                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                            .Name("OPNursingAtHome")
+                                                                                            .BindTo(new List<string>
+                                                                                                () {
+                                                                                                                                                                                                                        ">> Select",
+                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                        "Pool Limit",
+                                                                                                })
+                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        <input id="OPNursingAtHomeLimit" name="OPNursingAtHomeLimit" class="form-control" placeholder="Enter Value" />
+                                        @*<input id="OPNursingAtHomeLimit" name="OPNursingAtHomeLimit" class="form-control" placeholder="Enter Value" />*@
+                                        @(Html.Kendo().NumericTextBox().Name("OPNursingAtHomeLimit").HtmlAttributes(new { style = "width: 100%" }))
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -885,15 +956,15 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().MultiSelect()
-                                                                            .Name("OPAlternativeMedicine")
-                                                                            .AutoClose(false)
-                                                                            .Placeholder(">> Select Alternative Medicine...")
-                                                                            .BindTo(new List<string>() {
-                                                                                                                                "Homeopathy",
-                                                                                                                                "Ayurveda",
-                                                                                                                                "Chiropractic",
-                                                                            })
-                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                                    .Name("OPAlternativeMedicine")
+                                                                                    .AutoClose(false)
+                                                                                    .Placeholder(">> Select Alternative Medicine...")
+                                                                                    .BindTo(new List<string>() {
+                                                                                                                                                                "Homeopathy",
+                                                                                                                                                                "Ayurveda",
+                                                                                                                                                                "Chiropractic",
+                                                                                    })
+                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                         )
                                     </div>
                                 </div>
@@ -903,29 +974,29 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                            .Name("OPAlternativeMedicineCoverage")
-                                                                            .BindTo(new List<string>
-                                                                                () {
-                                                                                                                                    ">> Select",
-                                                                                                                                    "Covered in Full",
-                                                                                                                                    "Pool Limit Per Policy",
-                                                                                                                                    "Per Person Limit",
-                                                                                                                                    "Copay",
-                                                                                })
-                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                    .Name("OPAlternativeMedicineCoverage")
+                                                                                    .BindTo(new List<string>
+                                                                                        () {
+                                                                                                                                                                    ">> Select",
+                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                    "Pool Limit Per Policy",
+                                                                                                                                                                    "Per Person Limit",
+                                                                                                                                                                    "Copay",
+                                                                                        })
+                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                            .Name("OPAlternativeMedicineCoverageLimit")
-                                                                            .Placeholder(">> %age")
-                                                                            .BindTo(new List<string>() {
-                                                                                                                                "5%",
-                                                                                                                                "10%",
-                                                                                                                                "15%",
-                                                                                                                                "20%",
-                                                                            })
-                                                                            .HtmlAttributes(new { style = "width: 100%; font-size: 12px;" })
+                                                                                    .Name("OPAlternativeMedicineCoverageLimit")
+                                                                                    .Placeholder(">> %age")
+                                                                                    .BindTo(new List<string>() {
+                                                                                                                                                                "5%",
+                                                                                                                                                                "10%",
+                                                                                                                                                                "15%",
+                                                                                                                                                                "20%",
+                                                                                    })
+                                                                                    .HtmlAttributes(new { style = "width: 100%; font-size: 12px;" })
                                         )
                                     </div>
                                 </div>
@@ -935,29 +1006,29 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                            .Name("OPAlternativeMedicineDeductible")
-                                                                            .BindTo(new List<string>
-                                                                                () {
-                                                                                                                                    ">> Select",
-                                                                                                                                    "NIL",
-                                                                                                                                    "Limit Per Person",
-                                                                                })
-                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                    .Name("OPAlternativeMedicineDeductible")
+                                                                                    .BindTo(new List<string>
+                                                                                        () {
+                                                                                                                                                                    ">> Select",
+                                                                                                                                                                    "NIL",
+                                                                                                                                                                    "Limit Per Person",
+                                                                                        })
+                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                            .Name("OPAlternativeMedicineDeductibleLimit")
-                                                                            .Placeholder(">> Select Limit ")
-                                                                            .BindTo(new List<string>() {
-                                                                                                                                "NIL",
-                                                                                                                                "1",
-                                                                                                                                "2",
-                                                                                                                                "3",
-                                                                                                                                "4",
-                                                                                                                                "5",
-                                                                            })
-                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                    .Name("OPAlternativeMedicineDeductibleLimit")
+                                                                                    .Placeholder(">> Select Limit ")
+                                                                                    .BindTo(new List<string>() {
+                                                                                                                                                                "NIL",
+                                                                                                                                                                "1",
+                                                                                                                                                                "2",
+                                                                                                                                                                "3",
+                                                                                                                                                                "4",
+                                                                                                                                                                "5",
+                                                                                    })
+                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -967,20 +1038,20 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().MultiSelect()
-                                                                                    .Name("OPFreeAccessOutsideOMAN")
-                                                                                    .AutoClose(false)
-                                                                                    .Placeholder(">> Select Area Coverage...")
-                                                                                    .BindTo(new List<string>() {
-                                                                                                                                        "India",
-                                                                                                                                        "Dubai",
-                                                                                                                                        "kuwait",
-                                                                                                                                        "England",
-                                                                                                                                        "Australia",
-                                                                                                                                        "America",
-                                                                                                                                        "South Africa",
-                                                                                                                                        "Brazil",
-                                                                                    })
-                                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                                            .Name("OPFreeAccessOutsideOMAN")
+                                                                                            .AutoClose(false)
+                                                                                            .Placeholder(">> Select Area Coverage...")
+                                                                                            .BindTo(new List<string>() {
+                                                                                                                                                                        "India",
+                                                                                                                                                                        "Dubai",
+                                                                                                                                                                        "kuwait",
+                                                                                                                                                                        "England",
+                                                                                                                                                                        "Australia",
+                                                                                                                                                                        "America",
+                                                                                                                                                                        "South Africa",
+                                                                                                                                                                        "Brazil",
+                                                                                            })
+                                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                         )
                                     </div>
                                 </div>
@@ -998,28 +1069,28 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                    .Name("EBFreeAccessTPANetwork")
-                                                                    .BindTo(new List<string>
-                                                                        () {
-                                                                                                    ">> Select",
-                                                                                                    "Covered in Full",
-                                                                                                    "Limited Access",
-                                                                        })
-                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                            .Name("EBFreeAccessTPANetwork")
+                                                                            .BindTo(new List<string>
+                                                                                () {
+                                                                                                                                    ">> Select",
+                                                                                                                                    "Covered in Full",
+                                                                                                                                    "Limited Access",
+                                                                                })
+                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                    .Name("EBFreeAccessTPANetworkLimit")
-                                                                    .BindTo(new List<string>
-                                                                        () {
-                                                                                                    ">> Select",
-                                                                                                    "Hospital",
-                                                                                                    "Clinic",
-                                                                                                    "Pharmacy",
-                                                                                                    "Diagnostic Center",
-                                                                        })
-                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                            .Name("EBFreeAccessTPANetworkLimit")
+                                                                            .BindTo(new List<string>
+                                                                                () {
+                                                                                                                                    ">> Select",
+                                                                                                                                    "Hospital",
+                                                                                                                                    "Clinic",
+                                                                                                                                    "Pharmacy",
+                                                                                                                                    "Diagnostic Center",
+                                                                                })
+                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
 
@@ -1031,32 +1102,32 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                    .Name("EBReimbursementNonNetworkMedicalProviders")
-                                                                    .BindTo(new List<string>
-                                                                        () {
-                                                                                                    ">> Select",
-                                                                                                    "Within the Resident Country",
-                                                                                                    "Outside Resident Country",
-                                                                        })
-                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                            .Name("EBReimbursementNonNetworkMedicalProviders")
+                                                                            .BindTo(new List<string>
+                                                                                () {
+                                                                                                                                    ">> Select",
+                                                                                                                                    "Within the Resident Country",
+                                                                                                                                    "Outside Resident Country",
+                                                                                })
+                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().MultiSelect()
-                                                                    .Name("EBReimbursementNonNetworkMedicalProvidersLimit")
-                                                                    .AutoClose(false)
-                                                                    .Placeholder(">> Select Area Coverage...")
-                                                                    .BindTo(new List<string>() {
-                                                                                                "India",
-                                                                                                "Dubai",
-                                                                                                "kuwait",
-                                                                                                "England",
-                                                                                                "Australia",
-                                                                                                "America",
-                                                                                                "South Africa",
-                                                                                                "Brazil",
-                                                                    })
-                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                            .Name("EBReimbursementNonNetworkMedicalProvidersLimit")
+                                                                            .AutoClose(false)
+                                                                            .Placeholder(">> Select Area Coverage...")
+                                                                            .BindTo(new List<string>() {
+                                                                                                                                "India",
+                                                                                                                                "Dubai",
+                                                                                                                                "kuwait",
+                                                                                                                                "England",
+                                                                                                                                "Australia",
+                                                                                                                                "America",
+                                                                                                                                "South Africa",
+                                                                                                                                "Brazil",
+                                                                            })
+                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                         )
                                     </div>
                                 </div>
@@ -1066,26 +1137,26 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                    .Name("EBEmergencyTreatment")
-                                                                    .BindTo(new List<string>
-                                                                        () {
-                                                                                                    ">> Select",
-                                                                                                    "Worldwide",
-                                                                                                    "Within Territorial Limit",
-                                                                        })
-                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                            .Name("EBEmergencyTreatment")
+                                                                            .BindTo(new List<string>
+                                                                                () {
+                                                                                                                                    ">> Select",
+                                                                                                                                    "Worldwide",
+                                                                                                                                    "Within Territorial Limit",
+                                                                                })
+                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                    .Name("EBEmergencyTreatmentLimit")
-                                                                    .BindTo(new List<string>
-                                                                        () {
-                                                                                                    ">> Select",
-                                                                                                    "Free Access",
-                                                                                                    "Reimbursment",
-                                                                        })
-                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                            .Name("EBEmergencyTreatmentLimit")
+                                                                            .BindTo(new List<string>
+                                                                                () {
+                                                                                                                                    ">> Select",
+                                                                                                                                    "Free Access",
+                                                                                                                                    "Reimbursment",
+                                                                                })
+                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                 </div>
@@ -1095,20 +1166,20 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().MultiSelect()
-                                                                    .Name("EBEmergencyTreatmentCountry")
-                                                                    .AutoClose(false)
-                                                                    .Placeholder(">> Select Area Coverage...")
-                                                                    .BindTo(new List<string>() {
-                                                                                                "India",
-                                                                                                "Dubai",
-                                                                                                "kuwait",
-                                                                                                "England",
-                                                                                                "Australia",
-                                                                                                "America",
-                                                                                                "South Africa",
-                                                                                                "Brazil",
-                                                                    })
-                                                                    .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
+                                                                            .Name("EBEmergencyTreatmentCountry")
+                                                                            .AutoClose(false)
+                                                                            .Placeholder(">> Select Area Coverage...")
+                                                                            .BindTo(new List<string>() {
+                                                                                                                                "India",
+                                                                                                                                "Dubai",
+                                                                                                                                "kuwait",
+                                                                                                                                "England",
+                                                                                                                                "Australia",
+                                                                                                                                "America",
+                                                                                                                                "South Africa",
+                                                                                                                                "Brazil",
+                                                                            })
+                                                                            .HtmlAttributes(new { style = "width: 100%;font-size: 14px;" })
                                         )
                                     </div>
                                 </div>
@@ -1125,13 +1196,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Enter Benefits</label>
-                                            <input type="text" name="ABBenefits" id="ABBenefits" class="form-control" />
+                                            @*<input type="text" name="ABBenefits" id="ABBenefits" class="form-control" />*@
+                                            @(Html.Kendo().TextBox().Name("ABBenefits").HtmlAttributes(new { style = "width: 100%" }))
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Enter Description</label>
-                                            <input type="text" id="ABDescription" name="ABDescription" class="form-control" />
+                                            @*<input type="text" id="ABDescription" name="ABDescription" class="form-control" />*@
+                                            @(Html.Kendo().TextBox().Name("ABDescription").HtmlAttributes(new { style = "width: 100%" }))
                                         </div>
                                     </div>
                                 </div>
@@ -1198,6 +1271,7 @@
             bodyTag: "section",
             transitionEffect: "none",
             titleTemplate: '#title#',
+
             labels: {
                 finish: "Submit"
             },
@@ -1233,6 +1307,47 @@
 
 
             }
+
         });
+    }
+    function CalcTotalPremium() {
+        var Premium = parseFloat($("input[name='GBPremium']").val());
+        var InsuranceLevy = parseFloat($("input[name='GBInsuranceLevy']").val());
+        var GBPolicyFee = parseFloat($("input[name='GBPolicyFee']").val());
+        var GBTotalPremium = Premium + InsuranceLevy + GBPolicyFee;
+
+        $("input[name='GBTotalPremium']").val(GBTotalPremium);
+
+        //var perc = 0;
+        ////var RSA = parseInt($('#txtRevisedSumInsured').val());
+        //if (isNaN(Premium)) {
+        //    alert('Please provide value in Number');
+        //} else {
+        //    perc = ((parseFloat(Premium) / 100) * 0.55).toFixed(2);
+        //}
+        //var total = parseFloat(Premium) + parseFloat(perc);
+        ////$('#txtRenewalSumAssured').val(total);
+        //$("input[name='InsuranceLevy']").val(perc);;
+    }
+    function CalcRenewalAdmin() {
+        //Premium
+        //InsuranceLevy
+        //GBPolicyFee
+        //GBTotalPremium
+
+        var Premium = $("input[name='GBPremium']").val();
+
+        // $("input[name='username']").val("Enter Name!");
+
+        var perc = 0;
+        //var RSA = parseInt($('#txtRevisedSumInsured').val());
+        if (isNaN(Premium)) {
+            alert('Please provide value in Number');
+        } else {
+            perc = ((parseFloat(Premium) / 100) * 0.55).toFixed(2);
+        }
+        var total = parseFloat(Premium) + parseFloat(perc);
+        //$('#txtRenewalSumAssured').val(total);
+        $("input[name='GBInsuranceLevy']").val(perc);
     }
 </script>

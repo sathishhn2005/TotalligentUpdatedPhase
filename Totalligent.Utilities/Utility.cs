@@ -95,6 +95,12 @@ namespace Totalligent.Utilities
                 _dt.Columns.Add("GBGeoThreateningEmergencyTreatment", typeof(string));
                 _dt.Columns.Add("GBGeoElectiveTreatement", typeof(string));
                 _dt.Columns.Add("GBGeoOutsideResidentCountry", typeof(string));
+
+                _dt.Columns.Add("GBPremium", typeof(decimal));
+                _dt.Columns.Add("GBInsuranceLevy", typeof(decimal));
+                _dt.Columns.Add("GBPolicyFee", typeof(decimal));
+                _dt.Columns.Add("GBTotalPremium", typeof(decimal));
+
                 _dt.Columns.Add("IPHospitalizationClass", typeof(string));
                 _dt.Columns.Add("IPHospitalizationClassLimit", typeof(decimal));
                 _dt.Columns.Add("IPICUCoronaryTreatement", typeof(string));
@@ -172,6 +178,12 @@ namespace Totalligent.Utilities
                 _dr["GBGeoThreateningEmergencyTreatment"] = _objQuotation.GBGeoThreateningEmergencyTreatment ?? "";
                 _dr["GBGeoElectiveTreatement"] = _objQuotation.GBGeoElectiveTreatement ?? "";
                 _dr["GBGeoOutsideResidentCountry"] = _objQuotation.GBGeoOutsideResidentCountry ?? "";
+
+                _dr["GBTotalPremium"] = _objQuotation.GBTotalPremium.Equals(null) ? 0 : _objQuotation.GBTotalPremium;
+                _dr["GBPolicyFee"] = _objQuotation.GBPolicyFee.Equals(null) ? 0 : _objQuotation.GBPolicyFee;
+                _dr["GBInsuranceLevy"] = _objQuotation.GBInsuranceLevy.Equals(null) ? 0 : _objQuotation.GBInsuranceLevy;
+                _dr["GBPremium"] = _objQuotation.GBPremium.Equals(null) ? 0 : _objQuotation.GBPremium;
+
                 _dr["IPHospitalizationClass"] = _objQuotation.IPHospitalizationClass ?? "";
                 _dr["IPHospitalizationClassLimit"] = _objQuotation.IPHospitalizationClassLimit.Equals(null) ? 0 : _objQuotation.IPHospitalizationClassLimit;
                 _dr["IPICUCoronaryTreatement"] = _objQuotation.IPICUCoronaryTreatement ?? "";

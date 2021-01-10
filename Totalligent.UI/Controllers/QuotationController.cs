@@ -95,10 +95,12 @@ namespace Totalligent.UI.Controllers
         {
             long returnCode = -1;
             string draftNo = string.Empty;
+            long QuotationId = collection.QuotationId;
+            
             try
             {
                // string str = collection["annualbenefit"].ToString();
-                returnCode = objBALTot.CreateQuotation(collection, out draftNo);
+                returnCode = objBALTot.CreateQuotation(collection,QuotationId, out draftNo);
                 // TODO: Add insert logic here
 
             }

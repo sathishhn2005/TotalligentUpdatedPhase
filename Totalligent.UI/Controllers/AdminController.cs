@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Totalligent.BAL;
 using Totalligent.UI.Models;
 using Totalligent.BusinessEntities;
+using Newtonsoft.Json;
 
 namespace Totalligent.UI.Controllers
 {
@@ -227,6 +228,46 @@ namespace Totalligent.UI.Controllers
                 throw ex;
             }
             return View(obj);
+
+        }
+        [HttpGet]
+        public JsonResult GetRevenueByYear()
+        {
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            try
+            {
+                // List<DashBoard> lst = new List<DashBoard>();
+                //y = dr["MonthName"].ToString(),
+                //                   a = (decimal)dr["TotalPremiumEarned"],
+                //                   b = (decimal)dr["TotalPremiumRejected"],
+                //                   c = (decimal)dr["TotalPremiumPending"],
+                
+                dataPoints = objBALTot.GetBarChartUnderWriter(1, "sathish");
+                decimal? TotalPremiumEarned = dataPoints.Sum(item => item.a);
+                decimal? TotalPremiumRejected = dataPoints.Sum(item => item.b);
+                decimal? TotalPremiumPending = dataPoints.Sum(item => item.c);
+
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+                //if (!returnCode.Equals(1))
+                //{
+
+                //    //  return dataPoints;
+                //    return Json(new
+                //    {
+                //        list = dataPoints
+                //    }, JsonRequestBehavior.AllowGet);
+                //}
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
+            return Json(new
+            {
+                list = dataPoints
+            }, JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult ClientDashboard()

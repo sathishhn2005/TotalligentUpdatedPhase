@@ -40,6 +40,12 @@ namespace Totalligent.BusinessEntities
         public string GBIsPerClaimLimitIP { get; set; }
 
         public decimal? GBPerClaimLimitIP { get; set; }
+        
+
+        public decimal? GBTotalPremium { get; set; }
+        public decimal? GBPolicyFee { get; set; }
+        public decimal? GBInsuranceLevy { get; set; }
+        public decimal? GBPremium { get; set; }
 
         public string GBIsPerClaimLimitOP { get; set; }
 

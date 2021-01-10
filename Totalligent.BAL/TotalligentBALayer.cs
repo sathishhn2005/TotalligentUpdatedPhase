@@ -318,14 +318,14 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
-        public long CreateQuotation(Quotation objPM,out string draftNo)
+        public long CreateQuotation(Quotation objPM,long QuotationId, out string draftNo)
         {
             long returnCode = -1;
             using (TransactionScope transactionScope = new TransactionScope())
             {
                 try
                 {
-                    returnCode = objTotalligentDAL.CreateQuotation(objPM, out draftNo);
+                    returnCode = objTotalligentDAL.CreateQuotation(objPM, QuotationId, out draftNo);
                     transactionScope.Complete();
                     transactionScope.Dispose();
                 }
@@ -374,6 +374,29 @@ namespace Totalligent.BAL
                 }
             }
             return returnCode;
+        }
+        public List<DataPoint> GetBarChartUnderWriter(int flag, string uname)
+        {
+
+            List<DataPoint> lst = new List<DataPoint>();
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    lst = objTotalligentDAL.GetDBBarchartUW(flag, uname);
+
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    //  throw ex;
+                }
+
+                return lst;
+            }
         }
     }
 }

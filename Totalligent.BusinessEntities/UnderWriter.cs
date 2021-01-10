@@ -22,6 +22,9 @@ namespace Totalligent.BusinessEntities
         public int TotPolforRenewalCM { get; set; }
 
         public int NoOfPoRenewedCM { get; set; }
+        public decimal TotalPremiumEarned { get; set; }
+        public decimal TotalPremiumRejected { get; set; }
+        public decimal TotalPremiumPending { get; set; }
 
         public int PolicyLostCM { get; set; }
         public long RoleId { get; set; }

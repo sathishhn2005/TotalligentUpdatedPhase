@@ -687,7 +687,7 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long CreateQuotation(Quotation obj, out string draftNo)
+        public long CreateQuotation(Quotation obj,long QuotationId, out string draftNo)
         {
             long returnCode = -1;
             SqlDataReader reader;
@@ -715,6 +715,8 @@ namespace Totalligent.DAL
                             Size = -1,
                             Value = dt
                         };
+                        cmd.Parameters.AddWithValue("@QuotationId", QuotationId);
+                        cmd.Parameters.AddWithValue("@UserName", "Admin");
                         cmd.Parameters.Add(UDTparam);
                         reader = cmd.ExecuteReader();
                         while (reader.Read())
@@ -777,6 +779,16 @@ namespace Totalligent.DAL
                     {
                         DTtoListConverter.ConvertTo(ds.Tables[1], out lst);
                         lstInfo.lstQuotation = lst;
+                    }
+                    if (ds.Tables[2].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[2].Rows)
+                        {
+                            lstInfo.TotalPremiumEarned = Convert.ToInt64(dr["TotalPremiumEarned"]);
+                            lstInfo.TotalPremiumRejected = Convert.ToInt64(dr["TotalPremiumRejected"]);
+                            lstInfo.TotalPremiumPending = Convert.ToInt64(dr["TotalPremiumPending"]);
+                        }
+
                     }
                     //while (reader.Read())
                     //{
@@ -930,6 +942,10 @@ namespace Totalligent.DAL
                             lstInfo.ABDescription = Convert.ToString(dr["ABDescription"]);
                             lstInfo.ABExclusions = Convert.ToString(dr["ABExclusions"]);
                             lstInfo.PolicyNo = Convert.ToString(dr["PolicyNo"]);
+                            lstInfo.GBTotalPremium = Convert.ToDecimal(dr["GBTotalPremium"]);
+                            lstInfo.GBPolicyFee = Convert.ToDecimal(dr["GBPolicyFee"]);
+                            lstInfo.GBInsuranceLevy = Convert.ToDecimal(dr["GBInsuranceLevy"]);
+                            lstInfo.GBPremium = Convert.ToDecimal(dr["GBPremium"]);
 
                         }
                     }
@@ -942,6 +958,53 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return returnCode;
+        }
+        public List<DataPoint> GetDBBarchartUW(int flag, string uname)
+        {
+            List<DataPoint> lst = new List<DataPoint>();
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "GetBarChartUW"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    //cmd.Parameters.AddWithValue("@flag", flag);
+                    cmd.Parameters.AddWithValue("@UserName", uname);
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(ds);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lst = (from DataRow dr in ds.Tables[0].Rows
+                               select new DataPoint()
+                               {
+
+                                   y = dr["MonthName"].ToString(),
+                                   a = (decimal)dr["TotalPremiumEarned"],
+                                   b = (decimal)dr["TotalPremiumRejected"],
+                                   c = (decimal)dr["TotalPremiumPending"],
+
+                               }).ToList();
+                    }
+                    cmd.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lst;
         }
     }
 }
