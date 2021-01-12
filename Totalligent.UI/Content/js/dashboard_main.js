@@ -70,7 +70,9 @@ $(function () {
 	var chart = new ApexCharts(
 		document.querySelector("#uni-earning"),
 		options
-	);
+    );
+    var UnderWriterResultTPE = [];
+    var UnderWriterResultTPL = [];
 	chart.render();
     $.ajax({
         type: "GET",
@@ -81,75 +83,88 @@ $(function () {
         success: function (Result) {
             
             chartData = Result.list;
-            var options = {
-                chart: {
-                    height: 470,
-                    type: 'bar',
-                    stacked: true,
-                    shadow: {
-                        enabled: true,
-                        color: '#000',
-                        top: 18,
-                        left: 7,
-                        blur: 10,
-                        opacity: 1
-                    },
-                    toolbar: {
-                        show: false
-                    }
-                },
-                colors: ['#ee1044', '#38649f'],
-                dataLabels: {
-                    enabled: true,
-                },
-                stroke: {
-                    curve: 'smooth'
-                },
-                //series: [{
-                //    name: "Total Premium Earned",
-                //    data: [25000, 35224, 56445, 10021, 11455, 23225, 41541]
-                //},
-                //{
-                //    name: "Total Premium Lost",
-                //    data: [12213, 13241, 13424, 18455, 17333, 33433, 13443]
-                //}
-                //],
-                series: chartData,
-                grid: {
-                    borderColor: '#e7e7e7',
-                    row: {
-                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                        opacity: 0.5
-                    },
-                },
-                markers: {
+            
+            jQuery.each(chartData, function (key, value) {
 
-                    size: 4
-                },
-                xaxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                    title: {
-                        text: 'Month'
-                    }
-                },
-                yaxis: {
-                    title: {
-                        text: 'Amount'
-                    },
-                },
-                legend: {
-                    position: 'top',
-                    horizontalAlign: 'right',
-                    floating: true,
-                }
-            }
+                UnderWriterResultTPE.push(value.a);
+               // console.log(UnderWriterResult);
+                //write some code here to build the table? I'm just guessing
+            });
+            jQuery.each(chartData, function (key, value) {
+
+                UnderWriterResultTPL.push(value.b);
+             //   console.log(UnderWriterResult);
+                //write some code here to build the table? I'm just guessing
+            });
 
         },
         error: function (Result) {
             alert("Error");
         }
     });
-	
+    var options = {
+        chart: {
+            height: 470,
+            type: 'bar',
+            stacked: true,
+            shadow: {
+                enabled: true,
+                color: '#000',
+                top: 18,
+                left: 7,
+                blur: 10,
+                opacity: 1
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        colors: ['#ee1044', '#38649f'],
+        dataLabels: {
+            enabled: true,
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+      
+        series: [{
+            name: "Total Premium Earned",
+            data: UnderWriterResultTPE
+        },
+        {
+            name: "Total Premium Lost",
+            data: UnderWriterResultTPL
+        }
+        ],
+       // series: chartData,
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+        },
+        markers: {
+
+            size: 4
+        },
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            title: {
+                text: 'Month'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Amount'
+            },
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'right',
+            floating: true,
+        }
+    }
 	var chart = new ApexCharts(
 		document.querySelector("#uni-attendance"),
 		options

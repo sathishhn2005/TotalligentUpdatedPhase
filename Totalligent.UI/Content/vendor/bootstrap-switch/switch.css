@@ -294,11 +294,11 @@
   transition: opacity .25s;
 }
 .btn-toggle.btn-xs:before {
-  content: 'Off';
+  content: 'No';
   left: 0;
 }
 .btn-toggle.btn-xs:after {
-  content: 'On';
+  content: 'Yes';
   right: 0;
   opacity: .5;
 }

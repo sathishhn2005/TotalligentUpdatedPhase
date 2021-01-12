@@ -1257,6 +1257,8 @@
     <Content Include="Content\vendor\jquery-toast-plugin-master\dist\jquery.toast.min.js" />
     <Content Include="Content\vendor\jquery-toast-plugin-master\src\jquery.toast.css" />
     <Content Include="Content\vendor\jquery-toast-plugin-master\src\jquery.toast.js" />
+    <Content Include="Content\vendor\kendo\js\kendo.all.min.js" />
+    <Content Include="Content\vendor\kendo\js\kendo.aspnetmvc.min.js" />
     <Content Include="Content\vendor\moment\locale\af.js" />
     <Content Include="Content\vendor\moment\locale\ar-dz.js" />
     <Content Include="Content\vendor\moment\locale\ar-kw.js" />

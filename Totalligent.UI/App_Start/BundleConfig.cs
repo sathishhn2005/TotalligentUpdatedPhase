@@ -22,6 +22,10 @@ namespace Totalligent.UI
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/Content/kendo/script").Include(
+                "~/Content/vendor/kendo/js/kendo.all.min.js",
+                "~/Content/vendor/kendo/js/kendo.aspnetmvc.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
