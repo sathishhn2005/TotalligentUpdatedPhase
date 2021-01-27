@@ -1,5 +1,5 @@
-﻿@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");
-< div class="row">
+﻿@*@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");*@
+<div class="row">
     <div class="col-md-12">
         <!-- Step wizard -->
         <div class="box box-default">
@@ -11,12 +11,11 @@
                     <section>
                         <div class="row">
                             <div class="hide">
+
                                 @if (Model != null)
-{
-                                    @(Html.Kendo().Editor()
+                                {@(Html.Kendo().Editor()
                                                             .Name("QuotationId")
-                                                            .HtmlAttributes(new { style = "width: 100%; height:840px", aria_label = "editor" }))
-                                }
+                                                            .HtmlAttributes(new { style = "width: 100%; height:840px", aria_label = "editor" }))}
                             </div>
                             <div class="col-md-10 m-b-15 m-t-15 offset-md-1">
                                 <div class="row m-b-15 m-t-15">
@@ -64,21 +63,26 @@
                                                                                                                             .Name("CIProducerType")
                                                                                                                             .BindTo(new List<SelectListItem>()
                                                                                                                             {
-                                                                                                                                                                                                                                                                                                                                new SelectListItem() {
-                                                                                                                                                                                                                                                                                                                                    Text = "Direct", Value = "1"
-                                                                                                                                                                                                                                                                                                                                },
-                                                                                                                                                                                                                                                                                                                                new SelectListItem() {
-                                                                                                                                                                                                                                                                                                                                    Text = "Broker", Value = "2"
-                                                                                                                                                                                                                                                                                                                                },
-                                                                                                                                                                                                                                                                                                                                new SelectListItem() {
-                                                                                                                                                                                                                                                                                                                                    Text = "Agent", Value = "3"
-                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                  new SelectListItem() {
+      Text = "Agent", Value = "Agent"
+ },
+ new SelectListItem() {
+     Text = "Broker", Value = "Broker"
+ },
+ new SelectListItem() {
+     Text = "Branches", Value = "Branches"
+ }
+ ,
+ new SelectListItem() {
+     Text = "DirectSales", Value = "DirectSales"
+ }
+
                                                                                                                             })
                                                                                                                             .Enable(true)
                                                                                                                             .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                                                                                                             .Events(e =>
                                                                                                                             {
-                                                                                                                                e.Select("onProviderNameSelect");
+                                                                                                                                e.Change("GetProducers");
                                                                                                                             })
                                         )
                                     </div>
@@ -91,21 +95,10 @@
                                         @(Html.Kendo().ComboBox()
                                                                                                                                 .Name("CIProducerName")
                                                                                                                                 .Placeholder(">> Select Producer Name ")
-                                                                                                                                .BindTo(new List<SelectListItem>()
-                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                    new SelectListItem() {
-                                                                                                                                                                                                                                                                                                                                        Text = "OSI Broker", Value = "1"
-                                                                                                                                                                                                                                                                                                                                    },
-                                                                                                                                                                                                                                                                                                                                    new SelectListItem() {
-                                                                                                                                                                                                                                                                                                                                        Text = "TTK Broker", Value = "2"
-                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                })
-                                                                                                                                .Enable(true)
+
+
                                                                                                                                 .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                                                                                .Events(e =>
-                                                                                                                                {
-                                                                                                                                    e.Select("onBrokerNameSelect");
-                                                                                                                                })
+
                                         )
                                     </div>
                                 </div>
@@ -290,14 +283,14 @@
                                                     <label class="col-sm-12 col-form-label text-left">Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @*<input class="form-control" onchange="CalcRenewalAdmin()" name="GBPremium" id="GBPremium" />*@
-                                                    @(Html.Kendo().NumericTextBox()
-.Name("GBPremium")
-.Events(e => e
-.Change("CalcRenewalAdmin()"))
-.HtmlAttributes(new { style = "width: 100%" })
-                                                    )
-
+                                                    <input class="form-control w-full" onchange="CalcRenewalAdmin()" name="GBPremium" id="GBPremium" />
+                                                    @*@(Html.Kendo().NumericTextBox()
+                                                        .Name("GBPremium")
+                                                        .Events(e => e
+                                                            .Change("CalcRenewalAdmin")
+                                                        )
+                                                        .HtmlAttributes(new { style = "width: 100%" })
+                                                        )*@
 
                                                 </div>
 
@@ -307,12 +300,12 @@
                                                     <label class="col-sm-12 col-form-label text-left">Insurance levy @@0.55%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @*<input class="form-control" readonly name="GBInsuranceLevy" id="GBInsuranceLevy" />*@
+                                                    <input class="form-control w-full" readonly name="GBInsuranceLevy" id="GBInsuranceLevy" />
 
-                                                    @(Html.Kendo().TextBox()
-.Name("GBInsuranceLevy")
-.HtmlAttributes(new { @readonly = "readonly", style = "width: 100%" })
-                                                    )
+                                                    @*@(Html.Kendo().TextBox()
+                                                        .Name("GBInsuranceLevy")
+                                                        .HtmlAttributes(new { @readonly = "readonly", style = "width: 100%" })
+                                                                                                            )*@
 
                                                 </div>
                                             </div>
@@ -322,13 +315,13 @@
                                                 </div>
 
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @*<input class="form-control" onchange="CalcTotalPremium()" name="GBPolicyFee" id="GBPolicyFee" />*@
-                                                    @(Html.Kendo().NumericTextBox()
-.Name("GBPolicyFee")
-.Events(e => e
-.Change("CalcTotalPremium()"))
-.HtmlAttributes(new { style = "width: 100%" })
-                                                    )
+                                                    <input class="form-control w-full" onchange="CalcTotalPremium()" name="GBPolicyFee" id="GBPolicyFee" />
+                                                    @*@(Html.Kendo().NumericTextBox()
+                                                        .Name("GBPolicyFee")
+                                                        .Events(e => e
+                                                        .Change("CalcTotalPremium"))
+                                                        .HtmlAttributes(new { style = "width: 100%" })
+                                                                                                            )*@
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -336,12 +329,12 @@
                                                     <label class="col-sm-12 col-form-label text-left">Total Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @*<input class="form-control" readonly name="GBTotalPremium" id="GBTotalPremium" />*@
+                                                    <input class="form-control w-full" readonly name="GBTotalPremium" id="GBTotalPremium" />
 
-                                                    @(Html.Kendo().TextBox()
-.Name("GBTotalPremium")
-.HtmlAttributes(new { @readonly = "readonly", style = "width: 100%" })
-                                                    )
+                                                    @*@(Html.Kendo().TextBox()
+                                                        .Name("GBTotalPremium")
+                                                        .HtmlAttributes(new { @readonly = "readonly", style = "width: 100%" })
+                                                                                                            )*@
 
                                                 </div>
                                             </div>
@@ -358,11 +351,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5 demo-section k-content">
-                                                    @*<input class="form-control" name="GBPerClaimLimitIP" placeholder="Enter Claim Limit for In-Patient" />*@
-                                                    @(Html.Kendo().NumericTextBox()
-.Name("GBPerClaimLimitIP")
-.HtmlAttributes(new { style = "width: 100%" })
-                                                    )
+                                                    <input class="form-control w-full" id="GBPerClaimLimitIP" name="GBPerClaimLimitIP" placeholder="Enter Claim Limit for In-Patient" />
+                                                    @*@(Html.Kendo().NumericTextBox()
+                                                        .Name("GBPerClaimLimitIP")
+                                                        .HtmlAttributes(new { style = "width: 100%" })
+                                                                                                            )*@
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -375,11 +368,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-md-5 demo-section k-content">
-                                                    @*<input class="form-control" name="GBPerClaimLimitOP" placeholder="Enter Claim Limit for Out-Patient" />*@
-                                                    @(Html.Kendo().NumericTextBox()
-.Name("GBPerClaimLimitOP")
-.HtmlAttributes(new { style = "width: 100%" })
-                                                    )
+                                                    <input class="form-control w-full" id="GBPerClaimLimitOP" name="GBPerClaimLimitOP" placeholder="Enter Claim Limit for Out-Patient" />
+                                                    @*@(Html.Kendo().NumericTextBox()
+                                                        .Name("GBPerClaimLimitOP")
+                                                        .HtmlAttributes(new { style = "width: 100%" })
+                                                                                                            )*@
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -397,11 +390,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5 demo-section k-content">
-                                                    @*<input id="ChronicLimitInput" class="form-control" name="GBPreExisting_ChronicLimit" placeholder="Enter Chronic Limit" />*@
-                                                    @(Html.Kendo().NumericTextBox()
-.Name("GBPreExisting_ChronicLimit")
-.HtmlAttributes(new { style = "width: 100%" })
-                                                    )
+                                                    <input id="GBPreExisting_ChronicLimit" class="form-control w-full" name="GBPreExisting_ChronicLimit" placeholder="Enter Chronic Limit" />
+                                                    @*@(Html.Kendo().NumericTextBox()
+                                                        .Name("GBPreExisting_ChronicLimit")
+                                                        .HtmlAttributes(new { style = "width: 100%" })
+                                                                                                            )*@
                                                 </div>
                                             </div>
 
@@ -540,19 +533,29 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                                                    .Name("IPHospitalizationClass")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                    ">> Select",
-                                                                                                                                                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                                                                                                                                                    "Limit Per Day",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                        .Name("IPHospitalizationClass")
+                                        .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "IPHospitalizationClassLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "IPHospitalizationClassLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPHospitalizationClassLimit" id="IPHospitalizationClassLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPHospitalizationClassLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPHospitalizationClassLimit" id="IPHospitalizationClassLimit" class="form-control w-full" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPHospitalizationClassLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -561,19 +564,29 @@
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                                                    .Name("IPICUCoronaryTreatement")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                    ">> Select",
-                                                                                                                                                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                                                                                                                                                    "Limit Per Day",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                         .Name("IPICUCoronaryTreatement")
+                                         .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "IPICUCoronaryTreatementLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "IPICUCoronaryTreatementLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPICUCoronaryTreatementLimit" id="IPICUCoronaryTreatementLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPICUCoronaryTreatementLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPICUCoronaryTreatementLimit" id="IPICUCoronaryTreatementLimit" class="form-control w-full" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPICUCoronaryTreatementLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -583,18 +596,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("IPVariousTherapies")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                    ">> Select",
-                                                                                                                                                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                                                                                                                                                    "Number of Sessions",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                            .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "IPVariousTherapiesLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "IPVariousTherapiesLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPVariousTherapiesLimit" id="IPVariousTherapiesLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPVariousTherapiesLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPVariousTherapiesLimit" id="IPVariousTherapiesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPVariousTherapiesLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -604,18 +627,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("IPOrganTransplantationServices")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                    ">> Select",
-                                                                                                                                                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                                                                                                                                                    "Pool Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                   .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "IPOrganTransplantationServicesLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "IPOrganTransplantationServicesLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPOrganTransplantationServicesLimit" id="IPOrganTransplantationServicesLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPOrganTransplantationServicesLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPOrganTransplantationServicesLimit" id="IPOrganTransplantationServicesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPOrganTransplantationServicesLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
 
@@ -626,19 +659,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("IPAmbulanceServices")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                    ">> Select",
-                                                                                                                                                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                                                                                                                                                    "Limit Per Trip",
-                                                                                                                                                                                                                                                                                                    "Pool Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                   .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "IPAmbulanceServicesLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "IPAmbulanceServicesLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPAmbulanceServicesLimit" id="IPAmbulanceServicesLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPAmbulanceServicesLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPAmbulanceServicesLimit" id="IPAmbulanceServicesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPAmbulanceServicesLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -648,18 +690,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("IPCompanionRoomBoardExpenses")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                    ">> Select",
-                                                                                                                                                                                                                                                                                                    "Covered in Full",
-                                                                                                                                                                                                                                                                                                    "Limit Per Person",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                     .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "IPCompanionRoomBoardExpensesLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "IPCompanionRoomBoardExpensesLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPCompanionRoomBoardExpensesLimit" id="IPCompanionRoomBoardExpensesLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPCompanionRoomBoardExpensesLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPCompanionRoomBoardExpensesLimit" id="IPCompanionRoomBoardExpensesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPCompanionRoomBoardExpensesLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -667,12 +719,12 @@
                                         <label class="col-sm-12 col-form-label text-left">Hospital Cash Benefits If Inpatient Treatment is Received Free of Charge in a Goverment Hospital (Within OMAN Only)</label>
                                     </div>
                                     <div class="col-md-3 demo-section k-content">
-                                        @*<input name="IPHospitalCashBenefitsCashPerDay" id="IPHospitalCashBenefitsCashPerDay" class="form-control" placeholder="Enter Per Day Limit" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPHospitalCashBenefitsCashPerDay").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPHospitalCashBenefitsCashPerDay" id="IPHospitalCashBenefitsCashPerDay" class="form-control" placeholder="Enter Per Day Limit" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPHospitalCashBenefitsCashPerDay").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="IPHospitalCashBenefitsCashTotal" id="IPHospitalCashBenefitsCashTotal" class="form-control" placeholder="Enter Total Limit" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPHospitalCashBenefitsCashTotal").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPHospitalCashBenefitsCashTotal" id="IPHospitalCashBenefitsCashTotal" class="form-control" placeholder="Enter Total Limit" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPHospitalCashBenefitsCashTotal").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -680,8 +732,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Repatriation Costs for the treansport of Mortal Remains to the Contry Origin</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @*<input name="IPRepatriationCostTraansport" id="IPRepatriationCostTraansport" class="form-control" placeholder="Enter Total Limit" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("IPRepatriationCostTraansport").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="IPRepatriationCostTraansport" id="IPRepatriationCostTraansport" class="form-control" placeholder="Enter Total Limit" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("IPRepatriationCostTraansport").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -749,7 +801,7 @@
                                                                                                                     .BindTo(new List<string>
                                                                                                                         () {
                                                                                                                                                                                                                                                                                                                         ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                         "Per Claim Limit",
                                                                                                                                                                                                                                                                                                                         "Co-Pay"
                                                                                                                         })
@@ -780,7 +832,7 @@
                                                                                                                     .BindTo(new List<string>
                                                                                                                         () {
                                                                                                                                                                                                                                                                                                                         ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
+                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                         "Per Claim Limit",
                                                                                                                                                                                                                                                                                                                         "Co-Pay"
                                                                                                                         })
@@ -808,18 +860,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPPhysiotheraphy")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "No of Sessions Per Ailment",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPPhysiotheraphyLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPPhysiotheraphyLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input name="OPPhysiotheraphyLimit" id="OPPhysiotheraphyLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPPhysiotheraphyLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input name="OPPhysiotheraphyLimit" id="OPPhysiotheraphyLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPPhysiotheraphyLimit").HtmlAttributes(new { style = "width: 100%" }))*@
 
                                     </div>
                                 </div>
@@ -830,18 +892,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPDaycareTreatment")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPDaycareTreatmentLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPDaycareTreatmentLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input id="OPDaycareTreatmentLimit" name="OPDaycareTreatmentLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPDaycareTreatmentLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input id="OPDaycareTreatmentLimit" name="OPDaycareTreatmentLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPDaycareTreatmentLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -851,18 +923,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPOutPatientSurgery")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPOutPatientSurgeryLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPOutPatientSurgeryLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input id="OPOutPatientSurgeryLimit" name="OPOutPatientSurgeryLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPOutPatientSurgeryLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input id="OPOutPatientSurgeryLimit" name="OPOutPatientSurgeryLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPOutPatientSurgeryLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -872,18 +954,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPWorkRelatedInjuries")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPWorkRelatedInjuriesLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPWorkRelatedInjuriesLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input id="OPWorkRelatedInjuriesLimit" name="OPWorkRelatedInjuriesLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPWorkRelatedInjuriesLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input id="OPWorkRelatedInjuriesLimit" name="OPWorkRelatedInjuriesLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPWorkRelatedInjuriesLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -893,18 +985,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPAccidentalDamageNaturalTeeth")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPAccidentalDamageNaturalTeethLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPAccidentalDamageNaturalTeethLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input id="OPAccidentalDamageNaturalTeethLimit" name="OPAccidentalDamageNaturalTeethLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPAccidentalDamageNaturalTeethLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input id="OPAccidentalDamageNaturalTeethLimit" name="OPAccidentalDamageNaturalTeethLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPAccidentalDamageNaturalTeethLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -914,18 +1016,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPNewBornBabyCoverage")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "Limit Per Baby",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPNewBornBabyCoverageLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPNewBornBabyCoverageLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input id="OPNewBornBabyCoverageLimit" name="OPNewBornBabyCoverageLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPNewBornBabyCoverageLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input id="OPNewBornBabyCoverageLimit" name="OPNewBornBabyCoverageLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPNewBornBabyCoverageLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -935,18 +1047,28 @@
                                     <div class="col-md-3 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
                                                                                                                     .Name("OPNursingAtHome")
-                                                                                                                    .BindTo(new List<string>
-                                                                                                                        () {
-                                                                                                                                                                                                                                                                                                                        ">> Select",
-                                                                                                                                                                                                                                                                                                                        "Covered in Full",
-                                                                                                                                                                                                                                                                                                                        "Pool Limit",
-                                                                                                                        })
-                                                                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                                                                                                    .BindTo(new List<SelectListItem>()
+                                            {
+                                                new SelectListItem() {
+                                                    Text = ">> Select", Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Covered in Full", Value = "OPNursingAtHomeLimit"
+                                                },
+                                                new SelectListItem() {
+                                                    Text = "Limit Per Day", Value = "OPNursingAtHomeLimit"
+                                                }
+                                            })
+                                        .Events(e =>
+                                        {
+                                            e.Select("onChangeIPHosp");
+                                        })
+                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
                                         )
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
-                                        @*<input id="OPNursingAtHomeLimit" name="OPNursingAtHomeLimit" class="form-control" placeholder="Enter Value" />*@
-                                        @(Html.Kendo().NumericTextBox().Name("OPNursingAtHomeLimit").HtmlAttributes(new { style = "width: 100%" }))
+                                        <input id="OPNursingAtHomeLimit" name="OPNursingAtHomeLimit" class="form-control" placeholder="Enter Value" />
+                                        @*@(Html.Kendo().NumericTextBox().Name("OPNursingAtHomeLimit").HtmlAttributes(new { style = "width: 100%" }))*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -980,7 +1102,7 @@
                                                                                                             .BindTo(new List<string>
                                                                                                                 () {
                                                                                                                                                                                                                                                                     ">> Select",
-                                                                                                                                                                                                                                                                    "Covered in Full",
+                                                                                                                                                                                                                                                                    
                                                                                                                                                                                                                                                                     "Pool Limit Per Policy",
                                                                                                                                                                                                                                                                     "Per Person Limit",
                                                                                                                                                                                                                                                                     "Copay",
@@ -1227,6 +1349,53 @@
 </div>
 
 <script>
+    window.onload = function () {
+
+        setTimeout(function () {
+            $("#GBPremium").kendoNumericTextBox();
+            $("#GBInsuranceLevy").kendoNumericTextBox();
+            $("#GBPolicyFee").kendoNumericTextBox();
+            $("#GBTotalPremium").kendoNumericTextBox();
+            $("#GBPerClaimLimitIP").kendoNumericTextBox();
+            $("#GBPerClaimLimitOP").kendoNumericTextBox();
+            $("#GBPreExisting_ChronicLimit").kendoNumericTextBox();
+            $("#IPHospitalizationClassLimit").kendoNumericTextBox();
+            $("#IPICUCoronaryTreatementLimit").kendoNumericTextBox();
+            $("#IPVariousTherapiesLimit").kendoNumericTextBox();
+            $("#IPOrganTransplantationServicesLimit").kendoNumericTextBox();
+            $("#IPAmbulanceServicesLimit").kendoNumericTextBox();
+            $("#IPCompanionRoomBoardExpensesLimit").kendoNumericTextBox();
+            $("#IPHospitalCashBenefitsCashPerDay").kendoNumericTextBox();
+            $("#IPHospitalCashBenefitsCashTotal").kendoNumericTextBox();
+            $("#IPRepatriationCostTraansport").kendoNumericTextBox();
+            $("#OPPhysiotheraphyLimit").kendoNumericTextBox();
+            $("#OPDaycareTreatmentLimit").kendoNumericTextBox();
+            $("#OPOutPatientSurgeryLimit").kendoNumericTextBox();
+            $("#OPWorkRelatedInjuriesLimit").kendoNumericTextBox();
+            $("#OPAccidentalDamageNaturalTeethLimit").kendoNumericTextBox();
+            $("#OPNewBornBabyCoverageLimit").kendoNumericTextBox();
+            $("#OPNursingAtHomeLimit").kendoNumericTextBox();
+           
+        }, 1000);
+        
+        initStepWizard();
+    };
+    function onChangeIPHosp(e) {
+        var dataItem = this.dataItem(e.item);
+        console.log(dataItem.Value);
+        console.log(dataItem.Text);
+
+        if (dataItem.Text == "Covered in Full") {
+            //var AnnualBenefits = $('#GBAnnualBenefitsLimit').val();
+            var AnnualBenefits = parseFloat($("input[name='GBAnnualBenefitsLimit']").val());
+            $("#" + dataItem.Value).data("kendoNumericTextBox").value(AnnualBenefits);
+        }
+        else {
+            var nil = parseFloat(0);
+            $("#" + dataItem.Value).data("kendoNumericTextBox").value(nil);
+        }
+       // $("#" + dataItem.Value).data("kendoNumericTextBox").value(1200);
+    }
     function onProviderNameSelect(e) {
         if (e.item) {
             var dataItem = this.dataItem(e.item);
@@ -1251,6 +1420,37 @@
         }
 
     }
+    function GetProducers() {
+
+        var CIProducerType = $("input[name='CIProducerType']").val();
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: "GetProducersList",
+            data: { BusinessType: CIProducerType },
+            dataType: "json",
+            success: function (Result) {
+
+                var lst = Result.list
+                $("#CIProducerName").kendoComboBox({
+                    dataTextField: "Name",
+                    dataValueField: "Id",
+                    dataSource: Result.list,
+                    filter: "contains",
+                    suggest: true,
+                    index: 3
+                });
+
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+        });
+
+
+    }
+
     function onBrokerCommissionSelect(e) {
         if (e.item) {
             var dataItem = this.dataItem(e.item);
@@ -1263,9 +1463,8 @@
         }
 
     }
-    window.onload = function () {
-        initStepWizard();
-    };
+
+
     function initStepWizard() {
         //$('[data-layout="sidebar-collapse"]').click();
         $(".tab-wizard").steps({
@@ -1313,12 +1512,14 @@
         });
     }
     function CalcTotalPremium() {
+
         var Premium = parseFloat($("input[name='GBPremium']").val());
         var InsuranceLevy = parseFloat($("input[name='GBInsuranceLevy']").val());
         var GBPolicyFee = parseFloat($("input[name='GBPolicyFee']").val());
         var GBTotalPremium = Premium + InsuranceLevy + GBPolicyFee;
 
-        $("input[name='GBTotalPremium']").val(GBTotalPremium);
+        // $("input[name='GBTotalPremium']").val(GBTotalPremium);
+        $("#GBTotalPremium").data("kendoNumericTextBox").value(GBTotalPremium);
 
         //var perc = 0;
         ////var RSA = parseInt($('#txtRevisedSumInsured').val());
@@ -1350,6 +1551,7 @@
         }
         var total = parseFloat(Premium) + parseFloat(perc);
         //$('#txtRenewalSumAssured').val(total);
-        $("input[name='GBInsuranceLevy']").val(perc);
+        $("#GBInsuranceLevy").data("kendoNumericTextBox").value(perc);
+        //$("input[name='GBInsuranceLevy']").val(perc);
     }
 </script>

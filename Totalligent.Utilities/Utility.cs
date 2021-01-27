@@ -247,6 +247,60 @@ namespace Totalligent.Utilities
                 throw ex;
             }
         }
+        public DataTable ConvertToEmployeeMasterGenerator(EmployeeMaster _obj)
+        {
+            try
+            {
+                DataTable _dt = new DataTable();
+                _dt.Columns.Add("EmployeeId", typeof(long));
+                _dt.Columns.Add("EmployeeName", typeof(string));
+                _dt.Columns.Add("EmployeeUniqueNumber", typeof(string));
+                _dt.Columns.Add("Relation", typeof(string));
+                _dt.Columns.Add("Nationality", typeof(string));
+
+                _dt.Columns.Add("Category", typeof(string));
+                _dt.Columns.Add("DOB", typeof(DateTime));
+                _dt.Columns.Add("Age", typeof(int));
+                _dt.Columns.Add("Salary", typeof(decimal));
+                _dt.Columns.Add("EAW", typeof(decimal));
+
+                _dt.Columns.Add("SumAssured", typeof(decimal));
+                _dt.Columns.Add("EffectiveDate", typeof(DateTime));
+                _dt.Columns.Add("Remarks", typeof(string));
+                _dt.Columns.Add("EntryType", typeof(string));
+             
+
+                DataRow _dr;
+
+                _dr = _dt.NewRow();
+                _dr["EmployeeId"] = _obj.EmployeeId.Equals(null) ? 0 : _obj.EmployeeId;
+                _dr["EmployeeName"] = _obj.EmployeeName ?? "";
+                _dr["EmployeeUniqueNumber"] = _obj.EmployeeUniqueNumber ?? "";
+                _dr["Relation"] = _obj.Relation ?? "";
+                _dr["Nationality"] = _obj.Nationality ?? "";
+
+                _dr["Category"] = _obj.Category ?? "";
+                _dr["DOB"] = _obj.DOB.Equals(null) ? DateTime.Now : _obj.DOB;
+                _dr["Age"] = _obj.Age.Equals(null) ? 0 : _obj.Age;
+                _dr["Salary"] = _obj.Salary.Equals(null) ? 0 : _obj.Salary;
+                _dr["EAW"] = _obj.EAW.Equals(null) ? 0 : _obj.EAW;
+              
+                _dr["SumAssured"] = _obj.SumAssured.Equals(null) ? 0 : _obj.SumAssured;
+                _dr["EffectiveDate"] = _obj.EffectiveDate.Equals(null) ? DateTime.Now : _obj.EffectiveDate;
+
+                _dr["Remarks"] = _obj.Remarks ?? "";
+                _dr["EntryType"] = _obj.EntryType ?? "";
+                _dt.Rows.Add(_dr);
+
+                return _dt;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public DataTable ConvertToInsCompany(InsuranceCompany _objRegisterClient)
         {
             try

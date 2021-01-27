@@ -1,7 +1,5 @@
 ﻿@model Totalligent.BusinessEntities.UnderWriter
-@{
-    ViewBag.Title = "UnderwritingDashboard";
-}
+@{ ViewBag.Title = "UnderwritingDashboard"; }
 
 <div id="divDashboard">
     <!-- Content Header (Page header) -->
@@ -38,23 +36,23 @@
             <div class="row">
                 @if (Model != null)
                 {
-                    <div class="col-xl-6 col-lg-6 col-12">
-                        <div class="box bg-info">
-                            <div class="box-header with-border">
-                                <h4 class="box-title text-white">No of policies</h4>
+    <div class="col-xl-6 col-lg-6 col-12">
+        <div class="box bg-info">
+            <div class="box-header with-border">
+                <h4 class="box-title text-white">No of policies</h4>
 
-                            </div>
-                            <div class="box-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h2 class="mt-0">@Model.TNPYear</h2>
-                                        <small>Total Policies for year</small>
-                                    </div>
-                                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="box-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h2 class="mt-0">@Model.TNPYear</h2>
+                        <small>Total Policies for year</small>
                     </div>
+                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
                     <div class="col-xl-6 col-lg-6 col-12">
                         <div class="box bg-warning">
                             <div class="box-header with-border">
@@ -71,62 +69,61 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-12">
-                        <div class="box bg-success">
-                            <div class="box-header with-border">
-                                <h4 class="box-title text-white">Policy Issued</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
-                                        <small>Total Policies Issued for year</small>
+                                    <div class="col-xl-6 col-lg-6 col-12">
+                                        <div class="box bg-success">
+                                            <div class="box-header with-border">
+                                                <h4 class="box-title text-white">Policy Issued</h4>
+                                            </div>
+                                            <div class="box-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
+                                                        <small>Total Policies Issued for year</small>
+                                                    </div>
+                                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-12">
-                        <div class="box bg-danger">
-                            <div class="box-header with-border">
-                                <h4 class="box-title text-white">Policy Lost</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
-                                        <small>Total Policies Lost for year</small>
-                                    </div>
-                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="box">
-                            <div class="box-header">
-                                <h4 class="box-title">Revenue Report</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
-                                    <div>
-                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
-                                        <h6 class="text-fade">Premium Earned</h6>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
-                                        <h6 class="text-fade">Pending Premium</h6>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
-                                        <h6 class="text-fade">Premium Lost</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                                                    <div class="col-xl-6 col-lg-6 col-12">
+                                                        <div class="box bg-danger">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title text-white">Policy Lost</h4>
+                                                            </div>
+                                                            <div class="box-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
+                                                                        <small>Total Policies Lost for year</small>
+                                                                    </div>
+                                                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="box">
+                                                                            <div class="box-header">
+                                                                                <h4 class="box-title">Revenue Report</h4>
+                                                                            </div>
+                                                                            <div class="box-body">
+                                                                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
+                                                                                    <div>
+                                                                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
+                                                                                        <h6 class="text-fade">Premium Earned</h6>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
+                                                                                        <h6 class="text-fade">Pending Premium</h6>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
+                                                                                        <h6 class="text-fade">Premium Lost</h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>}
             </div>
         </div>
         <div class="col-xl-6 col-12">
@@ -149,16 +146,7 @@
                 </div>
             </div>
         </div>
-        @*<div class="col-12 col-xl-4">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h4 class="box-title">Producer's Chart</h4>
-                    </div>
-                    <div class="box-body">
-                        <div id="flotPie2" style="height: 300px;"></div>
-                    </div>
-                </div>
-            </div>*@
+       
         <div class="col-lg-12 col-12">
             <div class="box">
                 <div class="box-header with-border">
@@ -183,81 +171,75 @@
                                 {
                                     foreach (var item in Model.lstQuotation)
                                     {
-                                        <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.DraftNo)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.PolicyNo)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.CIInsuranceCompanyName)</td>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.DraftNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PolicyNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CIInsuranceCompanyName)</td>
 
-                                            <td>@Html.DisplayFor(modelItem => item.CIClientCompanyName)</td>
-                                            <td>
-                                                @if (item.Status.Equals("Pending"))
-                                                {
+                        <td>@Html.DisplayFor(modelItem => item.CIClientCompanyName)</td>
+                        <td>
+                            @if (item.Status.Equals("Pending"))
+                            {
 
-                                                    <span class="label label-info">@Html.DisplayFor(modelItem => item.Status)</span>
-                                                }
+        <span class="label label-info">@Html.DisplayFor(modelItem => item.Status)</span>}
 
-                                                @if (item.Status.Equals("Approved"))
-                                                {
-                                                    <span class="label label-success">@Html.DisplayFor(modelItem => item.Status)</span>
-                                                }
-                                                @if (item.Status.Equals("Rejected"))
-                                                {
-                                                    <span class="label label-danger">@Html.DisplayFor(modelItem => item.Status)</span>
-                                                }
-                                                @if (item.Status.Equals(""))
-                                                {
-                                                    <span class="label label-info"></span>
-                                                }
-                                            </td>
-                                            <td>
-                                                <a href="Edit?QuotationId=@item.QuotationId" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit">
-                                                    <i class="ti-marker-alt"></i>
-                                                </a> <a href="javascript:void(0)" class="text-dark" title="" data-toggle="tooltip" data-original-title="Delete">
-                                                    <i class="ti-trash"></i>
-                                                </a>
-                                            </td>
-                                            @*<td>*@
+                            @if (item.Status.Equals("Approved"))
+                            {
+        <span class="label label-success">@Html.DisplayFor(modelItem => item.Status)</span>}
+                            @if (item.Status.Equals("Rejected"))
+                            {
+        <span class="label label-danger">@Html.DisplayFor(modelItem => item.Status)</span>}
+                            @if (item.Status.Equals(""))
+                            {
+        <span class="label label-info"></span>}
+                        </td>
+                        <td>
+                            <a href="Edit?QuotationId=@item.QuotationId" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit">
+                                <i class="ti-marker-alt"></i>
+                            </a> <a href="javascript:void(0)" class="text-dark" title="" data-toggle="tooltip" data-original-title="Delete">
+                                <i class="ti-trash"></i>
+                            </a>
+                        </td>
+                        @*<td>*@
 
-                                            @*<a href="Edit?QuotationId=@item.QuotationId">
-                                                    <i class="fas fa-pencil-alt pointer" aria-hidden="true"></i>
-                                                </a>*@
-                                            @*<a href="javascript:void(0)" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-marker-alt"></i></a> <a href="javascript:void(0)" class="text-dark" title="" data-toggle="tooltip" data-original-title="Delete"><i class="ti-trash"></i></a></td>*@
-                                            @*<td>
-                                                    @if (item.Status.Equals("Renewed"))
-                                                    {
-                                                        <span class="badge badge-success">@Html.DisplayFor(modelItem => item.Status)</span>
-                                                    }
+                        @*<a href="Edit?QuotationId=@item.QuotationId">
+                                <i class="fas fa-pencil-alt pointer" aria-hidden="true"></i>
+                            </a>*@
+                        @*<a href="javascript:void(0)" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-marker-alt"></i></a> <a href="javascript:void(0)" class="text-dark" title="" data-toggle="tooltip" data-original-title="Delete"><i class="ti-trash"></i></a></td>*@
+                        @*<td>
+                                @if (item.Status.Equals("Renewed"))
+                                {
+                                    <span class="badge badge-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
 
-                                                    @if (item.Status.Equals("Lost"))
-                                                    {
-                                                        <span class="badge badge-danger">@Html.DisplayFor(modelItem => item.Status)</span>
-                                                    }
-                                                    @if (item.Status.Equals("Under Process"))
-                                                    {
-                                                        <span class="badge badge-info">@Html.DisplayFor(modelItem => item.Status)</span>
-                                                    }
-                                                    @if (item.Status.Equals(""))
-                                                    {
-                                                        <span class="badge badge-info"></span>
-                                                    }
-                                                </td>
-                                                <td class="d-flex flex-row align-items-center justify-content-between">
-                                                    <i class="fas fa-eye pointer" aria-hidden="true" data-toggle="modal"
-                                                       data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="renewal(@item.InsuranceID)"></i>
+                                @if (item.Status.Equals("Lost"))
+                                {
+                                    <span class="badge badge-danger">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                @if (item.Status.Equals("Under Process"))
+                                {
+                                    <span class="badge badge-info">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                @if (item.Status.Equals(""))
+                                {
+                                    <span class="badge badge-info"></span>
+                                }
+                            </td>
+                            <td class="d-flex flex-row align-items-center justify-content-between">
+                                <i class="fas fa-eye pointer" aria-hidden="true" data-toggle="modal"
+                                   data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="renewal(@item.InsuranceID)"></i>
 
-                                                </td>*@
+                            </td>*@
 
 
-                                        </tr>
-                                    }
+                    </tr> }
 
                                 }
                                 else
                                 {
-                                    <tr>
-                                        <td colspan="5"></td>
-                                    </tr>
-                                }
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>}
                                 @*<tr>
                                         <td>Minol Jov</td>
                                         <td>#8457125</td>
@@ -279,3 +261,5 @@
         </div>
     </div>
 </div>
+<!-- VoiceX Admin dashboard demo (This is only for demo purposes) -->
+<script src="~/Content/js/dashboard_main.js"></script>

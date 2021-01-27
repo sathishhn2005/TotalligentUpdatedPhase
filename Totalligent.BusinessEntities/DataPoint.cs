@@ -30,6 +30,9 @@ namespace Totalligent.BusinessEntities
         [DataMember(Name = "c")]
         public Nullable<decimal> c = null;
 
+        [DataMember(Name = "d")]
+        public Nullable<long> d = null;
+
         [DataMember(Name = "BusinessType")]
         public string BusinessType = "";
     }

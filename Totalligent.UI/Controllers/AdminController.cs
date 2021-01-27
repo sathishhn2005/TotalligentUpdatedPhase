@@ -231,6 +231,33 @@ namespace Totalligent.UI.Controllers
 
         }
         [HttpGet]
+        public JsonResult GetLineChart()
+        {
+
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            try
+            {
+
+                dataPoints = objBALTot.GetLinechartUW(1, "sathish");
+
+              //  ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return Json(new
+            {
+                list = dataPoints
+            }, JsonRequestBehavior.AllowGet);
+
+
+        }
+
+        [HttpGet]
         public JsonResult GetRevenueByYear()
         {
             List<DataPoint> dataPoints = new List<DataPoint>();
@@ -241,7 +268,7 @@ namespace Totalligent.UI.Controllers
                 //                   a = (decimal)dr["TotalPremiumEarned"],
                 //                   b = (decimal)dr["TotalPremiumRejected"],
                 //                   c = (decimal)dr["TotalPremiumPending"],
-                
+
                 dataPoints = objBALTot.GetBarChartUnderWriter(1, "sathish");
                 decimal? TotalPremiumEarned = dataPoints.Sum(item => item.a);
                 decimal? TotalPremiumRejected = dataPoints.Sum(item => item.b);
@@ -263,11 +290,29 @@ namespace Totalligent.UI.Controllers
 
                 throw ex;
             }
-           
+
             return Json(new
             {
                 list = dataPoints
             }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetProducersList(string BusinessType)
+        {
+            try
+            {
+                List<ProducerMaster> lst = new List<ProducerMaster>();
+                lst = objBALTot.GetListOfUsers(BusinessType);
+
+                return Json(new
+                {
+                    list = lst
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
         }
         public ActionResult ClientDashboard()
@@ -280,7 +325,51 @@ namespace Totalligent.UI.Controllers
         {
             return View();
         }
+        public ActionResult EmployeeMaster()
+        {
+            return View();
+        }
+        public ActionResult PolicyIssuance(string DraftNo)
+        {
+            long returnCode = -1;
+            List<Quotation> lstQuotation = new List<Quotation>();
+            try
+            {
 
+                returnCode = objBALTot.GetPolicyIssuance(DraftNo, out lstQuotation);
+                if (lstQuotation.Count > 0)
+                {
+                    return View(lstQuotation);
+                }
 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return View(lstQuotation);
+        }
+      /*  [HttpGet]
+        public ActionResult PolicyIssuanceGet(string DraftNo)
+        {
+
+            long returnCode = -1;
+            List<Quotation> lstQuotation = new List<Quotation>();
+            try
+            {
+               
+                returnCode = objBALTot.GetPolicyIssuance(DraftNo, out lstQuotation);
+               
+             
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return View();
+        }*/
+        
     }
 }

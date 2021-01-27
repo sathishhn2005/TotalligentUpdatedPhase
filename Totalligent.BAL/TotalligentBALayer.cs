@@ -318,7 +318,43 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
-        public long CreateQuotation(Quotation objPM,long QuotationId, out string draftNo)
+        public long InsertEM(EmployeeMaster objEM)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                   // byte[] b = ASCIIEncoding.ASCII.GetBytes(objPM.EmailId);
+                   // string encryptedPswd = Convert.ToBase64String(b);
+
+                   // objPM.Password = encryptedPswd;
+                    returnCode = objTotalligentDAL.SaveEM(objEM);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+                   /* if (returnCode > 0)
+                    {
+
+                        if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(encryptedPswd))
+                        {
+                            returnCode = objTotalligentDAL.SaveLogin(UserName, encryptedPswd, 1);
+                            MailingServices objMail = new MailingServices();
+                            returnCode = objMail.SendMailToAdmin(UserName, encryptedPswd, EmailId);
+                        }
+                        transactionScope.Complete();
+                        transactionScope.Dispose();
+                    }*/
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+            }
+            return returnCode;
+        }
+        public long CreateQuotation(Quotation objPM, long QuotationId, out string draftNo)
         {
             long returnCode = -1;
             using (TransactionScope transactionScope = new TransactionScope())
@@ -356,7 +392,26 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
-        public long EditQutation(string UserName,int QuotationId, out Quotation lstInfo)
+        public long GetPolicyIssuance(string DraftNumber, out List<Quotation> lstQuotation)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.GetPolicyIssuance(DraftNumber, out lstQuotation);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+            }
+            return returnCode;
+        }
+        public long EditQutation(string UserName, int QuotationId, out Quotation lstInfo)
         {
             long returnCode = -1;
             using (TransactionScope transactionScope = new TransactionScope())
@@ -374,6 +429,30 @@ namespace Totalligent.BAL
                 }
             }
             return returnCode;
+        }
+
+        public List<DataPoint> GetLinechartUW(int flag, string uname)
+        {
+
+            List<DataPoint> lst = new List<DataPoint>();
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    lst = objTotalligentDAL.GetLinechartUWriter(flag, uname);
+
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    //  throw ex;
+                }
+
+                return lst;
+            }
         }
         public List<DataPoint> GetBarChartUnderWriter(int flag, string uname)
         {
@@ -393,6 +472,28 @@ namespace Totalligent.BAL
                 {
                     transactionScope.Dispose();
                     //  throw ex;
+                }
+
+                return lst;
+            }
+        }
+        public List<ProducerMaster> GetListOfUsers(string BT)
+        {
+            List<ProducerMaster> lst = new List<ProducerMaster>();
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+
+                    lst = objTotalligentDAL.GetUserList(BT);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
                 }
 
                 return lst;

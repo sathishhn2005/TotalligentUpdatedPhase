@@ -6,74 +6,110 @@
 
 $(function () {
     var chartData = [];
-  'use strict';
+    var chartDataLineBar = [];
+    var UWTotal = [];
+    var UWPending = [];
+    var UWApproved = [];
+    var UWRejected = [];
+    'use strict';
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "GetLineChart",
+        data: "{}",
+        dataType: "json",
+        success: function (Result) {
 
-	
-	var options = {
-		chart: {
-			height: 350,
-			type: 'line',
-		},
-		plotOptions: {
-			bar: {
-				horizontal: false,
-				columnWidth: '70%',
-				endingShape: 'rounded'
-			},
-		},
-		dataLabels: {
-			enabled: false
-		},
-		colors: ["#4974e0", '#e2bb33', '#3db76b', '#e83a75'],
-		stroke: {
-			width: 3,
-			curve: 'smooth',
-		},
-		series: [{
-			name: 'No.of Policies',
-			data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 59, 54, 44]
-		}, {
-			name: 'No.of Quotations',
-			data: [10, 85, 101, 98, 20, 105, 91, 114, 94, 45, 65, 55]
-		}, {
-			name: 'Policy Issued',
-			data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 11, 43, 75]
-		}, {
-			name: 'Policy Lost',
-			data: [10, 23, 11, 12, 11, 5, 18, 19, 25, 24, 15, 19]
-		}],
-		xaxis: {
-			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-		},
-		yaxis: {
-			title: {
-				text: 'Policies Count'
-			}
-		},
-		fill: {
-			opacity: 1
+            chartDataLineBar = Result.list;
 
-		},
-		legend: {
-			position: 'top',
-			horizontalAlign: 'left',
-		},
-		tooltip: {
-			y: {
-				formatter: function (val) {
-					return val
-				}
-			}
-		}
-	}
+            jQuery.each(chartDataLineBar, function (key, value) {
 
-	var chart = new ApexCharts(
-		document.querySelector("#uni-earning"),
-		options
+                UWPending.push(value.a);
+                UWApproved.push(value.b);
+                UWRejected.push(value.c);
+                UWTotal.push(value.d);
+
+
+            });
+            //jQuery.each(chartDataLineBar, function (key, value) {
+
+            //	UnderWriterResultTPL.push(value.b);
+
+            //});
+
+        },
+        error: function (Result) {
+            alert("Error");
+        }
+    });
+
+    var options = {
+        chart: {
+            height: 350,
+            type: 'line',
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '70%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        colors: ["#4974e0", '#e2bb33', '#3db76b', '#e83a75'],
+        stroke: {
+            width: 3,
+            curve: 'smooth',
+        },
+
+        series: [{
+            name: 'No.of Policies',
+            data: UWTotal
+        }, {
+            name: 'No.of Quotations',
+            data: UWPending
+        }, {
+            name: 'Policy Issued',
+            data: UWApproved
+        }, {
+            name: 'Policy Lost',
+            data: UWRejected
+        }],
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        },
+        yaxis: {
+            title: {
+                text: 'Policies Count'
+            }
+        },
+        fill: {
+            opacity: 1
+
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'left',
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val
+                }
+            }
+        }
+    }
+
+    var chart = new ApexCharts(
+        document.querySelector("#uni-earning"),
+        options
     );
     var UnderWriterResultTPE = [];
     var UnderWriterResultTPL = [];
-	chart.render();
+
+    chart.render();
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
@@ -81,19 +117,19 @@ $(function () {
         data: "{}",
         dataType: "json",
         success: function (Result) {
-            
+
             chartData = Result.list;
-            
+
             jQuery.each(chartData, function (key, value) {
 
                 UnderWriterResultTPE.push(value.a);
-               // console.log(UnderWriterResult);
+                // console.log(UnderWriterResult);
                 //write some code here to build the table? I'm just guessing
             });
             jQuery.each(chartData, function (key, value) {
 
                 UnderWriterResultTPL.push(value.b);
-             //   console.log(UnderWriterResult);
+                //   console.log(UnderWriterResult);
                 //write some code here to build the table? I'm just guessing
             });
 
@@ -126,7 +162,7 @@ $(function () {
         stroke: {
             curve: 'smooth'
         },
-      
+
         series: [{
             name: "Total Premium Earned",
             data: UnderWriterResultTPE
@@ -136,7 +172,7 @@ $(function () {
             data: UnderWriterResultTPL
         }
         ],
-       // series: chartData,
+        // series: chartData,
         grid: {
             borderColor: '#e7e7e7',
             row: {
@@ -165,104 +201,104 @@ $(function () {
             floating: true,
         }
     }
-	var chart = new ApexCharts(
-		document.querySelector("#uni-attendance"),
-		options
-	);
+    var chart = new ApexCharts(
+        document.querySelector("#uni-attendance"),
+        options
+    );
 
-	chart.render();
+    chart.render();
 
-	
-	    window.Apex = {
-		  stroke: {
-			width: 3
-		  },
-		  markers: {
-			size: 0
-		  },
-		  tooltip: {
-			  theme: 'dark',
-		  }
-		};
 
-		var randomizeArray = function (arg) {
-		  var array = arg.slice();
-		  var currentIndex = array.length,
-			temporaryValue, randomIndex;
-
-		  while (0 !== currentIndex) {
-
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex -= 1;
-
-			temporaryValue = array[currentIndex];
-			array[currentIndex] = array[randomIndex];
-			array[randomIndex] = temporaryValue;
-		  }
-
-		  return array;
-		}
-
-		
-	
-	/**************** PIE CHART *******************/
-	var piedata = [
-		{ label: "By Branches", data: [[1, 40]], color: '#38649f' },
-		{ label: "By DirectSales", data: [[1, 50]], color: '#389f99' },
-		{ label: "By Broker", data: [[1, 60]], color: '#689f38' },
-		{ label: "By Agent", data: [[1, 60]], color: '#ff8f00' }
-	];
-
-    $.plot('#flotPie2', piedata, {
-      series: {
-        pie: {
-          show: true,
-          radius: 1,
-          innerRadius: 0.5,
-          label: {
-            show: true,
-            radius: 2/3,
-            formatter: labelFormatter,
-            threshold: 0.1
-          }
+    window.Apex = {
+        stroke: {
+            width: 3
+        },
+        markers: {
+            size: 0
+        },
+        tooltip: {
+            theme: 'dark',
         }
-      },
-      grid: {
-        hoverable: true,
-        clickable: true
-      }
-    });
+    };
 
-    function labelFormatter(label, series) {
-		  return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
-	  }
-	
-	//dashboard_daterangepicker
+    var randomizeArray = function (arg) {
+        var array = arg.slice();
+        var currentIndex = array.length,
+            temporaryValue, randomIndex;
 
-	if (0 !== $("#dashboard_daterangepicker").length) {
-		var n = $("#dashboard_daterangepicker"),
-			e = moment(),
-			t = moment();
-		n.daterangepicker({
-			startDate: e, endDate: t, opens: "left", ranges: {
-				Today: [moment(), moment()], Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")], "Last 7 Days": [moment().subtract(6, "days"), moment()], "Last 30 Days": [moment().subtract(29, "days"), moment()], "This Month": [moment().startOf("month"), moment().endOf("month")], "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
-			}
-		}
-			, a),
-			a(e, t, "")
-	}
-	function a(e, t, a) {
-		var r = "",
-			o = "";
-		t - e < 100 || "Today" == a ? (r = "Today:", o = e.format("MMM D")) : "Yesterday" == a ? (r = "Yesterday:", o = e.format("MMM D")) : o = e.format("MMM D") + " - " + t.format("MMM D"), n.find(".subheader_daterange-date").html(o), n.find(".subheader_daterange-title").html(r)
-	}
+        while (0 !== currentIndex) {
 
-	
-	
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+
+
+    ///**************** PIE CHART *******************/
+    //var piedata = [
+    //	{ label: "By Branches", data: [[1, 40]], color: '#38649f' },
+    //	{ label: "By DirectSales", data: [[1, 50]], color: '#389f99' },
+    //	{ label: "By Broker", data: [[1, 60]], color: '#689f38' },
+    //	{ label: "By Agent", data: [[1, 60]], color: '#ff8f00' }
+    //];
+
+    //   $.plot('#flotPie2', piedata, {
+    //     series: {
+    //       pie: {
+    //         show: true,
+    //         radius: 1,
+    //         innerRadius: 0.5,
+    //         label: {
+    //           show: true,
+    //           radius: 2/3,
+    //           formatter: labelFormatter,
+    //           threshold: 0.1
+    //         }
+    //       }
+    //     },
+    //     grid: {
+    //       hoverable: true,
+    //       clickable: true
+    //     }
+    //   });
+
+    //   function labelFormatter(label, series) {
+    //	  return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+    //  }
+
+    //dashboard_daterangepicker
+
+    if (0 !== $("#dashboard_daterangepicker").length) {
+        var n = $("#dashboard_daterangepicker"),
+            e = moment(),
+            t = moment();
+        n.daterangepicker({
+            startDate: e, endDate: t, opens: "left", ranges: {
+                Today: [moment(), moment()], Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")], "Last 7 Days": [moment().subtract(6, "days"), moment()], "Last 30 Days": [moment().subtract(29, "days"), moment()], "This Month": [moment().startOf("month"), moment().endOf("month")], "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+            }
+        }
+            , a),
+            a(e, t, "")
+    }
+    function a(e, t, a) {
+        var r = "",
+            o = "";
+        t - e < 100 || "Today" == a ? (r = "Today:", o = e.format("MMM D")) : "Yesterday" == a ? (r = "Yesterday:", o = e.format("MMM D")) : o = e.format("MMM D") + " - " + t.format("MMM D"), n.find(".subheader_daterange-date").html(o), n.find(".subheader_daterange-title").html(r)
+    }
+
+
+
 }); // End of use strict
 
 
 
-  
-             
+
+
 

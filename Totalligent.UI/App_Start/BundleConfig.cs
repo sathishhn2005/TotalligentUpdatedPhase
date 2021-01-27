@@ -9,7 +9,7 @@ namespace Totalligent.UI
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,7 +22,7 @@ namespace Totalligent.UI
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new ScriptBundle("~/Content/kendo/script").Include(
+            bundles.Add(new Bundle("~/bundles/kendo").Include(
                 "~/Content/vendor/kendo/js/kendo.all.min.js",
                 "~/Content/vendor/kendo/js/kendo.aspnetmvc.min.js"));
 

@@ -300,6 +300,43 @@ namespace Totalligent.UI.Controllers
             }
 
         }
+        [HttpPost]
+        public long InsertEmployeeMaster(EmployeeMaster model)
+        {
+            long returnCode = -1;
+            try
+            {
+                string UN = string.Empty;
+
+                //TempData["u"] = U_Name;
+                if (TempData["u"] == null)
+                {
+                    UN = U_Name;
+                }
+                else
+                {
+                    UN = TempData["u"].ToString() ?? "";
+
+                }
+                model.AddedBy = UN;
+                returnCode = objBALTot.InsertEM(model);
+                //if (model.ID > 0 && returnCode > 0)
+                //{
+                //    returnCode = 2;
+                //    TempData["un"] = u;
+                //}
+                if (model.EmployeeId.Equals(0) && returnCode > 0)
+                {
+                    returnCode = 1;
+                    TempData["u"] = UN;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
     }
 
 }

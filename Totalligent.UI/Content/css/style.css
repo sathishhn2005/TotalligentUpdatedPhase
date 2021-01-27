@@ -31370,3 +31370,8 @@ button.btn.dropdown-toggle:after {
         opacity: 0.6;
     }
 /*End of File Upload*/
+
+
+.k-numerictextbox.w-full {
+    width: 100%;
+}

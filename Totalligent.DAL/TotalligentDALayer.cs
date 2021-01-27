@@ -687,6 +687,44 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
+        public long SaveEM(EmployeeMaster objEM)
+        {
+            long returnCode = -1;
+            DataTable dt = objUtility.ConvertToEmployeeMasterGenerator(objEM);
+            try
+            {
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_EmployeeMaster"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    SqlParameter UDTparam = new SqlParameter
+                    {
+                        ParameterName = "@UDT_EmployeeMaster",
+                        Size = -1,
+                        Value = dt
+                    };
+                   // cmd.Parameters.AddWithValue("@QuotationId", QuotationId);
+                    cmd.Parameters.AddWithValue("@UserName", "Admin");
+                    cmd.Parameters.Add(UDTparam);
+
+                    returnCode = cmd.ExecuteNonQuery();
+
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
         public long CreateQuotation(Quotation obj,long QuotationId, out string draftNo)
         {
             long returnCode = -1;
@@ -790,45 +828,51 @@ namespace Totalligent.DAL
                         }
 
                     }
-                    //while (reader.Read())
-                    //{
-                    //    lstInfo.TNPYear = (long)reader.GetValue(0);
-                    //    lstInfo.TotalNoPolQuotationDrafted = (long)reader.GetValue(1);
-                    //    lstInfo.TotNoPolIssued = (long)reader.GetValue(2);
-                    //    lstInfo.TotalNoPolRejected = (long)reader.GetValue(3);
-                    //    //lstInfo.PercentageRenewedYear = (decimal)reader.GetValue(4);
-                    //    //lstInfo.TNPMonth = (long)reader.GetValue(5);
-                    //    //lstInfo.TNPLostMonth = (long)reader.GetValue(6);
-                    //    //lstInfo.TNPUnderProcessMonth = (long)reader.GetValue(7);
-                    //    //lstInfo.TNPRenewedMonth = (long)reader.GetValue(8);
-                    //    //lstInfo.PercentageRenewedMonth = (decimal)reader.GetValue(9);
-                    //    //lstInfo.TNPYearPremium = (long)reader.GetValue(10);
-                    //    //lstInfo.TNPUPYearPremium = (long)reader.GetValue(11);
-                    //    //lstInfo.TNPLostYearPremium = (long)reader.GetValue(12);
-                    //    //lstInfo.TNPRenewedYearPremium = (long)reader.GetValue(13);
-                    //    //lstInfo.PercentPremiumRenewedYear = (decimal)reader.GetValue(14);
-                    //    //lstInfo.TNPMonthPremium = (long)reader.GetValue(15);
-                    //    //lstInfo.TNPLostMonthPremium = (long)reader.GetValue(16);
-                    //    //lstInfo.TNPUPMonthPremium = (long)reader.GetValue(17);
-                    //    //lstInfo.TNPRenewedMonthPremium = (long)reader.GetValue(18);
-                    //    //lstInfo.PercentPremiumRenewedMonth = (decimal)reader.GetValue(19);
-                    //    //lstInfo.UserName = (string)reader.GetValue(20);
 
-                    //    //lstInfo.TotPoltoBeRenewed = 0;
-                    //    //lstInfo.TotPolforRenewal = 0;
-                    //    //lstInfo.NoOfPoRenewed = 0;
-                    //    //lstInfo.PolicyLost = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long GetPolicyIssuance(string DraftNumber, out List<Quotation> lstQuotation)
+        {
+            long returnCode = -1;
+            
+            lstQuotation = new List<Quotation>();
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetPolicyIssuance"
+                    };
 
-                    //    //lstInfo.TotPoltoBeRenewedCM = 0;
-                    //    //lstInfo.TotPolforRenewalCM = 0;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@DraftNumber", DraftNumber ?? "");
+                   
 
-                    //    //lstInfo.NoOfPoRenewedCM = 0;
-                    //    //lstInfo.PolicyLostCM = 0;
-
-                    //    returnCode = 1;
-                    //}
-                    //reader.Close();
-                    //cmd.Dispose();
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    //DataSet ds = new DataSet();
+                    sdaAdapter.Fill(ds);
+                    List<Quotation> lst = new List<Quotation>();
+                   
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstQuotation);
+                       
+                    }
+                   
+                    
                 }
             }
             catch (Exception ex)
@@ -995,6 +1039,100 @@ namespace Totalligent.DAL
                                    b = (decimal)dr["TotalPremiumRejected"],
                                    c = (decimal)dr["TotalPremiumPending"],
 
+                               }).ToList();
+                    }
+
+                    cmd.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lst;
+        }
+        public List<DataPoint> GetLinechartUWriter(int flag, string uname)
+        {
+            List<DataPoint> lst = new List<DataPoint>();
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetLineChartUW"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    //cmd.Parameters.AddWithValue("@flag", flag);
+                    cmd.Parameters.AddWithValue("@UserName", uname);
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(ds);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lst = (from DataRow dr in ds.Tables[0].Rows
+                               select new DataPoint()
+                               {
+
+                                   y = dr["MonthName"].ToString(),
+                                   a = (long)dr["Pending"],
+                                   b = (long)dr["Approved"],
+                                   c = (long)dr["Rejected"],
+                                   d = (long)dr["Total"],
+
+                               }).ToList();
+                    }
+
+                    cmd.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lst;
+        }
+        public List<ProducerMaster> GetUserList(string BussType)
+        {
+            List<ProducerMaster> lst = new List<ProducerMaster>();
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetProducerList"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@MasterType", BussType);
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    sdaAdapter.Fill(ds);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lst = (from DataRow dr in ds.Tables[0].Rows
+                               select new ProducerMaster()
+                               {
+                                   Id = (long)dr["Id"],
+                                   Name = dr["Name"].ToString(),
+                                   EmailId = dr["EmailId"].ToString(),
+                                  
                                }).ToList();
                     }
                     cmd.Dispose();

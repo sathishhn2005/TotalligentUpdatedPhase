@@ -19,13 +19,16 @@
     <link href="~/Content/vendor/bootstrap-switch/switch.css" rel="stylesheet" />
     <!-- theme style -->
     <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/util.css" rel="stylesheet" />
     <!-- VoiceX Admin skins -->
     <link href="~/Content/css/skin_color.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.material.min.css" rel="stylesheet" />
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/kendo")
 </head>
-<body class="hold-transition light-skin sidebar-mini theme-purple onlywave">
+<body class="hold-transition light-skin sidebar-mini theme-purple onlywave w-full">
     <div class="wrapper">
         <div class="art-bg">
             <img src="/Content/images/art1.svg" alt="" class="art-img light-img">
@@ -303,7 +306,7 @@
                                 <a href="/Admin/Quotation"> <i class="ti-pencil-alt"></i> <span>Quotation</span> </a>
                             </li>
                             <li>
-                                <a href="pages/mailbox.html"> <i class="ti-heart-broken"></i> <span>Policies</span> </a>
+                                <a href="/Admin/PolicyIssuance"> <i class="ti-heart-broken"></i> <span>Policy Issuance</span> </a>
                             </li>
                             <li>
                                 <a href="pages/mailbox.html"> <i class="ti-id-badge"></i> <span>Card Issuance</span> </a>
@@ -579,9 +582,10 @@
         <div class="control-sidebar-bg"></div>
     </div>
     <!-- jQuery 3 -->
-    <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
+    @*<script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>*@
+    
     <script src="https://kendo.cdn.telerik.com/2020.1.114/js/jszip.min.js"></script>
-    @Scripts.Render("~/Content/kendo/script");
+
     <!-- fullscreen -->
     <script src="~/Content/vendor/screenfull/screenfull.js"></script>
     <!-- popper -->
@@ -589,8 +593,8 @@
     <!-- Bootstrap 4.0-->
     <script src="~/Content/vendor/bootstrap/dist/js/bootstrap.js"></script>
     <!-- Kendo UI -->
-    <script src="https://kendo.cdn.telerik.com/2020.3.1118/js/kendo.all.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2020.3.1118/js/kendo.aspnetmvc.min.js"></script>
+    <!--<script src="https://kendo.cdn.telerik.com/2020.3.1118/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.3.1118/js/kendo.aspnetmvc.min.js"></script>-->
     <!-- date-range-picker -->
     <script src="~/Content/vendor/moment/min/moment.min.js"></script>
     <script src="~/Content/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -613,8 +617,7 @@
     <script src="~/Content/js/template.js"></script>
     <!-- toast -->
     <script src="~/Content/vendor/jquery-toast-plugin-master/src/jquery.toast.js"></script>
-    <!-- VoiceX Admin dashboard demo (This is only for demo purposes) -->
-    <script src="~/Content/js/dashboard_main.js"></script>
+    
     <!-- VoiceX Admin for demo purposes -->
     <script src="~/Content/js/demo.js"></script>
     <!-- steps  -->
