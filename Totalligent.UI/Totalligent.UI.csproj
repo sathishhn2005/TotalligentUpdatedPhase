@@ -834,6 +834,8 @@
     <Content Include="Content\images\color-plate\theme-vintage.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\marc.jpg" />
+    <Content Include="Content\images\marc.png" />
+    <Content Include="Content\images\marc1.jpg" />
     <Content Include="Content\images\restaurant.png" />
     <Content Include="Content\images\user-info.jpg" />
     <Content Include="Content\js\dashboard_main.js" />
@@ -842,6 +844,7 @@
     <Content Include="Content\material-bootstrap-wizard.css" />
     <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\material-kit.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\util.css" />
     <Content Include="Content\vendor\animate\animate.css" />
     <Content Include="Content\vendor\apexcharts-bundle\.eslintrc.js" />
@@ -1795,7 +1798,6 @@
     <Content Include="fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="fonts\montserrat\OFL.txt" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap-material-design.min.js" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
@@ -1866,7 +1868,6 @@
     <Content Include="fonts\poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="fonts\poppins\Poppins-Thin.ttf" />
     <Content Include="fonts\poppins\Poppins-ThinItalic.ttf" />
-    <Content Include="Content\material-kit.css.map" />
     <Content Include="Scripts\jquery.bootstrap.wizard.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1900,8 +1901,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\vendor\js\" />
-    <Folder Include="Content\vendor\scss\" />
     <Folder Include="Views\Quotation\" />
   </ItemGroup>
   <ItemGroup>
@@ -1913,6 +1912,7 @@
     <Content Include="Masters\HospitalMaster.xlsx" />
     <Content Include="Masters\InsuranceCompanyMaster.xlsx" />
     <Content Include="Masters\LabMaster.xlsx" />
+    <Content Include="Content\Content.zip" />
     <Content Include="Content\css\color_theme.css.map" />
     <Content Include="Content\css\icons\cryptocoins-master\cryptocoins.ttf" />
     <Content Include="Content\css\icons\cryptocoins-master\cryptocoins.woff" />
@@ -2096,6 +2096,8 @@
     <Content Include="Content\css\skin_color.css.map" />
     <Content Include="Content\css\style.css.map" />
     <Content Include="Content\css\style_rtl.css.map" />
+    <Content Include="Content\images\color-plate\color-plate.ai" />
+    <Content Include="Content\material-kit.css.map" />
     <Content Include="Content\scss\color_skin\_theme_botani.scss" />
     <Content Include="Content\scss\color_skin\_theme_deepocean.scss" />
     <Content Include="Content\scss\color_skin\_theme_fruit.scss" />
@@ -2215,7 +2217,6 @@
     <Content Include="Content\vendor\jquery-steps-master\.travis.yml" />
     <Content Include="Content\vendor\jquery-steps-master\bower.json" />
     <Content Include="Content\vendor\jquery-steps-master\build\jquery.steps-1.1.0.zip" />
-    <Content Include="Content\vendor\jquery-steps-master\build\jQuery.Steps.1.1.0.nupkg" />
     <Content Include="Content\vendor\jquery-steps-master\CHANGELOG.md" />
     <Content Include="Content\vendor\jquery-steps-master\nuget\jQuery.Steps.nuspec" />
     <Content Include="Content\vendor\jquery-steps-master\package.json" />
@@ -2295,7 +2296,6 @@
     <Content Include="Content\vendor\popper\packages\tooltip\yarn.lock" />
     <Content Include="Content\vendor\popper\README.md" />
     <Content Include="Content\vendor\popper\yarn.lock" />
-    <Content Include="Content\images\color-plate\color-plate.ai" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
@@ -2351,11 +2351,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Content\vendor\moment\moment.d.ts" />
-    <TypeScriptCompile Include="Content\vendor\popper\packages\popper\index.d.ts" />
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <TypeScriptCompile Include="Content\vendor\moment\moment.d.ts" />
+    <TypeScriptCompile Include="Content\vendor\popper\packages\popper\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

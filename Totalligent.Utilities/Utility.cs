@@ -167,16 +167,16 @@ namespace Totalligent.Utilities
                 _dr["CINoOfPlanCategories"] = _objQuotation.CINoOfPlanCategories.Equals(null) ? 0 : _objQuotation.CINoOfPlanCategories;
                 _dr["GBMedicalProviderNetwork"] = _objQuotation.GBMedicalProviderNetwork ?? "";
                 _dr["GBScopeOfCover"] = _objQuotation.GBScopeOfCover ?? "";
-                _dr["GBAreaOfCoverage"] = _objQuotation.GBAreaOfCoverage ?? "";
-                _dr["GBPersonCovered"] = _objQuotation.GBPersonCovered ?? "";
+                _dr["GBAreaOfCoverage"] = string.Join("~", _objQuotation.GBAreaOfCoverage) ?? "";
+                _dr["GBPersonCovered"] = string.Join("~", _objQuotation.GBPersonCovered) ?? "";// _objQuotation.GBPersonCovered ?? "";
                 _dr["GBAnnualBenefitsLimit"] = _objQuotation.GBAnnualBenefitsLimit.Equals(null) ? 0 : _objQuotation.GBAnnualBenefitsLimit;
                 _dr["GBIsPerClaimLimitIP"] = _objQuotation.GBIsPerClaimLimitIP ?? "";
                 _dr["GBPerClaimLimitIP"] = _objQuotation.GBPerClaimLimitIP.Equals(null) ? 0 : _objQuotation.GBPerClaimLimitIP;
                 _dr["GBIsPerClaimLimitOP"] = _objQuotation.GBIsPerClaimLimitOP ?? "";
                 _dr["GBPerClaimLimitOP"] = _objQuotation.GBPerClaimLimitOP.Equals(null) ? 0 : _objQuotation.GBPerClaimLimitOP;
                 _dr["GBPreExisting_ChronicLimit"] = _objQuotation.GBPreExisting_ChronicLimit.Equals(null) ? 0 : _objQuotation.GBPreExisting_ChronicLimit;
-                _dr["GBGeoThreateningEmergencyTreatment"] = _objQuotation.GBGeoThreateningEmergencyTreatment ?? "";
-                _dr["GBGeoElectiveTreatement"] = _objQuotation.GBGeoElectiveTreatement ?? "";
+                _dr["GBGeoThreateningEmergencyTreatment"] = string.Join("~", _objQuotation.GBGeoThreateningEmergencyTreatment) ?? "";
+                _dr["GBGeoElectiveTreatement"] = string.Join("~", _objQuotation.GBGeoElectiveTreatement) ?? "";/// _objQuotation.GBGeoElectiveTreatement ?? "";
                 _dr["GBGeoOutsideResidentCountry"] = _objQuotation.GBGeoOutsideResidentCountry ?? "";
 
                 _dr["GBTotalPremium"] = _objQuotation.GBTotalPremium.Equals(null) ? 0 : _objQuotation.GBTotalPremium;
@@ -220,19 +220,19 @@ namespace Totalligent.Utilities
                 _dr["OPNewBornBabyCoverageLimit"] = _objQuotation.OPNewBornBabyCoverageLimit.Equals(null) ? 0 : _objQuotation.OPNewBornBabyCoverageLimit;
                 _dr["OPNursingAtHome"] = _objQuotation.OPNursingAtHome ?? "";
                 _dr["OPNursingAtHomeLimit"] = _objQuotation.OPNursingAtHomeLimit.Equals(null) ? 0 : _objQuotation.OPNursingAtHomeLimit;
-                _dr["OPAlternativeMedicine"] = _objQuotation.OPAlternativeMedicine ?? "";
+                _dr["OPAlternativeMedicine"] = string.Join("~", _objQuotation.OPAlternativeMedicine) ?? "";
                 _dr["OPAlternativeMedicineCoverage"] = _objQuotation.OPAlternativeMedicineCoverage ?? "";
                 _dr["OPAlternativeMedicineCoverageLimit"] = _objQuotation.OPAlternativeMedicineCoverageLimit.Equals(null) ? 0 : _objQuotation.OPAlternativeMedicineCoverageLimit;
                 _dr["OPAlternativeMedicineDeductible"] = _objQuotation.OPAlternativeMedicineDeductible ?? "";
                 _dr["OPAlternativeMedicineDeductibleLimit"] = _objQuotation.OPAlternativeMedicineDeductibleLimit.Equals(null) ? 0 : _objQuotation.OPAlternativeMedicineDeductibleLimit;
-                _dr["OPFreeAccessOutsideOMAN"] = _objQuotation.OPFreeAccessOutsideOMAN ?? "";
+                _dr["OPFreeAccessOutsideOMAN"] = string.Join("~", _objQuotation.OPFreeAccessOutsideOMAN) ?? "";
                 _dr["EBFreeAccessTPANetwork"] = _objQuotation.EBFreeAccessTPANetwork ?? "";
                 _dr["EBFreeAccessTPANetworkLimit"] = _objQuotation.EBFreeAccessTPANetworkLimit ?? "";
-                _dr["EBReimbursementNonNetworkMedicalProviders"] = _objQuotation.EBReimbursementNonNetworkMedicalProviders ?? "";
+                _dr["EBReimbursementNonNetworkMedicalProviders"] = string.Join("~", _objQuotation.EBReimbursementNonNetworkMedicalProviders) ?? "";
                 _dr["EBReimbursementNonNetworkMedicalProvidersLimit"] = _objQuotation.EBReimbursementNonNetworkMedicalProvidersLimit ?? "";
                 _dr["EBEmergencyTreatment"] = _objQuotation.EBEmergencyTreatment ?? "";
                 _dr["EBEmergencyTreatmentLimit"] = _objQuotation.EBEmergencyTreatmentLimit ?? "";
-                _dr["EBEmergencyTreatmentCountry"] = _objQuotation.EBEmergencyTreatmentCountry ?? "";
+                _dr["EBEmergencyTreatmentCountry"] = string.Join("~", _objQuotation.EBEmergencyTreatmentCountry) ?? "";
                 _dr["ABBenefits"] = _objQuotation.ABBenefits ?? "";
                 _dr["ABDescription"] = _objQuotation.ABDescription ?? "";
                 _dr["ABExclusions"] = _objQuotation.ABExclusions ?? "";
@@ -268,7 +268,7 @@ namespace Totalligent.Utilities
                 _dt.Columns.Add("EffectiveDate", typeof(DateTime));
                 _dt.Columns.Add("Remarks", typeof(string));
                 _dt.Columns.Add("EntryType", typeof(string));
-             
+
 
                 DataRow _dr;
 
@@ -284,7 +284,7 @@ namespace Totalligent.Utilities
                 _dr["Age"] = _obj.Age.Equals(null) ? 0 : _obj.Age;
                 _dr["Salary"] = _obj.Salary.Equals(null) ? 0 : _obj.Salary;
                 _dr["EAW"] = _obj.EAW.Equals(null) ? 0 : _obj.EAW;
-              
+
                 _dr["SumAssured"] = _obj.SumAssured.Equals(null) ? 0 : _obj.SumAssured;
                 _dr["EffectiveDate"] = _obj.EffectiveDate.Equals(null) ? DateTime.Now : _obj.EffectiveDate;
 

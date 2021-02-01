@@ -31,9 +31,9 @@ namespace Totalligent.BusinessEntities
 
         public string GBScopeOfCover { get; set; }
 
-        public string GBAreaOfCoverage { get; set; }
+        public string[] GBAreaOfCoverage { get; set; }
 
-        public string GBPersonCovered { get; set; }
+        public string[] GBPersonCovered { get; set; }
 
         public decimal? GBAnnualBenefitsLimit { get; set; }
 
@@ -53,9 +53,9 @@ namespace Totalligent.BusinessEntities
 
         public decimal? GBPreExisting_ChronicLimit { get; set; }
 
-        public string GBGeoThreateningEmergencyTreatment { get; set; }
+        public string[] GBGeoThreateningEmergencyTreatment { get; set; }
 
-        public string GBGeoElectiveTreatement { get; set; }
+        public string[] GBGeoElectiveTreatement { get; set; }
 
         public string GBGeoOutsideResidentCountry { get; set; }
 
@@ -131,7 +131,7 @@ namespace Totalligent.BusinessEntities
 
         public decimal? OPNursingAtHomeLimit { get; set; }
 
-        public string OPAlternativeMedicine { get; set; }
+        public string[] OPAlternativeMedicine { get; set; }
 
         public string OPAlternativeMedicineCoverage { get; set; }
 
@@ -141,13 +141,13 @@ namespace Totalligent.BusinessEntities
 
         public decimal? OPAlternativeMedicineDeductibleLimit { get; set; }
 
-        public string OPFreeAccessOutsideOMAN { get; set; }
+        public string[] OPFreeAccessOutsideOMAN { get; set; }
 
         public string EBFreeAccessTPANetwork { get; set; }
 
         public string EBFreeAccessTPANetworkLimit { get; set; }
 
-        public string EBReimbursementNonNetworkMedicalProviders { get; set; }
+        public string[] EBReimbursementNonNetworkMedicalProviders { get; set; }
 
         public string EBReimbursementNonNetworkMedicalProvidersLimit { get; set; }
 
@@ -155,7 +155,8 @@ namespace Totalligent.BusinessEntities
 
         public string EBEmergencyTreatmentLimit { get; set; }
 
-        public string EBEmergencyTreatmentCountry { get; set; }
+        public string[] EBEmergencyTreatmentCountry { get; set; }
+        
 
         public string ABBenefits { get; set; }
 

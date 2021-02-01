@@ -102,14 +102,14 @@ $(function () {
         }
     }
 
-    var chart = new ApexCharts(
+    var chart1 = new ApexCharts(
         document.querySelector("#uni-earning"),
         options
     );
     var UnderWriterResultTPE = [];
     var UnderWriterResultTPL = [];
-
-    chart.render();
+    
+    
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
@@ -201,12 +201,11 @@ $(function () {
             floating: true,
         }
     }
-    var chart = new ApexCharts(
+    var chart2 = new ApexCharts(
         document.querySelector("#uni-attendance"),
         options
     );
-
-    chart.render();
+    
 
 
     window.Apex = {
@@ -292,7 +291,10 @@ $(function () {
             o = "";
         t - e < 100 || "Today" == a ? (r = "Today:", o = e.format("MMM D")) : "Yesterday" == a ? (r = "Yesterday:", o = e.format("MMM D")) : o = e.format("MMM D") + " - " + t.format("MMM D"), n.find(".subheader_daterange-date").html(o), n.find(".subheader_daterange-title").html(r)
     }
-
+    setTimeout(function () {
+        chart1.render();
+        chart2.render();
+    }, 1000);
 
 
 }); // End of use strict

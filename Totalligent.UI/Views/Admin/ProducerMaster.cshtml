@@ -25,50 +25,62 @@
     }); }
 
 @Html.AntiForgeryToken()
-<div class="box">
-    <div class="box-header with-border">
-        <h4 class="box-title"><strong>Producer Master</strong></h4>
-    </div>
-    <div class="box-body">
-        <form id="formProducer">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MasterType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("MasterType", listItems, "-- Select Status --", new { @class = "form-control" })
+<div class="p-t-30">
+    <div class="box">
+        <div class="box-header with-border">
+            <h4 class="box-title"><strong>Producer Master</strong></h4>
+        </div>
+        <div class="box-body">
+            <form id="formProducer">
+                <div class="form-group m-b-15">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @Html.LabelFor(model => model.MasterType, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("MasterType", listItems, "-- Select Status --", new { @class = "form-control" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="form-group m-b-15">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control w-full" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="form-group m-b-15">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                        </div>
+                        <div class="col-md-4">
+                            @*@Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control w-full" } })*@
+                            @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control w-full" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" id="btnSubmitProducerMaster" value="Create" class="btn btn-default" />
+                <div class="form-group m-b-15">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input type="submit" id="btnSubmitProducerMaster" value="Create" class="btn btn-primary m-20" />
+                            <button class="btn btn-primary-login m-20" type="button" data-toggle="modal" data-target="#uploadBulk">
+                                <i class="mdi mdi-cloud-upload"></i> Bulk Upload Policy
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <div>
-            <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#uploadBulk">
-                <i class="fas fa-upload fa-sm"></i> Bulk Upload Policy
-            </button>
+            </form>
+        </div>
+        <div class="box-footer text-right">
+            <button class="btn btn-rounded btn-primary">Submit</button>
+            <button class="btn btn-rounded btn-secondary">Cancel</button>
         </div>
     </div>
-    <div class="box-footer">
-        <button class="btn btn-rounded btn-primary">Submit</button>
-        <button class="btn btn-rounded btn-secondary">Cancel</button>
-    </div>
 </div>
-
 
 <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -85,7 +97,7 @@
                         <div class="text-right">
 
                             <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
-                                <i class="fas fa-download fa-sm"></i> Download Sample format
+                                <i class="mdi mdi-download"></i> Download Sample format
                             </a>
                         </div>
                         @*
