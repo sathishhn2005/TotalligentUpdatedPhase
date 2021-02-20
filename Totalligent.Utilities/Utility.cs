@@ -247,6 +247,110 @@ namespace Totalligent.Utilities
                 throw ex;
             }
         }
+
+        public DataTable ConvertToWLEndorsement(Endorsement _obj)
+        {
+            try
+            {
+                DataTable _dt = new DataTable();
+                DataRow _dr;
+
+                _dt.Columns.Add("EmployeeName", typeof(string));
+                _dt.Columns.Add("DOB", typeof(DateTime));
+                _dt.Columns.Add("EAWRo", typeof(decimal));
+                _dt.Columns.Add("EffectiveDate", typeof(DateTime));
+                _dr = _dt.NewRow();
+
+                _dr["EmployeeName"] = _obj.EmployeeName ?? "";
+                _dr["DOB"] = _obj.DOB;
+                _dr["EAWRo"] = _obj.EAWRo.Equals(null) ? 0 : _obj.EAWRo;
+                _dr["EffectiveDate"] = _obj.EffectiveDate.Equals(null) ? DateTime.Now : _obj.EffectiveDate;
+
+                _dt.Rows.Add(_dr);
+                return _dt;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public DataTable ConvertToGLEndorsement(Endorsement _obj)
+        {
+            try
+            {
+                DataTable _dt = new DataTable();
+                DataRow _dr;
+
+                _dt.Columns.Add("EmployeeName", typeof(string));
+                _dt.Columns.Add("DOB", typeof(DateTime));
+                _dt.Columns.Add("SumAssured", typeof(decimal));
+                _dt.Columns.Add("EffectiveDate", typeof(DateTime));
+                _dr = _dt.NewRow();
+
+                _dr["EmployeeName"] = _obj.EmployeeName ?? "";
+                _dr["DOB"] = _obj.DOB;
+                _dr["SumAssured"] = _obj.EAWRo.Equals(null) ? 0 : _obj.EAWRo;
+                _dr["EffectiveDate"] = _obj.EffectiveDate.Equals(null) ? DateTime.Now : _obj.EffectiveDate;
+
+                _dt.Rows.Add(_dr);
+                return _dt;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public DataTable ConvertToEndorsement(Endorsement _obj)
+        {
+            try
+            {
+                DataTable _dt = new DataTable();
+                _dt.Columns.Add("TicketNumber", typeof(long));
+                _dt.Columns.Add("ClientName", typeof(string));
+                _dt.Columns.Add("MailReceivedDate", typeof(DateTime));
+                _dt.Columns.Add("GLPolicyNumber", typeof(string));
+                _dt.Columns.Add("WCPolicyNumber", typeof(string));
+
+                _dt.Columns.Add("PolicyPeriod", typeof(string));
+                _dt.Columns.Add("ErrorDescription", typeof(string));
+                _dt.Columns.Add("EndorsementType", typeof(string));
+                _dt.Columns.Add("GLPremium", typeof(decimal));
+                _dt.Columns.Add("WCPremium", typeof(decimal));
+                    
+                _dt.Columns.Add("MedicalPolicyNo", typeof(string));
+                _dt.Columns.Add("MedicalPremium", typeof(decimal));
+                DataRow _dr;
+
+                _dr = _dt.NewRow();
+
+                _dr["TicketNumber"] = _obj.TicketNumber.Equals(null) ? 0 : _obj.TicketNumber;
+                _dr["ClientName"] = _obj.ClientName ?? "";
+                _dr["MailReceivedDate"] = _obj.MailReceivedDate.Equals(null) ? DateTime.Now : _obj.MailReceivedDate;
+                _dr["GLPolicyNumber"] = _obj.GLPolicyNumber ?? "";
+                _dr["WCPolicyNumber"] = _obj.WCPolicyNumber ?? "";
+
+                _dr["PolicyPeriod"] = _obj.PolicyPeriod ?? "";
+                _dr["ErrorDescription"] = _obj.ErrorDescription ?? "";
+                _dr["EndorsementType"] = _obj.EndorsementType ?? "";
+                _dr["GLPremium"] = _obj.GLPremium.Equals(null) ? 0 : _obj.GLPremium;
+                _dr["WCPremium"] = _obj.WCPremium.Equals(null) ? 0 : _obj.WCPremium;
+
+                _dr["MedicalPolicyNo"] = _obj.MedicalPolicyNo ?? "";
+                _dr["MedicalPremium"] = _obj.MedicalPremium.Equals(null) ? 0 : _obj.MedicalPremium;
+                _dt.Rows.Add(_dr);
+                return _dt;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public DataTable ConvertToEmployeeMasterGenerator(EmployeeMaster _obj)
         {
             try

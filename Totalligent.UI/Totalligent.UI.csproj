@@ -2335,6 +2335,9 @@
     <Content Include="Views\Admin\Quotation.cshtml" />
     <Content Include="Views\Admin\UnderwritingDashboard.cshtml" />
     <Content Include="Views\Admin\ProducerMaster.cshtml" />
+    <Content Include="Views\Home\Endorsement.cshtml" />
+    <Content Include="Views\Admin\PolicyIssuance.cshtml" />
+    <Content Include="Views\Admin\EmployeeMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Totalligent.BAL\Totalligent.BAL.csproj">

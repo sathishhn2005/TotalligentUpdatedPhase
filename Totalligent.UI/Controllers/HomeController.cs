@@ -9,11 +9,15 @@ using System.Web.Mvc;
 using Totalligent.UI.Models;
 using System.Text.RegularExpressions;
 using System.IO;
+using Totalligent.Utilities;
 
 namespace Totalligent.UI.Controllers
 {
+
     public class HomeController : Controller
     {
+        ExcelSheetToDT objUtility = new ExcelSheetToDT();
+        
         readonly RolesModel objRolesModel = new RolesModel();
         readonly TotalligentBALayer objBALTot = new TotalligentBALayer();
         TotalligentMasterBAL objMasterBAL = new TotalligentMasterBAL();
@@ -219,7 +223,7 @@ namespace Totalligent.UI.Controllers
                 filePath = path + Path.GetFileName(postedFile.FileName);
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
-                long returnCode = objMasterBAL.BulkUpload(extension, filePath,UN);
+                long returnCode = objMasterBAL.BulkUpload(extension, filePath, UN);
                 if (returnCode > 0)
                 {
                     returnCode = 1;
@@ -266,13 +270,13 @@ namespace Totalligent.UI.Controllers
                             {
                                 alert = "All the Records already exists. Try uploading new data.";
                                 textAlert = "same";
-                                
+
                             }
                             else if (returnCode > 0)
                             {
                                 alert = "File Uploaded Successfull & Mail has sent to the users.!";
                                 textAlert = "success";
-                                
+
                             }
                             return Json(textAlert);
 
@@ -336,6 +340,44 @@ namespace Totalligent.UI.Controllers
                 throw ex;
             }
             return returnCode;
+        }
+        public ActionResult Endorsement()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Endorsement(Endorsement model, HttpPostedFileBase postedFile)
+        {
+            //   long returnCode = -1;
+            List<Endorsement> lst = null;
+            string filePath = string.Empty;
+
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                filePath = path + Path.GetFileName(postedFile.FileName);
+                string extension = Path.GetExtension(postedFile.FileName);
+                postedFile.SaveAs(filePath);
+
+                var GLModel = objUtility.BulkUpload(extension, filePath);
+                
+
+            }
+            try
+            {
+                objBALTot.InsertEndorsement(model, model.EndorsementId, out lst);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            //   return returnCode;
+            return View(lst);
         }
     }
 

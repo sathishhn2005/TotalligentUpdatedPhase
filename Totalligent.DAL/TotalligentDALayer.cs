@@ -710,13 +710,13 @@ namespace Totalligent.DAL
                         Size = -1,
                         Value = dt
                     };
-                   // cmd.Parameters.AddWithValue("@QuotationId", QuotationId);
+                    // cmd.Parameters.AddWithValue("@QuotationId", QuotationId);
                     cmd.Parameters.AddWithValue("@UserName", "Admin");
                     cmd.Parameters.Add(UDTparam);
 
                     returnCode = cmd.ExecuteNonQuery();
 
-                    
+
                 }
             }
             catch (Exception ex)
@@ -725,7 +725,7 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long CreateQuotation(Quotation obj,long QuotationId, out string draftNo)
+        public long CreateQuotation(Quotation obj, long QuotationId, out string draftNo)
         {
             long returnCode = -1;
             SqlDataReader reader;
@@ -764,6 +764,72 @@ namespace Totalligent.DAL
                         }
                         reader.Close();
                         cmd.Dispose();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst)
+        {
+            long returnCode = -1;
+            lst = null;
+            try
+            {
+                DataTable dtEndorsement = objUtility.ConvertToEndorsement(obj);
+                DataTable dtGLEndorsement = objUtility.ConvertToGLEndorsement(obj);
+                DataTable dtWLEndorsement = objUtility.ConvertToWLEndorsement(obj);
+                if (dtEndorsement.Rows.Count > 0 && dtGLEndorsement.Rows.Count > 0 && dtWLEndorsement.Rows.Count > 0)
+                {
+                    using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                    {
+                        con.Open();
+                        SqlCommand cmd = new SqlCommand
+                        {
+                            CommandText = "SP_InsertEndorsement"
+                        };
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+                        SqlParameter UDTparam = new SqlParameter
+                        {
+                            ParameterName = "@UDT_Endorsement",
+                            Size = -1,
+                            Value = dtEndorsement
+                        };
+                        SqlParameter UDTparam1 = new SqlParameter
+                        {
+                            ParameterName = "@UDTGLEndorsement",
+                            Size = -1,
+                            Value = dtGLEndorsement
+                        };
+                        SqlParameter UDTparam2 = new SqlParameter
+                        {
+                            ParameterName = "@UDTWLEndorsement",
+                            Size = -1,
+                            Value = dtWLEndorsement
+                        };
+                        //cmd.Parameters.AddWithValue("@QuotationId", QuotationId);
+                        cmd.Parameters.AddWithValue("@UserName", "Admin");
+                        cmd.Parameters.Add(UDTparam);
+                        cmd.Parameters.Add(UDTparam1);
+                        cmd.Parameters.Add(UDTparam1);
+                        SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                        {
+                            SelectCommand = cmd
+                        };
+                        DataSet ds = new DataSet();
+                        sdaAdapter.Fill(ds);
+
+
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            DTtoListConverter.ConvertTo(ds.Tables[0], out lst);
+                        }
 
                     }
                 }
@@ -840,7 +906,7 @@ namespace Totalligent.DAL
         public long GetPolicyIssuance(string DraftNumber, out List<Quotation> lstQuotation)
         {
             long returnCode = -1;
-            
+
             lstQuotation = new List<Quotation>();
             try
             {
@@ -856,7 +922,7 @@ namespace Totalligent.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@DraftNumber", DraftNumber ?? "");
-                   
+
 
                     SqlDataAdapter sdaAdapter = new SqlDataAdapter
                     {
@@ -865,14 +931,14 @@ namespace Totalligent.DAL
                     //DataSet ds = new DataSet();
                     sdaAdapter.Fill(ds);
                     List<Quotation> lst = new List<Quotation>();
-                   
+
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         DTtoListConverter.ConvertTo(ds.Tables[0], out lstQuotation);
-                       
+
                     }
-                   
-                    
+
+
                 }
             }
             catch (Exception ex)
@@ -881,7 +947,7 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long EditQuotation(string UserName,long QuotationId, out Quotation lstInfo)
+        public long EditQuotation(string UserName, long QuotationId, out Quotation lstInfo)
         {
             long returnCode = -1;
             lstInfo = new Quotation();
@@ -904,7 +970,7 @@ namespace Totalligent.DAL
                     {
                         SelectCommand = cmd
                     };
-                    
+
                     DataSet ds = new DataSet();
                     sdaAdapter.Fill(ds);
                     if (ds.Tables[0].Rows.Count > 0)
@@ -925,7 +991,7 @@ namespace Totalligent.DAL
                             lstInfo.GBAreaOfCoverage = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(11).Split('~')).ToArray();
                             lstInfo.GBPersonCovered = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(12).Split('~')).ToArray();
                             // lstInfo.GBAreaOfCoverage = Convert.ToString(dr["GBAreaOfCoverage"]);
-                           // lstInfo.GBPersonCovered = Convert.ToString(dr["GBPersonCovered"]);
+                            // lstInfo.GBPersonCovered = Convert.ToString(dr["GBPersonCovered"]);
                             lstInfo.GBAnnualBenefitsLimit = Convert.ToDecimal(dr["GBAnnualBenefitsLimit"]);
                             lstInfo.GBIsPerClaimLimitIP = Convert.ToString(dr["GBIsPerClaimLimitIP"]);
                             lstInfo.GBPerClaimLimitIP = Convert.ToDecimal(dr["GBPerClaimLimitIP"]);
@@ -934,7 +1000,7 @@ namespace Totalligent.DAL
                             lstInfo.GBPreExisting_ChronicLimit = Convert.ToDecimal(dr["GBPreExisting_ChronicLimit"]);
                             lstInfo.GBGeoThreateningEmergencyTreatment = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(19).Split('~')).ToArray();
                             lstInfo.GBGeoElectiveTreatement = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(20).Split('~')).ToArray();
-                           // lstInfo.GBGeoThreateningEmergencyTreatment = Convert.ToString(dr["GBGeoThreateningEmergencyTreatment"]);
+                            // lstInfo.GBGeoThreateningEmergencyTreatment = Convert.ToString(dr["GBGeoThreateningEmergencyTreatment"]);
                             //lstInfo.GBGeoElectiveTreatement = Convert.ToString(dr["GBGeoElectiveTreatement"]);
                             lstInfo.GBGeoOutsideResidentCountry = Convert.ToString(dr["GBGeoOutsideResidentCountry"]);
                             lstInfo.IPHospitalizationClass = Convert.ToString(dr["IPHospitalizationClass"]);
@@ -973,10 +1039,10 @@ namespace Totalligent.DAL
                             lstInfo.OPNewBornBabyCoverageLimit = Convert.ToDecimal(dr["OPNewBornBabyCoverageLimit"]);
                             lstInfo.OPNursingAtHome = Convert.ToString(dr["OPNursingAtHome"]);
                             lstInfo.OPNursingAtHomeLimit = Convert.ToDecimal(dr["OPNursingAtHomeLimit"]);
-                          // GBGeoElectiveTreatement58
-                                lstInfo.OPAlternativeMedicine = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(58).Split('~')).ToArray();
-                            
-                          //  lstInfo.OPAlternativeMedicine = Convert.ToString(dr["OPAlternativeMedicine"]);
+                            // GBGeoElectiveTreatement58
+                            lstInfo.OPAlternativeMedicine = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(58).Split('~')).ToArray();
+
+                            //  lstInfo.OPAlternativeMedicine = Convert.ToString(dr["OPAlternativeMedicine"]);
                             lstInfo.OPAlternativeMedicineCoverage = Convert.ToString(dr["OPAlternativeMedicineCoverage"]);
                             lstInfo.OPAlternativeMedicineCoverageLimit = Convert.ToDecimal(dr["OPAlternativeMedicineCoverageLimit"]);
                             lstInfo.OPAlternativeMedicineDeductible = Convert.ToString(dr["OPAlternativeMedicineDeductible"]);
@@ -986,12 +1052,12 @@ namespace Totalligent.DAL
                             lstInfo.EBFreeAccessTPANetwork = Convert.ToString(dr["EBFreeAccessTPANetwork"]);
                             lstInfo.EBFreeAccessTPANetworkLimit = Convert.ToString(dr["EBFreeAccessTPANetworkLimit"]);
                             lstInfo.EBReimbursementNonNetworkMedicalProviders = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(66).Split('~')).ToArray();
-                          //  lstInfo.EBReimbursementNonNetworkMedicalProviders = Convert.ToString(dr["EBReimbursementNonNetworkMedicalProviders"]);
+                            //  lstInfo.EBReimbursementNonNetworkMedicalProviders = Convert.ToString(dr["EBReimbursementNonNetworkMedicalProviders"]);
                             lstInfo.EBReimbursementNonNetworkMedicalProvidersLimit = Convert.ToString(dr["EBReimbursementNonNetworkMedicalProvidersLimit"]);
                             lstInfo.EBEmergencyTreatment = Convert.ToString(dr["EBEmergencyTreatment"]);
                             lstInfo.EBEmergencyTreatmentLimit = Convert.ToString(dr["EBEmergencyTreatmentLimit"]);
                             lstInfo.EBEmergencyTreatmentCountry = ds.Tables[0].AsEnumerable().SelectMany(r => r.Field<string>(70).Split('~')).ToArray();
-                           // lstInfo.EBEmergencyTreatmentCountry = Convert.ToString(dr["EBEmergencyTreatmentCountry"]);
+                            // lstInfo.EBEmergencyTreatmentCountry = Convert.ToString(dr["EBEmergencyTreatmentCountry"]);
                             lstInfo.ABBenefits = Convert.ToString(dr["ABBenefits"]);
                             lstInfo.ABDescription = Convert.ToString(dr["ABDescription"]);
                             lstInfo.ABExclusions = Convert.ToString(dr["ABExclusions"]);
@@ -1142,7 +1208,7 @@ namespace Totalligent.DAL
                                    Id = (long)dr["Id"],
                                    Name = dr["Name"].ToString(),
                                    EmailId = dr["EmailId"].ToString(),
-                                  
+
                                }).ToList();
                     }
                     cmd.Dispose();
@@ -1154,5 +1220,6 @@ namespace Totalligent.DAL
             }
             return lst;
         }
+       
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="DrugMaster.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeMaster.cs" />
+    <Compile Include="Endorsement.cs" />
     <Compile Include="HospitalMaster.cs" />
     <Compile Include="InsuranceCompany.cs" />
     <Compile Include="InsuranceCompanyMaster.cs" />

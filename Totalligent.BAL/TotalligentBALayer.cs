@@ -325,25 +325,25 @@ namespace Totalligent.BAL
             {
                 try
                 {
-                   // byte[] b = ASCIIEncoding.ASCII.GetBytes(objPM.EmailId);
-                   // string encryptedPswd = Convert.ToBase64String(b);
+                    // byte[] b = ASCIIEncoding.ASCII.GetBytes(objPM.EmailId);
+                    // string encryptedPswd = Convert.ToBase64String(b);
 
-                   // objPM.Password = encryptedPswd;
+                    // objPM.Password = encryptedPswd;
                     returnCode = objTotalligentDAL.SaveEM(objEM);
                     transactionScope.Complete();
                     transactionScope.Dispose();
-                   /* if (returnCode > 0)
-                    {
+                    /* if (returnCode > 0)
+                     {
 
-                        if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(encryptedPswd))
-                        {
-                            returnCode = objTotalligentDAL.SaveLogin(UserName, encryptedPswd, 1);
-                            MailingServices objMail = new MailingServices();
-                            returnCode = objMail.SendMailToAdmin(UserName, encryptedPswd, EmailId);
-                        }
-                        transactionScope.Complete();
-                        transactionScope.Dispose();
-                    }*/
+                         if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(encryptedPswd))
+                         {
+                             returnCode = objTotalligentDAL.SaveLogin(UserName, encryptedPswd, 1);
+                             MailingServices objMail = new MailingServices();
+                             returnCode = objMail.SendMailToAdmin(UserName, encryptedPswd, EmailId);
+                         }
+                         transactionScope.Complete();
+                         transactionScope.Dispose();
+                     }*/
 
                 }
                 catch (Exception ex)
@@ -498,6 +498,29 @@ namespace Totalligent.BAL
 
                 return lst;
             }
+        }
+
+        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.InsertEndorsement(obj, EndorsementId, out lst);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+
+
+            }
+            return returnCode;
         }
     }
 }
