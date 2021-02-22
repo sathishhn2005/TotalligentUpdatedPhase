@@ -18,6 +18,8 @@ namespace Totalligent.BusinessEntities
         public string CIInsuranceCompanyName { get; set; }
 
         public string CIClientCompanyName { get; set; }
+        public string GBMedicalNetworkHospitals { get; set; }
+        
 
         public string CIProducerType { get; set; }
 

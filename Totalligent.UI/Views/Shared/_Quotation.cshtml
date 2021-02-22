@@ -42,15 +42,12 @@
                                         <label class="col-sm-12 col-form-label text-left">Client Company Name</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
+                                       
                                         @(Html.Kendo().ComboBox()
-                                                                                                                                .Name("CIClientCompanyName")
-                                                                                                                                .Placeholder(">> Select Client Company Name ")
-                                                                                                                                .BindTo(new List<string>() {
-                                                                                                                                                                                                                                                                                                                                    "CTS",
-                                                                                                                                                                                                                                                                                                                                    "TCS",
-                                                                                                                                                                                                                                                                                                                                    "Dun & Bradstreet",
-                                                                                                                                })
-                                                                                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;", autocomplete = "off " })
+.Name("CIClientCompanyName")
+.Placeholder(">> Select Client Company Name ")
+
+.HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;", autocomplete = "off " })
                                         )
                                     </div>
                                 </div>
@@ -93,11 +90,9 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @(Html.Kendo().ComboBox()
-                                                                                                                                .Name("CIProducerName")
-                                                                                                                                .Placeholder(">> Select Producer Name ")
-
-
-                                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+.Name("CIProducerName")
+.Placeholder(">> Select Producer Name ")
+.HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
 
                                         )
                                     </div>
@@ -108,20 +103,19 @@
                                     </div>
                                     <div class="col-md-4 demo-section k-content">
                                         @(Html.Kendo().DropDownList()
-                                                                                                                                .Name("CISelectCommission")
-                                                                                                                                .BindTo(new List<string>() {
-                                                                                                                                                                                                                                                                                                                                    "3%",
-                                                                                                                                                                                                                                                                                                                                    "5%",
-                                                                                                                                                                                                                                                                                                                                    "10%",
-                                                                                                                                                                                                                                                                                                                                    "15%",
-                                                                                                                                                                                                                                                                                                                                    "Add New"
-                                                                                                                                })
-                                                                                                                                .Enable(true)
-                                                                                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                                                                                                                .Events(e =>
-                                                                                                                                {
-                                                                                                                                    e.Select("onBrokerCommissionSelect");
-                                                                                                                                })
+.Name("CISelectCommission")
+.BindTo(new List<decimal>() {
+ 3,
+5,
+10,
+15
+})
+.Enable(true)
+.HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+.Events(e =>
+{
+e.Select("onBrokerCommissionSelect");
+})
                                         )
                                     </div>
                                     @*<div class="col-md-3 demo-section k-content">
@@ -183,7 +177,7 @@
                                                 </div>
                                                 <div class="col-md-4 demo-section k-content">
                                                     @(Html.Kendo().DropDownList()
-                                                                                                                                        .Name("AllHospital")
+                                                                                                                                        .Name("GBMedicalNetworkHospitals")
                                                                                                                                         .BindTo(new List<string>
                                                                                                                                         () {
                                                                                                                                                                                                                                                                                                                                                                                                     ">> Add Specific Hospital / Clinic",
@@ -206,7 +200,7 @@
                                                             <label for="InPatient">In Patient</label>
                                                             <input name="GBScopeOfCover" type="radio" id="OutPatient" class="with-gap radio-col-primary" />
                                                             <label for="OutPatient">Out Patient</label>
-                                                          
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -800,7 +794,7 @@
                                                                                                                     .BindTo(new List<string>
                                                                                                                         () {
                                                                                                                                                                                                                                                                                                                         ">> Select",
-                                                                                                                                                                                                                                                                                                                        
+
                                                                                                                                                                                                                                                                                                                         "Per Claim Limit",
                                                                                                                                                                                                                                                                                                                         "Co-Pay"
                                                                                                                         })
@@ -831,7 +825,7 @@
                                                                                                                     .BindTo(new List<string>
                                                                                                                         () {
                                                                                                                                                                                                                                                                                                                         ">> Select",
-                                                                                                                                                                                                                                                                                                                        
+
                                                                                                                                                                                                                                                                                                                         "Per Claim Limit",
                                                                                                                                                                                                                                                                                                                         "Co-Pay"
                                                                                                                         })
@@ -1101,7 +1095,7 @@
                                                                                                             .BindTo(new List<string>
                                                                                                                 () {
                                                                                                                                                                                                                                                                     ">> Select",
-                                                                                                                                                                                                                                                                    
+
                                                                                                                                                                                                                                                                     "Pool Limit Per Policy",
                                                                                                                                                                                                                                                                     "Per Person Limit",
                                                                                                                                                                                                                                                                     "Copay",
@@ -1374,11 +1368,38 @@
             $("#OPAccidentalDamageNaturalTeethLimit").kendoNumericTextBox();
             $("#OPNewBornBabyCoverageLimit").kendoNumericTextBox();
             $("#OPNursingAtHomeLimit").kendoNumericTextBox();
-           
+
         }, 1000);
-        
+
         initStepWizard();
+
     };
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Action("GetClientMaster", "Home")',
+
+            dataType: "json",
+            success: function (Result) {
+
+                var lst = Result
+                $("#CIClientCompanyName").kendoComboBox({
+                    dataTextField: "ClientCompanyName",
+                    dataValueField: "ClientComId",
+                    dataSource: lst,
+                    filter: "contains",
+                    suggest: true,
+                    index: 3
+                });
+
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+        });
+    });
     function onChangeIPHosp(e) {
         var dataItem = this.dataItem(e.item);
         console.log(dataItem.Value);
@@ -1434,7 +1455,7 @@
                 var lst = Result.list
                 $("#CIProducerName").kendoComboBox({
                     dataTextField: "Name",
-                    dataValueField: "Id",
+                    dataValueField: "Name",
                     dataSource: Result.list,
                     filter: "contains",
                     suggest: true,

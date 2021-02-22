@@ -83,6 +83,8 @@ namespace Totalligent.Utilities
                 _dt.Columns.Add("CISelectCommission", typeof(decimal));
                 _dt.Columns.Add("CINoOfPlanCategories", typeof(int));
                 _dt.Columns.Add("GBMedicalProviderNetwork", typeof(string));
+                _dt.Columns.Add("GBMedicalNetworkHospitals", typeof(string));
+                
                 _dt.Columns.Add("GBScopeOfCover", typeof(string));
                 _dt.Columns.Add("GBAreaOfCoverage", typeof(string));
                 _dt.Columns.Add("GBPersonCovered", typeof(string));
@@ -166,6 +168,8 @@ namespace Totalligent.Utilities
                 _dr["CISelectCommission"] = _objQuotation.CISelectCommission.Equals(null) ? 0 : _objQuotation.CISelectCommission;
                 _dr["CINoOfPlanCategories"] = _objQuotation.CINoOfPlanCategories.Equals(null) ? 0 : _objQuotation.CINoOfPlanCategories;
                 _dr["GBMedicalProviderNetwork"] = _objQuotation.GBMedicalProviderNetwork ?? "";
+                _dr["GBMedicalNetworkHospitals"] = _objQuotation.GBMedicalNetworkHospitals ?? "";
+                
                 _dr["GBScopeOfCover"] = _objQuotation.GBScopeOfCover ?? "";
                 _dr["GBAreaOfCoverage"] = string.Join("~", _objQuotation.GBAreaOfCoverage) ?? "";
                 _dr["GBPersonCovered"] = string.Join("~", _objQuotation.GBPersonCovered) ?? "";// _objQuotation.GBPersonCovered ?? "";
@@ -320,9 +324,10 @@ namespace Totalligent.Utilities
                 _dt.Columns.Add("EndorsementType", typeof(string));
                 _dt.Columns.Add("GLPremium", typeof(decimal));
                 _dt.Columns.Add("WCPremium", typeof(decimal));
-                    
+
                 _dt.Columns.Add("MedicalPolicyNo", typeof(string));
                 _dt.Columns.Add("MedicalPremium", typeof(decimal));
+                _dt.Columns.Add("GLpostedFileDocPath", typeof(string));
                 DataRow _dr;
 
                 _dr = _dt.NewRow();
@@ -333,6 +338,7 @@ namespace Totalligent.Utilities
                 _dr["GLPolicyNumber"] = _obj.GLPolicyNumber ?? "";
                 _dr["WCPolicyNumber"] = _obj.WCPolicyNumber ?? "";
 
+
                 _dr["PolicyPeriod"] = _obj.PolicyPeriod ?? "";
                 _dr["ErrorDescription"] = _obj.ErrorDescription ?? "";
                 _dr["EndorsementType"] = _obj.EndorsementType ?? "";
@@ -341,6 +347,8 @@ namespace Totalligent.Utilities
 
                 _dr["MedicalPolicyNo"] = _obj.MedicalPolicyNo ?? "";
                 _dr["MedicalPremium"] = _obj.MedicalPremium.Equals(null) ? 0 : _obj.MedicalPremium;
+
+                _dr["GLpostedFileDocPath"] = _obj.GlpostedFileDocPath ?? "";
                 _dt.Rows.Add(_dr);
                 return _dt;
 

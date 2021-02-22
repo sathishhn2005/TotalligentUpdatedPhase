@@ -8,6 +8,7 @@ using Totalligent.BusinessEntities;
 using System.Security.Cryptography;
 using Totalligent.Utilities;
 using System.Transactions;
+using System.Data;
 
 namespace Totalligent.BAL
 {
@@ -500,14 +501,14 @@ namespace Totalligent.BAL
             }
         }
 
-        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst)
+        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst,DataTable dtGLEndorsement, DataTable dtWLEndorsement)
         {
             long returnCode = -1;
             using (TransactionScope transactionScope = new TransactionScope())
             {
                 try
                 {
-                    returnCode = objTotalligentDAL.InsertEndorsement(obj, EndorsementId, out lst);
+                    returnCode = objTotalligentDAL.InsertEndorsement(obj, EndorsementId, out lst, dtGLEndorsement, dtWLEndorsement);
                     transactionScope.Complete();
                     transactionScope.Dispose();
 
@@ -522,5 +523,50 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
+        public long GetClientMaster(out List<ClientCompanyMaster> lst)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.GetClientMaster(out lst);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+
+
+            }
+            return returnCode;
+        }
+        public long GetGLWLPolicies(out Endorsement objEndor, string CompanyName)
+        {
+            long returnCode = -1;
+            using (TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    returnCode = objTotalligentDAL.GetGLWLPolicy(out objEndor, CompanyName);
+                    transactionScope.Complete();
+                    transactionScope.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    throw ex;
+                }
+
+
+            }
+            return returnCode;
+        }
+
     }
 }

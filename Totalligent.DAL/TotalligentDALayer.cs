@@ -774,15 +774,15 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst)
+        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst, DataTable dtGLEndorsement, DataTable dtWLEndorsement)
         {
             long returnCode = -1;
             lst = null;
             try
             {
                 DataTable dtEndorsement = objUtility.ConvertToEndorsement(obj);
-                DataTable dtGLEndorsement = objUtility.ConvertToGLEndorsement(obj);
-                DataTable dtWLEndorsement = objUtility.ConvertToWLEndorsement(obj);
+                // DataTable dtGLEndorsement = dt1;
+                // DataTable dtWLEndorsement = obj.WLEndorsement;
                 if (dtEndorsement.Rows.Count > 0 && dtGLEndorsement.Rows.Count > 0 && dtWLEndorsement.Rows.Count > 0)
                 {
                     using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
@@ -817,7 +817,7 @@ namespace Totalligent.DAL
                         cmd.Parameters.AddWithValue("@UserName", "Admin");
                         cmd.Parameters.Add(UDTparam);
                         cmd.Parameters.Add(UDTparam1);
-                        cmd.Parameters.Add(UDTparam1);
+                        cmd.Parameters.Add(UDTparam2);
                         SqlDataAdapter sdaAdapter = new SqlDataAdapter
                         {
                             SelectCommand = cmd
@@ -1220,6 +1220,82 @@ namespace Totalligent.DAL
             }
             return lst;
         }
-       
+        public long GetClientMaster(out List<ClientCompanyMaster> lst)
+        {
+            long returnCode = -1;
+            lst = null;
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetClientCompanyMaster"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    DataSet ds = new DataSet();
+                    sdaAdapter.Fill(ds);
+
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lst);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long GetGLWLPolicy(out Endorsement objEndo, string CompanyName)
+        {
+            long returnCode = -1;
+            objEndo = new Endorsement();
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "SP_GetGLWLPolicyNos"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@CompanyName", CompanyName);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        objEndo.GLPolicyNumber = (string)reader.GetValue(0);
+                        objEndo.WCPolicyNumber = reader.GetValue(1).ToString();
+                        objEndo.PolicyPeriod = reader.GetValue(2).ToString();
+
+                    }
+                    reader.Close();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
     }
 }
