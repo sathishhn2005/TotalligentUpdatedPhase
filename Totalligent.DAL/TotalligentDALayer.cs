@@ -1297,5 +1297,54 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
+
+        #region EntomentPDF
+       
+        public long GetGL_WL_PDFdata(long EndorsementID, string PdfType ,out List<Endorsement> lstEndorsement)
+        {
+            long returnCode = -1;
+            lstEndorsement =  null;
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "PGetGLWLPDFdata"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    cmd.Parameters.AddWithValue("@EndorsementId", EndorsementID);
+                    cmd.Parameters.AddWithValue("@PdfType", PdfType);
+
+                    SqlDataAdapter objSqlDataAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+
+                    DataSet ds = new DataSet();
+                    objSqlDataAdapter.Fill(ds);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstEndorsement);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+         
+            return returnCode;
+        }
+
+        #endregion
     }
 }

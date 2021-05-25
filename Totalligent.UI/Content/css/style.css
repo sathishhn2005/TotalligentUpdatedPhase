@@ -16080,7 +16080,7 @@ body .main-header .navbar .nav > li.search-box > a:hover, body .main-header .nav
     float: left;
     min-height: 100%;
     width: 250px;
-    z-index: 9999;
+    z-index: 1040;
     border-radius: 5px;
     -webkit-transition: -webkit-transform .3s ease-in-out, width .3s ease-in-out;
     -moz-transition: -moz-transform .3s ease-in-out, width .3s ease-in-out;
@@ -17600,7 +17600,7 @@ body .main-header .navbar .nav > li.search-box > a:hover, body .main-header .nav
                 width: auto;
                 text-align: center;
                 position: relative;
-                padding: 0.5rem 1.5rem;
+                padding: 0.5rem 1rem;
                 border-radius: 5px;
                 margin: 0 10px;
                 background-color: #f0f0f0;
@@ -22923,10 +22923,11 @@ input[type="color"] {
 }
 
 .form-control {
-    border-radius: 5px;
+    border-radius: 0px;
     box-shadow: none;
     border-color: #9e9e9e;
     height: auto;
+    border: 1px solid #e1e1e1;
 }
 
     .form-control:focus {
@@ -23963,7 +23964,7 @@ textarea.form-control {
 /*---card---*/
 .card {
     border-radius: 5px;
-    box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 1px 15px -5px rgba(0, 0, 0, 0.55);
     margin-bottom: 30px !important;
 }
 
@@ -26694,7 +26695,7 @@ ul.flexbox {
             }
 
             .todo-list > li.done label {
-                background: #f0f0f0;
+                background: #fff;
             }
 
     .todo-list .done .text-line {
@@ -31417,4 +31418,54 @@ button.btn.dropdown-toggle:after {
 @keyframes rotation {
    from {transform: rotate(0deg);}
    to {transform: rotate(359deg);}
+}
+
+.invoces-Complogo {
+    height: auto;
+    margin-bottom: 20px;
+    max-height: 100px;
+    width: auto;
+}
+
+.invoice-info, .invoice-payment-details > li span {
+    float: right;
+    text-align: right;
+}
+.box-shadow {
+    -webkit-box-shadow: 0 2px 28px rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 28px rgb(0 0 0 / 10%);
+}
+.lh40 {
+    line-height: 40px;
+}
+.nav-link span.noti-dot::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    background-color: #dc3545;
+    animation: beat .25s infinite alternate;
+    transform-origin: center;
+}
+
+.font-size-20 {
+    font-size: 20px !important;
+}
+.avatar .avatar-title {
+    background: #d7d7d7;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: 19px;
+}
+
+.bg-primary-bright {
+    background: rgba(80, 102, 225, 0.3) !important;
 }

@@ -568,5 +568,10 @@ namespace Totalligent.BAL
             return returnCode;
         }
 
+        public long GetGL_WL_PDFdata(long EndorsementID, string PdfType, out List<Endorsement> lstEndorsement)
+        {
+            return objTotalligentDAL.GetGL_WL_PDFdata(EndorsementID, PdfType, out lstEndorsement);
+        }
+
     }
 }

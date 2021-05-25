@@ -12,9 +12,13 @@ using System.IO;
 using Totalligent.Utilities;
 using System.Data;
 using System.Text;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
+//using iText.Kernel.Pdf;
+//using iText.Layout;
+//using iText.Layout.Element;
+
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 
 namespace Totalligent.UI.Controllers
 {
@@ -400,10 +404,9 @@ namespace Totalligent.UI.Controllers
                     GLpostedFileDoc.SaveAs(_filePath);
                 }
                
-
                 obj.GlpostedFileDocPath = _filePath;
-
                 objBALTot.InsertEndorsement(obj, obj.EndorsementId, out lst, dt1, dt2);
+
             }
             catch (Exception ex)
             {
@@ -440,104 +443,78 @@ namespace Totalligent.UI.Controllers
                 throw ex;
             }
             return Json(objEndor, JsonRequestBehavior.AllowGet);
+          
         }
-        [HttpGet]
-        public ActionResult GeneratePDFWLCL(long EndorsementId)
+
+        #region EndorsementPDF
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult GenerateGLwLPDF(long EndorsementId,string PdfType)
         {
-            byte[] pdfBytes;
-            using (var stream = new MemoryStream())
-            using (var wri = new PdfWriter(stream))
-            using (var pdf = new PdfDocument(wri))
-            using (var doc = new Document(pdf))
-            {
-                doc.Add(new Paragraph("Hello World!"));
-                doc.Flush();
-                pdfBytes = stream.ToArray();
-            }
-            return new FileContentResult(pdfBytes, "application/pdf");
-        }
-        /*    public void GeneratePDF()
-            {
-                string companyName = "ASPSnippets";
-                int orderNo = 2303;
-                DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[5] {
-                                new DataColumn("ProductId", typeof(string)),
-                                new DataColumn("Product", typeof(string)),
-                                new DataColumn("Price", typeof(int)),
-                                new DataColumn("Quantity", typeof(int)),
-                                new DataColumn("Total", typeof(int))});
-                dt.Rows.Add(101, "Sun Glasses", 200, 5, 1000);
-                dt.Rows.Add(102, "Jeans", 400, 2, 800);
-                dt.Rows.Add(103, "Trousers", 300, 3, 900);
-                dt.Rows.Add(104, "Shirts", 550, 2, 1100);
+            long returnCode = -1;
+            List<Endorsement> lstEndorsement = null;
 
-                using (StringWriter sw = new StringWriter())
+            returnCode =objBALTot.GetGL_WL_PDFdata(EndorsementId, PdfType, out lstEndorsement);
+
+               string ExportData = RenderGLWLEndorsementHTML(lstEndorsement);
+                using (MemoryStream stream = new System.IO.MemoryStream())
                 {
-                    using (HtmlTextWriter hw = new HtmlTextWriter(sw))
-                    {
-                        StringBuilder sb = new StringBuilder();
+                    StringReader reader = new StringReader(ExportData);
+                    Document PdfFile = new Document(PageSize.A4);
+                    PdfWriter writer = PdfWriter.GetInstance(PdfFile, stream);
+                    PdfFile.Open();
+                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, PdfFile, reader);
+                    PdfFile.Close();
 
-                        //Generate Invoice (Bill) Header.
-                        sb.Append("<table width='100%' cellspacing='0' cellpadding='2'>");
-                        sb.Append("<tr><td align='center' style='background-color: #18B5F0' colspan = '2'><b>Order Sheet</b></td></tr>");
-                        sb.Append("<tr><td colspan = '2'></td></tr>");
-                        sb.Append("<tr><td><b>Order No: </b>");
-                        sb.Append(orderNo);
-                        sb.Append("</td><td align = 'right'><b>Date: </b>");
-                        sb.Append(DateTime.Now);
-                        sb.Append(" </td></tr>");
-                        sb.Append("<tr><td colspan = '2'><b>Company Name: </b>");
-                        sb.Append(companyName);
-                        sb.Append("</td></tr>");
-                        sb.Append("</table>");
-                        sb.Append("<br />");
-
-                        //Generate Invoice (Bill) Items Grid.
-                        sb.Append("<table border = '1'>");
-                        sb.Append("<tr>");
-                        foreach (DataColumn column in dt.Columns)
-                        {
-                            sb.Append("<th style = 'background-color: #D20B0C;color:#ffffff'>");
-                            sb.Append(column.ColumnName);
-                            sb.Append("</th>");
-                        }
-                        sb.Append("</tr>");
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            sb.Append("<tr>");
-                            foreach (DataColumn column in dt.Columns)
-                            {
-                                sb.Append("<td>");
-                                sb.Append(row[column]);
-                                sb.Append("</td>");
-                            }
-                            sb.Append("</tr>");
-                        }
-                        sb.Append("<tr><td align = 'right' colspan = '");
-                        sb.Append(dt.Columns.Count - 1);
-                        sb.Append("'>Total</td>");
-                        sb.Append("<td>");
-                        sb.Append(dt.Compute("sum(Total)", ""));
-                        sb.Append("</td>");
-                        sb.Append("</tr></table>");
-
-                        //Export HTML String as PDF.
-                        StringReader sr = new StringReader(sb.ToString());
-                        Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                        HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-                        PdfWriter writer = PdfWriter.(pdfDoc, Response.OutputStream);
-                        pdfDoc.Open();
-                        htmlparser.Parse(sr);
-                        pdfDoc.Close();
-                        Response.ContentType = "application/pdf";
-                        Response.AddHeader("content-disposition", "attachment;filename=Invoice_" + orderNo + ".pdf");
-                        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                        Response.Write(pdfDoc);
-                        Response.End();
-                    }
+                    return File(stream.ToArray(), "application/pdf", PdfType == "GL" ? "GLEndorsement.pdf" : "WLEndorsement.pdf");
                 }
-            }*/
+                      
+        }
+
+       private string RenderGLWLEndorsementHTML(List<Endorsement> lstEndorsement )
+        {
+            string GenerateHTML = string.Empty;
+
+            GenerateHTML += "<html><head></head><div>";
+            if (lstEndorsement != null)
+            {
+                GenerateHTML += "<div align='center'> GROUP LIFE  – ENDORSEMENT </div>  <br /> ";
+                GenerateHTML += "<table style='width: 80 %;'> <tr style='height: 35px;'><td>Class of Insurance</td> <td>:</td><td>" + lstEndorsement[0].ClssOfInsurance + "</td> </tr >";
+                GenerateHTML += "<tr style='height: 35px;'><td>Endorsement No</td><td>:</td><td>" + lstEndorsement[0].EndorsementNo + "</td> </tr>";
+                GenerateHTML += "<tr style='height: 35px;'><td>Policy No </td><td>:</td><td>" + lstEndorsement[0].PolicyNo + "</td></tr>";
+                GenerateHTML += "<tr style='height: 35px;'><td>Insured</td><td>:</td><td>" + lstEndorsement[0].ClientName + "</td></tr>";
+                GenerateHTML += "<tr style='height: 35px;'> <td>Policy Period</td> <td>:</td><td>" + lstEndorsement[0].PolicyPeriod + "</td></tr></table> <br /><br />";
+                GenerateHTML += "<div style='height: 75px;'><p> At the request of the Insured, it is hereby agreed to delete the following employees of <b>"+ lstEndorsement[0].ClientName + "</b>. to the above-mentioned policy. The details are as mentioned below</p> </div>";
+
+                GenerateHTML += "<table style='width:100 %;border-color:darkgray' border='1' cellpadding='0' cellspacing='0'><thead><tr style='height: 30px;background-color:lightsteelblue'><td>S.No</td><td>Name of Employee</td><td>DOB </td><td>Sum Assured</td> <td>Effective Date</td></tr></thead > <tbody>";
+                foreach (Endorsement value in lstEndorsement)
+                {
+
+                    GenerateHTML += "<tr style='height:30px;'>";
+                    GenerateHTML += "<td>" + value.GLEndorsementId + "</td>";
+                    GenerateHTML += "<td>" + value.EmployeeName + "</td>";
+                    GenerateHTML += "<td>" + Convert.ToDateTime(value.DOB).ToString("dd-MM-yyyy") + "</td>";
+                    GenerateHTML += "<td>" + value.SumAssured + "</td>";
+                    GenerateHTML += "<td>" + Convert.ToDateTime(value.EffectiveDate).ToString("dd-MM-yyyy") + "</td></tr>";
+                }
+                GenerateHTML += "</tbody></table><br /><br />";
+
+
+                GenerateHTML += "<div> <p>In consideration of the foregoing, a premium of <b>RO.31.931</b> is hereby Credited to the Insured.All other terms, conditions and limitations remain unaltered. </p > </div >";
+                GenerateHTML += "<br /><br /><div><div> Authorized Signatory </div><div>  Place: Muscat </div><div>  Date: " + DateTime.Now.ToString() + "</div></div>";
+               
+            }
+            else
+            {
+                GenerateHTML += "<div>No Records Found</div>";
+            }
+            GenerateHTML += "</div></html>";
+            return GenerateHTML;
+        }
+        #endregion
+
+
     }
 
 

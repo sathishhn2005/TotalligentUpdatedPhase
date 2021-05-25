@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<Totalligent.BusinessEntities.Endorsement>
 
-@{
-    ViewBag.Title = "Endorsement";
+@{ ViewBag.Title = "Endorsement";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
+<script src="~/Scripts/Pdf/jspdf.min.js"></script>
+<script src="~/Scripts/Pdf/jquery-1.12.4.min.js"></script>
 
 <div class="col-lg-12 col-12 p-t-30">
     <div class="box">
@@ -17,95 +19,96 @@
                 <div class="modal-content" style="width:125%;">
                     <div class="box-body">
                         @using (Html.BeginForm("Endorsement", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @*<form id="formEndorsement" method="post" enctype="multipart/form-data">*@
-                            <div class="row">
-                                <div class="col-md-2 form-group">
-                                    <label class="col-form-label">Ticket No</label>
-                                    <input type="text" class="form-control" id="TicketNumber" name="TicketNumber">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label class="col-form-label">Client Name</label>
-                                    <select id="ClientName" onchange="GetGLWLPol()" name="ClientName" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">Mail Received Date</label>
-                                    <input type="date" class="form-control" id="MailReceivedDate" name="MailReceivedDate">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">GL PolicyNo</label>
-                                    <input type="text" class="form-control" readonly id="GLPolicyNumber" name="GLPolicyNumber">
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">WC PolicyNo</label>
-                                    <input type="text" class="form-control" readonly id="WCPolicyNumber" name="WCPolicyNumber">
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">Policy Period</label>
-                                    <input type="text" readonly class="form-control" id="PolicyPeriod" name="PolicyPeriod">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">Error Description</label>
-                                    <select id="ErrorDescription" name="ErrorDescription" class="form-control">
-                                        <option selected="selected" value="">Description</option>
-                                        <option value="Completed">Completed</option>
-                                        <option value="Credit Limit Error">Credit Limit Error</option>
-                                        <option value="Credit Days Exceed">Credit Days Exceed</option>
-                                        <option value="Customer Code Doesnot Exist">Customer Code Doesnot Exist</option>
-                                        <option value="Need to Revice">Need to Revice</option>
-                                        <option value="Others">Others</option>
-                                        <option value="Ignored">Ignored</option>
+                        {@*<form id="formEndorsement" method="post" enctype="multipart/form-data">*@
+                        <div class="row">
 
 
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">Endorsement Type</label>
-                                    <select id="EndorsementType" name="EndorsementType" class="form-control">
-                                        <option selected="selected" value="">Endorsement Type</option>
-                                        <option value="Add">Add</option>
-                                        <option value="Delete">Delete</option>
-                                        <option value="Others">Others</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">GL Endorsement Document</label>
-                                    <input type="file" class="form-control" name="GLpostedFileDoc" id="fileUploadGLEndorsement" accept=".rar,.zip" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">GL Endorsement Page</label>
-                                    <input type="file" class="form-control" name="fileUploadGLEndorsementPage" id="fileUploadGLEndorsementPage" accept=".xls,.xlsx" />
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">GL Premium</label>
-                                    <input type="number" class="form-control" name="GLPremium" id="GLPremium" />
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">WC Endorsement Page</label>
-                                    <input type="file" class="form-control" name="fileUploadGLEndorsementPage" id="fileUploadWLEndorsementPage" accept=".xls,.xlsx" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class="col-form-label">WC Premium</label>
-                                    <input type="number" class="form-control" name="WCPremium" id="WCPremium" />
-                                </div>
-                            </div>
-                            <div class="box-footer text-right">
-                                @*<button type="submit" class="btn btn-rounded btn-primary">Submit</button > onclick="SaveEndorsement()"*@
-                                <button id="btnSubmitEndorsement" class="btn btn-rounded btn-primary">Submit</button>
-                                @*<input type="button" class="btn btn-rounded btn-primary" value="Submit" />*@
 
-                                @*<button class="btn btn-rounded btn-secondary">Cancel</button>*@
+                            <div class="col-md-2 form-group">
+                                <label class="col-form-label">Ticket No</label>
+                                <input type="text" class="form-control" id="TicketNumber" name="TicketNumber">
                             </div>
-                        }
+                            <div class="col-md-6 form-group">
+                                <label class="col-form-label">Client Name</label>
+                                <select id="ClientName" onchange="GetGLWLPol()" name="ClientName" class="form-control">
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Mail Received Date</label>
+                                <input type="date" class="form-control" id="MailReceivedDate" name="MailReceivedDate">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">GL PolicyNo</label>
+                                <input type="text" class="form-control" readonly id="GLPolicyNumber" name="GLPolicyNumber">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">WC PolicyNo</label>
+                                <input type="text" class="form-control" readonly id="WCPolicyNumber" name="WCPolicyNumber">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Policy Period</label>
+                                <input type="text" readonly class="form-control" id="PolicyPeriod" name="PolicyPeriod">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Error Description</label>
+                                <select id="ErrorDescription" name="ErrorDescription" class="form-control">
+                                    <option selected="selected" value="">Description</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Credit Limit Error">Credit Limit Error</option>
+                                    <option value="Credit Days Exceed">Credit Days Exceed</option>
+                                    <option value="Customer Code Doesnot Exist">Customer Code Doesnot Exist</option>
+                                    <option value="Need to Revice">Need to Revice</option>
+                                    <option value="Others">Others</option>
+                                    <option value="Ignored">Ignored</option>
+
+
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Endorsement Type</label>
+                                <select id="EndorsementType" name="EndorsementType" class="form-control">
+                                    <option selected="selected" value="">Endorsement Type</option>
+                                    <option value="Add">Add</option>
+                                    <option value="Delete">Delete</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">GL Endorsement Document</label>
+                                <input type="file" class="form-control" name="GLpostedFileDoc" id="fileUploadGLEndorsement" accept=".rar,.zip" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">GL Endorsement Page</label>
+                                <input type="file" class="form-control" name="fileUploadGLEndorsementPage" id="fileUploadGLEndorsementPage" accept=".xls,.xlsx" />
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">GL Premium</label>
+                                <input type="number" class="form-control" name="GLPremium" id="GLPremium" />
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">WC Endorsement Page</label>
+                                <input type="file" class="form-control" name="fileUploadGLEndorsementPage" id="fileUploadWLEndorsementPage" accept=".xls,.xlsx" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">WC Premium</label>
+                                <input type="number" class="form-control" name="WCPremium" id="WCPremium" />
+                            </div>
+                        </div>
+                        <div class="box-footer text-right">
+                            @*<button type="submit" class="btn btn-rounded btn-primary">Submit</button > onclick="SaveEndorsement()"*@
+                            <button id="btnSubmitEndorsement" class="btn btn-rounded btn-primary">Submit</button>
+                            @*<input type="button" class="btn btn-rounded btn-primary" value="Submit" />*@
+
+                            @*<button class="btn btn-rounded btn-secondary">Cancel</button>*@
+                        </div>}
                         @*</form>*@
                     </div>
 
@@ -120,9 +123,7 @@
                 <table id="productOverviewMaster" class="table product-overview">
                     <thead>
                         <tr>
-                            <th>Ticket No</th>
-                            <th>Entry Date</th>
-                            <th>Mail Received Date</th>
+
                             <th>Client Name</th>
                             <th>GL Policy No</th>
                             <th>WC Policy No</th>
@@ -133,16 +134,16 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @if (Model != null)
                         {
                             if (Model.Count() > 0)
                             {
                                 foreach (var item in Model)
                                 {
+
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.TicketNumber)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.MailReceivedDate)</td>
+                                       
                                         <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
                                         <td>@Html.DisplayFor(modelItem => item.GLPolicyNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => item.WCPolicyNumber)</td>
@@ -151,16 +152,22 @@
                                         <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
 
                                         <td>
-                                            @*<a href="Edit?QuotationId=@item.EndorsementId" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit">
-                                                    <i class="ti-marker-alt"></i>
-                                                </a> <a href="javascript:void(0)" class="text-dark" title="" data-toggle="tooltip" data-original-title="Delete">
-                                                    <i class="ti-trash"></i>
-                                                </a>*@
-                                            <input type="button" value="pdf" onclick="downloadPDF()" />
+
+                                            @using (Html.BeginForm("GenerateGLwLPDF", "Home", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
+                                                <input type="hidden" name="PdfType" value="GL" />
+                                                <input type="submit" class="btn btn-rounded btn-primary" id="btnSubmit" value="GLPdfExport" />
+                                            }
+
+                                            @using (Html.BeginForm("GenerateGLwLPDF", "Home", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
+                                                <input type="hidden" name="PdfType" value="WL" />
+                                                <input type="submit" class="btn-rounded btn-primary" id="btnSubmit" value="WLPdfExport" />
+                                            }
 
                                         </td>
-
-
 
                                     </tr>
                                 }
@@ -178,10 +185,51 @@
                 </table>
             </div>
         </div>
+
+
+   
+
+     <div class="from" style="display: none;" id="divPDF">
+                            <div class="HtmltoPDF">
+                                @*<div align="center"> GROUP LIFE  – ENDORSEMENT </div>  <br />
+                                    <table>
+                                        <tr>
+                                            <td>Class of Insurance</td>
+                                            <td>:</td>
+                                            <td>Group Life Insurance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Endorsement No</td>
+                                            <td>:</td>
+                                            <td>E/01/502/21/3301/00023</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Policy No </td>
+                                            <td>:</td>
+                                            <td>P/004/01/21/3301/00003</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Insured  </td>
+                                            <td>:</td>
+                                            <td>GOLDEN GRAINS TRADING LLC</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Policy Period   </td>
+                                            <td>:</td>
+                                            <td>01-01-2021 to 31-12-2021 (both days inclusive)</td>
+                                        </tr>
+                                    </table>*@
+                            </div>
+     </div>
+
+                  
+
     </div>
 </div>
 
+
 <script type="text/javascript">
+
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -200,10 +248,9 @@
             }
         })
     });
+
     function GetGLWLPol() {
-
         var CICompanyName = $('#ClientName').val();
-
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -223,154 +270,5 @@
 
 
     }
-    function GeneratePdf(Eid) {
-        /*  $.ajax({
-              type: "GET",
-              contentType: "application/json; charset=utf-8",
-              url: "GeneratePDFWLCL",
-              data: { EndorsementId: Eid },
-              dataType: 'text',
-              contentType: 'application/pdf',
-              success: function (Result) {
-                  window.open(Result,)
-                  //$('#GLPolicyNumber').val(Result.GLPolicyNumber);
-                  //$('#WCPolicyNumber').val(Result.WCPolicyNumber);
-                  //$('#PolicyPeriod').val(Result.PolicyPeriod);
-
-              },
-              error: function (Result) {
-                  alert("Error");
-              }
-          });*/
-        var req = new XMLHttpRequest();
-        req.open("GET", "/file.pdf", true);
-        req.responseType = "blob";
-
-        req.onload = function (event) {
-            var blob = req.response;
-            console.log(blob.size);
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "Dossier_" + new Date() + ".pdf";
-            link.click();
-        };
-
-        req.send();
-    }
 </script>
-<!--<script type="text/javascript">
-    function SaveEndorsement() {
 
-        var formData = new FormData();
-        var file = document.getElementById("fileUploadGLEndorsementPage").files[0];
-        var file1 = document.getElementById("fileUploadWLEndorsementPage").files[0];
-        var docRar = document.getElementById("fileUploadGLEndorsement").files[0];
-        //var model = $('#formEndorsement').serialize();
-        formData.append("fileUploadGLEndorsementPage", file);
-        formData.append("fileUploadGLEndorsementPage", file1);
-        formData.append("GLpostedFileDoc", docRar);
-        //formData.append("model", model);
-        var TicketNumber = $("#TicketNumber").val();
-        var ClientName = $("#ClientName").val();
-        var MailReceivedDate = $("#MailReceivedDate").val();
-        var GLPolicyNumber = $("#GLPolicyNumber").val();
-        var WCPolicyNumber = $("#WCPolicyNumber").val();
-        var PolicyPeriod = $("#PolicyPeriod").val();
-        var ErrorDescription = $("#ErrorDescription").val();
-        var EndorsementType = $("#EndorsementType").val();
-        var GLPremium = $("#GLPremium").val();
-        var WCPremium = $("#WCPremium").val();
-
-        formData.append("TicketNumber", TicketNumber);
-        formData.append("ClientName", ClientName);
-        formData.append("MailReceivedDate", MailReceivedDate);
-        formData.append("GLPolicyNumber", GLPolicyNumber);
-        formData.append("WCPolicyNumber", WCPolicyNumber);
-        formData.append("PolicyPeriod", PolicyPeriod);
-        formData.append("ErrorDescription", ErrorDescription);
-        formData.append("EndorsementType", EndorsementType);
-        formData.append("GLPremium", GLPremium);
-        formData.append("WCPremium", WCPremium);-->
-@*$.ajax({
-            type: "POST",
-            url: "@(Url.Action("Endorsement", "Home"))",
-            data: formData,
-            dataType: 'json',
-
-            processData: false,
-            contentType: false,
-            success: function (res) {
-                console.log(res);
-                alert('Successfully Saved.')
-            },
-            error: function () {
-                alert('Error while saving the data.!');
-            }
-        });
-    }*@
-<!--//$("form#data").submit(function (e) {
-    //    e.preventDefault();
-    //    $.ajax({
-    //        url: "/Home/Endorsement",
-    //        type: 'POST',
-    //        data: formData,
-    //        success: function (data) {
-    //            alert(data)
-    //        },
-    //        cache: false,
-    //        contentType: false,
-    //        processData: false
-    //    });
-    //});
-    $('#btnSubmitEndorsement').on('click', function () {
- //       var formData = $('#formEndorsement').serialize();
-        var formData = new FormData(this);
-
-
-       /* $.ajax({
-
-            type: "POST",
-            url: "/Home/Endorsement",
-            dataType: "json",
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: formData,
-            success: function (res) {
-                console.log(res);
-            },
-            error: function () {
-                alert('Error while saving the data.!');
-            }
-        })*/
-    });btnModalPopupGetGLWLPolicyNos
-    //$('#btnClear').on('click', function () {
-    //    window.location.href = "/Admin/PolicyIssuance"
-
-    //});
-    //$(document).ready(function () {
-    //    var buttonCommon = {
-    //        exportOptions: {
-    //            format: {
-    //                body: function (data, row, column, node) {
-    //                    // Strip $ from salary column to make it numeric
-    //                    return column === 5 ?
-    //                        data.replace(/[$,]/g, '') :
-    //                        data;
-    //                }
-    //            }
-    //        }
-    //    };
-    //    $('#productOverviewMaster').dataTable({
-    //        dom: 'Bfrtip',
-    //        buttons: [
-    //            $.extend(true, {}, buttonCommon, {
-    //                extend: 'pdfHtml5',
-    //                text: '<i class="mdi mdi-file-pdf"></i> Save to PDF',
-    //                exportOptions: {
-    //                    columns: [0, 1, 2, 3]
-    //                },
-    //                className: 'btn btn-secondary'
-    //            })
-    //        ]
-    //    });
-    //});
-</script>-->

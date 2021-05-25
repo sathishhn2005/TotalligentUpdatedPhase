@@ -350,26 +350,38 @@ namespace Totalligent.UI.Controllers
             }
             return View(lstQuotation);
         }
-      /*  [HttpGet]
-        public ActionResult PolicyIssuanceGet(string DraftNo)
+        /*  [HttpGet]
+          public ActionResult PolicyIssuanceGet(string DraftNo)
+          {
+
+              long returnCode = -1;
+              List<Quotation> lstQuotation = new List<Quotation>();
+              try
+              {
+
+                  returnCode = objBALTot.GetPolicyIssuance(DraftNo, out lstQuotation);
+
+
+              }
+              catch (Exception ex)
+              {
+
+                  throw ex;
+              }
+              return View();
+          }*/
+        public ActionResult MISDashboard()
         {
 
-            long returnCode = -1;
-            List<Quotation> lstQuotation = new List<Quotation>();
-            try
-            {
-               
-                returnCode = objBALTot.GetPolicyIssuance(DraftNo, out lstQuotation);
-               
-             
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
             return View();
-        }*/
-        
+
+        }
+        public ActionResult BIDashboard()
+        {
+
+            return View();
+
+        }
+
     }
 }

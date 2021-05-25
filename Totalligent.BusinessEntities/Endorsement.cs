@@ -64,5 +64,14 @@ namespace Totalligent.BusinessEntities
       //  public string GLpostedFileDocPath { get; set; }
         
         public string GlpostedFileDocPath { get => glpostedFileDocPath; set => glpostedFileDocPath = value; }
+
+        public string ClssOfInsurance { get; set; }
+        public string EndorsementNo { get; set; }
+        public string PolicyNo { get; set; }
+
+        
+
+
+
     }
 }
