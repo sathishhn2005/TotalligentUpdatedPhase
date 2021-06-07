@@ -55,7 +55,7 @@ body {
 body {
     overflow-x: hidden;
     overflow-y: auto;
-    color: #5c6975;
+    color: #000;
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
@@ -31469,3 +31469,5 @@ button.btn.dropdown-toggle:after {
 .bg-primary-bright {
     background: rgba(80, 102, 225, 0.3) !important;
 }
+
+

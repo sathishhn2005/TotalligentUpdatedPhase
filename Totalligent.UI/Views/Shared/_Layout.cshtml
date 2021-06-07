@@ -19,9 +19,7 @@
     <link href="~/Content/vendor/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- Bootstrap Switch -->
     <link href="~/Content/vendor/bootstrap-switch/switch.css" rel="stylesheet" />
-    <!-- theme style -->
-    <link href="~/Content/css/style.css" rel="stylesheet" />
-    <link href="~/Content/util.css" rel="stylesheet" />
+
     <!-- VoiceX Admin skins -->
     <link href="~/Content/css/skin_color.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.common.min.css" rel="stylesheet" />
@@ -31,7 +29,12 @@
     <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
     <!-- C3Chart -->
     <link href="~/Content/vendor/c3/c3.min.css" rel="stylesheet" />
-
+    <!-- DropZone -->
+    <link href="~/Content/vendor/dropzone-5.7.0/dist/basic.css" rel="stylesheet" />
+    <link href="~/Content/vendor/dropzone-5.7.0/dist/dropzone.css" rel="stylesheet" />
+    <!-- theme style -->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/util.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/kendo")
@@ -672,6 +675,9 @@
     <script src="~/Content/js/demo.js"></script>
     <!-- steps  -->
     <script src="~/Content/vendor/jquery-steps-master/build/jquery.steps.js"></script>
+    <!-- DropZone -->
+    <script src="~/Content/vendor/dropzone-5.7.0/dist/dropzone.js"></script>
+    @RenderSection("scripts", false)
     <!-- Datatable  -->
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>

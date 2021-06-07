@@ -1,100 +1,327 @@
 ﻿@model Totalligent.BusinessEntities.ClientCompanyMaster
-@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js")
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{ List<SelectListItem> BankList = new List<SelectListItem>();
+    BankList.Add(new SelectListItem
+    {
+        Text = "Axis Bank",
+        Value = "AxisBank"
+    });
+    BankList.Add(new SelectListItem
+    {
+        Text = "HDFC Bank",
+        Value = "HDFC"
+    });
+    BankList.Add(new SelectListItem
+    {
+        Text = "Kotak Mahindra Bank",
+        Value = "Kotak"
+    });
+    BankList.Add(new SelectListItem
+    {
+        Text = "State Bank of India",
+        Value = "SIBBank",
+    }); }
 @Html.AntiForgeryToken()
-<div class="box">
-    <div class="box-header with-border">
-        <h4 class="box-title"><strong>Client Company Master</strong></h4>
-    </div>
-    <div class="box-body">
-        <div class="form-horizontal">
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-5">
-                        @Html.LabelFor(model => model.ClientCompanyName, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+<div class="p-t-30">
+    <div class="box">
+        <div class="box-header with-border">
+            <h4 class="box-title"><strong>Client Company Master</strong></h4>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="col-sm-12 font-weight-bold text-center">Client Company Basic Details</h4>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.ClientCompanyName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+                    <div class="form-horizontal">
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.LabelFor(model => model.ClientCompanyName, htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.ClientCompanyName, new { @required = "required", @class = "form-control", placeholder = "Enter Client Company Name" })
+                                    @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.ContactPerson, new { @required = "required", @class = "form-control", placeholder = "Enter Contact Person Name" })
+                                    @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MobileNumber, new { @required = "required", @class = "form-control", placeholder = "Enter Mobile Number" })
+                                    @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.EmailId, new { @required = "required", @class = "form-control", placeholder = "Enter Email Id" })
+                                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Address, new { @required = "required", @class = "form-control", placeholder = "Enter Client Company Address" })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="col-form-label text-md-right w-full">City</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.ClientCompanyName, new { @required = "required", @class = "form-control", placeholder = "Enter City Name" })
+                                    @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="col-form-label text-md-right w-full">State</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.ClientCompanyName, new { @required = "required", @class = "form-control", placeholder = "Enter State" })
+                                    @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="col-form-label text-md-right w-full">Zipcode</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.ClientCompanyName, new { @required = "required", @class = "form-control", placeholder = "Enter Zipcode" })
+                                    @Html.ValidationMessageFor(model => model.ClientCompanyName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Currency, new { @required = "required", @class = "form-control", placeholder = "Enter Currency" })
+                                    @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-5">
-                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                <div class="col-12 col-md-6">
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-12 col-md-10">
+                                <h4 class="col-sm-12 font-weight-bold text-center">Client's Business Information</h4>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="BankName" class="col-form-label text-md-right w-full">Line of Business</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("BankName", BankList, "-- Select Business --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="BankName" class="col-form-label text-md-right w-full">Producer Type</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("BankName", BankList, "-- Select Producer Type --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="BankName" class="col-form-label text-md-right w-full">Producer Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("BankName", BankList, "-- Producer Name --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">Producer Commission</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.ClientCompanyName, new { @class = "form-control w-full", @placeholder = "Enter Producer Commission" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="BankName" class="col-form-label text-md-right w-full">RI Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("BankName", BankList, "-- Select RI Number --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="BankName" class="col-form-label text-md-right w-full">RI Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("BankName", BankList, "-- Select RI Name --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">RI Retention</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.ClientCompanyName, new { @class = "form-control w-full", @placeholder = "Enter RI Retention" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">AMI Retention</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.ClientCompanyName, new { @class = "form-control w-full", @placeholder = "Enter AMI Retention" })
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-5">
-                        @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                <div class="col-12 col-md-6">
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-12 col-md-10">
+                                <h4 class="col-sm-12 font-weight-bold text-center">Client's Account Details</h4>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="BankName" class="col-form-label text-md-right w-full">Bank Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">Account Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.ClientCompanyName, new { @class = "form-control w-full", @placeholder = "Enter Account Number" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">Repeat Account Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.ClientCompanyName, new { @class = "form-control w-full", @placeholder = "Enter Account Number" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">IFSC Code</label>
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.ClientCompanyName, new { @class = "form-control w-full", @placeholder = "Enter IFSC Code" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right w-full">Upload KYC</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class=" dropzone" action="/file-upload">
+                                    <div id="tabs-3">
+                                        <div class="row field ">
+                                            <div id="dropzoneWrapper" class="dz-default dz-message col-12">
+                                                <i class="mdi mdi-cloud-upload font-size-30 text-muted"></i>
+                                                <h5>Drop files here or click to Upload</h5>
+                                                <div id="dropZoneContainer">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-5">
-                        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-5">
-                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-5">
-                        @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-b-15">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <input type="submit" id="btnClientMaster" value="Create" class="btn btn-primary m-20" />
-                        <button class="btn btn-primary-login m-20" type="button" data-toggle="modal" data-target="#uploadBulk">
-                            <i class="mdi mdi-cloud-upload"></i> Bulk Upload Policy
-                        </button>
+                <div class="col-12">
+                    <div class="form-group m-b-15">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <input type="submit" id="btnClientMaster" value="Create" class="btn btn-primary m-20" />
+                                <button class="btn btn-primary-login m-20" type="button" data-toggle="modal" data-target="#uploadBulk">
+                                    <i class="mdi mdi-cloud-upload"></i> Bulk Upload Policy
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="box-footer text-right">
-        <button class="btn btn-rounded btn-primary">Submit</button>
-        <button class="btn btn-rounded btn-secondary">Cancel</button>
+        <div class="box-footer text-right">
+            <button class="btn btn-rounded btn-primary">Submit</button>
+            <button class="btn btn-rounded btn-secondary">Cancel</button>
+        </div>
     </div>
 </div>
-
 <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -117,9 +344,9 @@
                             <form method="post" enctype="multipart/form-data">
                         *@
                         <div class="fileuploader fileuploader-theme-dragdrop">
-                            
-                                <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
-                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="2">
+
+                            <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
+                            <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="2">
                             <input type="hidden" name="fileuploader-list-files" value="[]">
                             <input type="file" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
                             <div class="fileuploader-input">
@@ -306,7 +533,7 @@
                             //})
                             alert('Error while uploading.');
                         }
-                       
+
                     },
                     error: function (err) {
                         //alert(err.statusText);

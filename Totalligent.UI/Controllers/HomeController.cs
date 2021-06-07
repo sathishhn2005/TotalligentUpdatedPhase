@@ -47,6 +47,11 @@ namespace Totalligent.UI.Controllers
             }
 
         }
+        public ActionResult HomePage()
+        {
+            return View();
+
+        }
         public ActionResult Login()
         {
             return View();
@@ -113,7 +118,7 @@ namespace Totalligent.UI.Controllers
                         ViewBag.Data = objEmployee;
                         ViewBag.RoleId = objEmployee.RoleId;
                         TempData["Data"] = objEmployee;
-                        return View("Index");
+                        return View("HomePage");
                     }
                 }
                 else
