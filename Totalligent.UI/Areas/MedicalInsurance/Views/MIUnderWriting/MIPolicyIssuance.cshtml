@@ -1,0 +1,132 @@
+﻿@model IEnumerable<Totalligent.BusinessEntities.Quotation>
+
+
+@{
+    ViewBag.Title = "PolicyIssuance";
+    Layout = "~/Areas/MedicalInsurance/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12 col-12 p-t-30">
+    <div class="box">
+        <div class="box-header with-border">
+            <h4 class="box-title">Quotation OverView</h4>
+        </div>
+        <div class="box-header with-border d-none">
+            @using (Html.BeginForm("PolicyIssuance", "Admin", FormMethod.Get))
+            {
+                <div class="col-2">
+
+                    @Html.TextBox("DraftNo", "", new { @class = "form-control form-control-sm  mb-3", PlaceHolder = "Draft No" })
+                </div>
+                <div class="col-2 text-center">
+
+                    <input class="btn btn-primary btn-sm" type="submit" value="Search" />
+
+
+                    <button type="button" id="btnClear" class="btn btn-secondary btn-sm waves-effect">Clear</button>
+                </div>
+            }
+
+        </div>
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="productOverviewMaster" class="table product-overview">
+                    <thead>
+                        <tr>
+                            <th>Draft No</th>
+                            <th>Policy No</th>
+                            <th>Insurance Company Name</th>
+                            <th>Client Company Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            if (Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.DraftNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PolicyNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CIInsuranceCompanyName)</td>
+
+                                        <td>@Html.DisplayFor(modelItem => item.CIClientCompanyName)</td>
+                                        <td>
+                                            @if (item.Status.Equals("Pending"))
+                                            {
+                                                <span class="label label-info">@Html.DisplayFor(modelItem => item.Status)</span>}
+
+                                            @if (item.Status.Equals("Approved"))
+                                            {
+                                                <span class="label label-success">@Html.DisplayFor(modelItem => item.Status)</span>}
+                                            @if (item.Status.Equals("Rejected"))
+                                            {
+                                                <span class="label label-danger">@Html.DisplayFor(modelItem => item.Status)</span>}
+                                            @if (item.Status.Equals(""))
+                                            {
+                                                <span class="label label-info"></span>}
+                                        </td>
+                                        <td>
+                                            <a href="Edit?QuotationId=@item.QuotationId" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                <i class="ti-marker-alt"></i>
+                                            </a> <a href="javascript:void(0)" class="text-dark" title="" data-toggle="tooltip" data-original-title="Delete">
+                                                <i class="ti-trash"></i>
+                                            </a>
+                                        </td>
+
+
+
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5"></td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#btnClear').on('click', function () {
+        window.location.href = "/MIUnderWriting/MIPolicyIssuance"
+
+    });
+    $(document).ready(function () {
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function (data, row, column, node) {
+                        // Strip $ from salary column to make it numeric
+                        return column === 5 ?
+                            data.replace(/[$,]/g, '') :
+                            data;
+                    }
+                }
+            }
+        };
+        $('#productOverviewMaster').dataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                $.extend(true, {}, buttonCommon, {
+                    extend: 'pdfHtml5',
+                    text: '<i class="mdi mdi-file-pdf"></i> Save to PDF',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    },
+                    className: 'btn btn-secondary'
+                })
+            ]
+        });
+    });
+</script>

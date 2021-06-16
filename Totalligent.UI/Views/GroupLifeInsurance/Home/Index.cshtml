@@ -1,0 +1,63 @@
+﻿@model Totalligent.UI.Models.AdminModel
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+@section css {
+
+}
+
+
+
+@*<div id="divQuotation">
+    @Html.Partial("_Quotation")
+</div>*@
+@*<div id="divMasters">
+        @Html.Partial("_Masters")
+    </div>*@
+@*@if (ViewBag.RoleId == 1)
+{
+<div id="divEmpRegister">
+    @Html.Partial("_EmployeeRegister")
+</div>  }*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divEmpRegister").css("display", "none");
+        $("#EmpRegister").click(function () {
+            $("#divMainContent").css("display", "none");
+            $("#divEmpRegister").css("display", "block");
+            $("#divMasters").css("display", "none");
+            $("#divQuotation").css("display", "none");
+            //$("#divMainContent").hide();
+            //$("#divEmpRegister").show();
+        });
+        $("#Quotation").click(function () {
+            $("#divMainContent").css("display", "none");
+            $("#divEmpRegister").css("display", "none");
+            $("#divQuotation").css("display", "block");
+            $("#divMasters").css("display", "none");
+            $('html').addClass('sidebar-mini');
+            //$("#divMainContent").hide();
+            //$("#divEmpRegister").show();
+        });
+        $("#Masters").click(function () {
+            $("#divMainContent").css("display", "none");
+            $("#divEmpRegister").css("display", "none");
+            $("#divQuotation").css("display", "none");
+            $("#divMasters").css("display", "block");
+            //$("#divMainContent").hide();
+            //$("#divEmpRegister").show();
+        });
+        $("#anchorRegister").click(function () {
+            $("#divEmpRegister").css("display", "none");
+            $("#divMainContent").css("display", "block");
+            $("#divMasters").css("display", "none");
+            $("#divQuotation").css("display", "none");
+            //$("#divEmpRegister").show();
+            //$("#divMainContent").hide();
+        });
+    });
+    $('.sidebar-wrapper li > a').click(function () {
+        $('.sidebar-wrapper li').removeClass('active');
+        $(this).parent().addClass('nav-item active');
+    });
+</script>

@@ -1,0 +1,159 @@
+﻿@model Totalligent.BusinessEntities.UnderWriter
+@{ ViewBag.Title = "UnderwritingDashboard"; }
+@Scripts.Render("~/Content/js/dashboard_main.js");
+@{
+
+    Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
+}
+<div id="divDashboard">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="mr-auto">
+                <h3 class="page-title">Claims Dashboard</h3>
+                <div class="d-inline-block align-items-center">
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Home/Home/HomePage"><i class="mdi mdi-home-outline"></i></a></li>
+                            <li class="breadcrumb-item" aria-current="page">Dashboard</li>
+                            <li class="breadcrumb-item active" aria-current="page">This Month</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="right-title w-p30">
+                <span class="subheader_daterange font-weight-600" id="dashboard_daterangepicker">
+                    <span class="subheader_daterange-label">
+                        <span class="subheader_daterange-title"></span>
+                        <span class="subheader_daterange-date text-primary"></span>
+                    </span>
+                    <a href="#" class="btn btn-rounded btn-sm btn-primary">
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-12">
+            <div class="row">
+                @if (Model != null)
+                {
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-info">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">No of policies</h4>
+
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TNPYear</h2>
+                                        <small>Total Policies for year</small>
+                                    </div>
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-warning">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">Quotation Drafted</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TotalNoPolQuotationDrafted</h2>
+                                        <small>Total Policies Drafted for year</small>
+                                    </div>
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-account"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-success">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">Policy Issued</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
+                                        <small>Total Policies Issued for year</small>
+                                    </div>
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-danger">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">Policy Lost</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
+                                        <small>Total Policies Lost for year</small>
+                                    </div>
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h4 class="box-title">Revenue Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
+                                    <div>
+                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
+                                        <h6 class="text-fade">Premium Earned</h6>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
+                                        <h6 class="text-fade">Pending Premium</h6>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
+                                        <h6 class="text-fade">Premium Lost</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Premium Overview</h4>
+                </div>
+                <div class="box-body">
+                    <div id="uni-attendance"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Policy Details</h4>
+                </div>
+                <div class="box-body">
+                    <div id="uni-earning"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- VoiceX Admin dashboard demo (This is only for demo purposes) -->
+@*<script src="~/Content/js/dashboard_main.js"></script>*@

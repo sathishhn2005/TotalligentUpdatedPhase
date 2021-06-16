@@ -1,0 +1,550 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "OPTreatment";
+    Layout = "~/Areas/MedicalInsurance/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-t-30">
+    <div class="row">
+        <!-- Widget Item -->
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header">
+                    <h4>Patient Details</h4>
+                    <div class="box-controls pull-right">
+                        <span class="badge badge-primary badge-lg">OMR 7,500</span>
+                        <label class="my-1 mx-2">Total Available Credits: </label>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="box">
+                        <div class="">
+                            <div class="media d-sm-flex d-block text-center text-sm-left p-1 pb-3 m-0 border-bottom">
+                                <img alt="image" class="rounded  mr-sm-4 m-0" width="110" src="http://eres.dexignzone.com/react/static/media/12.99ac3757.png">
+                                <div class="media-body align-items-center">
+                                    <div class="d-sm-flex d-block justify-content-between my-3 my-sm-0">
+                                        <div>
+                                            <h3 class="fs-22 text-bold mb-0">Cive Slauw</h3>
+                                            <p class="my-1">54 / M</p>
+                                            <p class="mb-2 mb-sm-2">ICICI/154/2008/2021/001</p>
+                                            <a class="badge badge-pill badge-default text-bold mb-2 mr-2" href="/react/patient-details">
+                                                <i class="mdi mdi-gender-male text-success"></i>
+                                                Male
+                                            </a>
+                                        </div>
+                                        <span>#P-00016</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media d-block text-center text-sm-left p-1 pb-3 m-0">
+                                <div>
+                                    <div class="d-flex justify-content-between my-15">
+                                        <div>
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted my-2 ">Spouse Name</small>
+                                                <h3 class="fs-15 text-bold mt-0 ">Elizabeth Alexandra Mary </h3>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted my-2 ">Age</small>
+                                                <h3 class="fs-15 text-bold mt-0 ">54 / F</h3>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted my-2 ">Card No</small>
+                                                <h3 class="fs-15 text-bold mt-0 ">ICICI/154/2008/2021/002</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between my-15">
+                                        <div>
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted my-2 ">Child Name</small>
+                                                <h3 class="fs-15 text-bold mt-0 ">Ishtiyaaq </h3>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted my-2 ">Age</small>
+                                                <h3 class="fs-15 text-bold mt-0 ">12 / M</h3>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex flex-column">
+                                                <small class="text-muted my-2 ">Card No</small>
+                                                <h3 class="fs-15 text-bold mt-0 ">ICICI/154/2008/2021/003</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-danger mb-3"><span class="ti-trash "></span> Delete Patient</button>
+                        <a class="btn btn-info mb-3" href="/Claims/IPTreatment"><span class="mdi mdi-hotel mx-10"></span>Direct to IP</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Widget Item -->
+        <!-- Widget Item -->
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#OPPharmacy" role="tab"><span class="hidden-sm-up"><i class="fa fa-cc"></i></span> <span class="hidden-xs-down">Prescription</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#LabTech" role="tab"><span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> <span class="hidden-xs-down">Lab Test Request</span></a> </li>
+                    </ul>
+                    <div class="tab-content tabcontent-border">
+                        <div class="tab-pane active" id="OPPharmacy" role="tabpanel">
+                            <form id="formProducer">
+                                <div class="row p-t-15">
+                                    <div class="col-12 form-group">
+                                        <label class="col-sm-12 col-form-label">ICD Code</label>
+                                        <div class="col-md-12">
+                                            @(Html.Kendo().ComboBox()
+                                                .Name("ICDCODE")
+                                                .Placeholder(">> Select ICD Code ")
+                                                .BindTo(new List<string>() {
+                                                    "S06.0x1A",
+                                                    "G44.311",
+                                                    "R50.9",
+                                                    "J02.9",
+                                                    "R51",
+                                                    "R95.9",
+                                                })
+                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                            )
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <div class="col-md-12">
+                                            <label class="col-form-label ">Diagnostic</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            @(Html.Kendo().ComboBox()
+                                                                        .Name("ICDDiagnostic")
+                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                        "Fever",
+                                                                                                                                                                        "Headache",
+                                                                                                                                                                        "Sore Throat",
+                                                                                                                                                                        "Leg Pain",
+                                                                        })
+                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                            )
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <div class="col-md-12">
+                                            <label class="col-form-label ">Medicine Name</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            @(Html.Kendo().ComboBox()
+                                                                        .Name("ICDMedicineName")
+                                                                        .Placeholder(">> Select Medicine Name ")
+                                                                        .BindTo(new List<string>() {
+                                                                                                                                                                        "Saridon",
+                                                                                                                                                                        "Crosin",
+                                                                        })
+                                                                        .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                            )
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <div class="col-md-12">
+                                            <label class="col-form-label ">Description</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="4" placeholder="Medical Description from doctor"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <a href="/Claims/Pharmacy" class="btn btn-success  mb-3">Submit</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="LabTech" role="tabpanel">
+                            <form>
+                                <div class="row p-t-15">
+                                    <div class="col-12 form-group">
+                                        <label class="col-sm-12 col-form-label">Test Category</label>
+                                        <div class="col-md-12">
+                                            @(Html.Kendo().ComboBox()
+                                                                .Name("LabCategory")
+                                                                .Placeholder(">> Select Lab Category")
+                                                                .BindTo(new List<string>() {
+                                                                                                                            "Biochemistry",
+                                                                                                                            "Hematology",
+                                                                                                                            "Microbiology",
+                                                                                                                            "Anatomical Pathology",
+                                                                })
+                                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                            )
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <label class="col-sm-12 col-form-label">Test Name</label>
+                                        <div class="col-md-12">
+                                            @(Html.Kendo().ComboBox()
+                                                .Name("LabCODE")
+                                                .Placeholder(">> Select Lab Test")
+                                                .BindTo(new List<string>() {
+                                                    "FBC",
+                                                    "WBC",
+                                                    "Urine",
+                                                    "RPR",
+                                                    "HBsAg",
+                                                    "Glucose",
+                                                })
+                                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                            )
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <div class="col-md-12">
+                                            <label class="col-form-label ">Additional Information</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="4" placeholder="Medical Description from doctor"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <div class="col-md-12">
+                                            <label class="col-form-label ">File Upload</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <input type="file" name="file" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <a href="/Claims/LabTechnician" class="btn btn-success  mb-3 mx-2">Submit</a>
+                                    <a href="#" id="ApprovalStatus" class="btn btn-primary  mb-3 mx-2">Send for Approval</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Widget Item -->
+        <!-- Widget Item -->
+        <div class="col-md-12">
+            <div class="box ">
+                <div class="box-header">
+                    <h4 class="mb-0">Patient History </h4>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Doctor Name</th>
+                                    <th>Reason</th>
+                                    <th>Visit Date</th>
+                                    <th>Condition</th>
+                                    <th>Reports</th>
+                                    <th>Amount</th>
+                                    <th>Approval Status</th>
+                                    <th>Invoices</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Manoj Kumar</td>
+                                    <td>Fever</td>
+                                    <td>12-03-2018</td>
+                                    <td>Prescribed Medicine</td>
+                                    <td><span class="mdi mdi-file-pdf text-danger hov-pointer font-18"></span></td>
+                                    <td>OMR 100</td>
+                                    <td><span class="badge badge-success ml-0 mr-0">Approved</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-default" title="" data-toggle="tooltip" data-placement="top" data-original-title="Send Invoice"><i class="mdi mdi-email-outline"></i></button>
+                                        <a class="btn btn-xs btn-default" href="/Claims/Invoice" title="" data-toggle="tooltip" data-placement="top" data-original-title="Print"><i class="mdi mdi-printer"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Manoj Kumar</td>
+                                    <td>Cold</td>
+                                    <td>12-03-2018</td>
+                                    <td>Lab Test Required</td>
+                                    <td><span class="mdi mdi-file-pdf text-danger hov-pointer font-18"></span></td>
+                                    <td>OMR 980</td>
+                                    <td><span class="badge badge-danger ml-0 mr-0">Pending</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-default" title="" data-toggle="tooltip" data-placement="top" data-original-title="Send Invoice"><i class="mdi mdi-email-outline"></i></button>
+                                        <a class="btn btn-xs btn-default" href="/Claims/Invoice" title="" data-toggle="tooltip" data-placement="top" data-original-title="Print"><i class="mdi mdi-printer"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Manoj Kumar</td>
+                                    <td>Cold</td>
+                                    <td>12-03-2018</td>
+                                    <td>Admission Required</td>
+                                    <td><span class="mdi mdi-file-pdf text-danger hov-pointer font-18"></span></td>
+                                    <td>OMR 850</td>
+                                    <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-default" title="" data-toggle="tooltip" data-placement="top" data-original-title="Send Invoice"><i class="mdi mdi-email-outline"></i></button>
+                                        <a class="btn btn-xs btn-default" href="/Claims/Invoice" title="" data-toggle="tooltip" data-placement="top" data-original-title="Print"><i class="mdi mdi-printer"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Widget Item -->
+        <div class="col-md-12">
+            <div class="box ">
+                <div class="box-header">
+                    <h4 class="mb-0">IP Medical Form</h4>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="presentingComplaints">Presenting complaints with duration :</label>
+                                <input type="text" class="form-control" id="presentingComplaints">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="onsetcomplaints">Duration of first onset of presenting complaints:</label>
+                                <input type="month" name="month" class="form-control" id="onsetcomplaints">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="medicalHistory">Previous medical history pertaining to present ailment :</label>
+                                <div class="float-right">
+                                    <input type="checkbox" id="yesHistory" class="filled-in chk-col-primary" /><label for="yesHistory" class="h-10"></label>
+                                </div>
+                                <input type="text" class="form-control" disabled id="medicalHistory">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="labTest">Lab test done prior to admission:</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="labTest">
+                                    <label class="custom-file-label" for="labTest">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="supportingDoc">Supporting Doc / Any treatment details prior to admission:</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="supportingDoc">
+                                    <label class="custom-file-label" for="supportingDoc">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class=" form-group">
+                                <label>Provisional diagnosis:</label>
+                                @(Html.Kendo().ComboBox()
+                                    .Name("Provisionaldiagnosis")
+                                    .Placeholder(">> Select Provisional diagnosis ")
+                                    .BindTo(new List<string>() {
+                                        "diagnosis Dian",
+                                        "diagnosis G44.311",
+                                        "diagnosis R50.9",
+                                        "diagnosis J02.9",
+                                        "R51",
+                                        "R95.9",
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                )
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>ICD Code</label>
+                                @(Html.Kendo().ComboBox()
+                                    .Name("ICDCODEIP")
+                                    .Placeholder(">> Select ICD Code ")
+                                    .BindTo(new List<string>() {
+                                        "S06.0x1A",
+                                        "G44.311",
+                                        "R50.9",
+                                        "J02.9",
+                                        "R51",
+                                        "R95.9",
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                )
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Secondary diagnosis:</label>
+                                @(Html.Kendo().ComboBox()
+                                    .Name("SecondarydiagnosisIP")
+                                    .Placeholder(">> Select Secondary diagnosis ")
+                                    .BindTo(new List<string>() {
+                                        "Secondary Dian",
+                                        "Secondary G44.311",
+                                        "Secondary R50.9",
+                                        "Secondary J02.9",
+                                        "R51",
+                                        "R95.9",
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                                )
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Plantreatment">Plan of treatment:</label>
+                                <input type="text" class="form-control" id="Plantreatment">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="PreviousSurgeries">H/o Previous Surgeries if any:</label>
+                                <input type="text" class="form-control" id="PreviousSurgeries">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="DateAdmission">Date of admission:</label>
+                                <input type="date" name="date" class="form-control" id="DateAdmission">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Datedischarge">Date of discharge:</label>
+                                <input type="date" name="date" class="form-control" id="Datedischarge">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Expect length of stay :</label>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input class="form-control" type="number" placeholder="Months" name="number">
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="form-control" type="number" placeholder="Days" name="number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ComorbiditiesIP">Comorbidities If Any:</label>
+                                <input type="text" class="form-control" id="ComorbiditiesIP">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="VitalsIP">Vitals at the time of admission:</label>
+                                <input type="text" class="form-control" id="VitalsIP">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ObstetricHistory">Obstetric history:</label>
+                                <div class="float-right">
+                                    <input type="checkbox" id="ObstetricHistoryIP" class="filled-in chk-col-primary" /><label for="ObstetricHistoryIP" class="h-10"></label>
+                                </div>
+                                <input type="text" class="form-control" disabled id="ObstetricHistory">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="Personalhabits">Personal habits if any:</label>
+                                <input type="text" class="form-control" id="Personalhabits">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Personalhabits">Bowel:</label>
+                                <div class="form-check p-0">
+                                    <input name="Bowel1" type="radio" class="with-gap" id="Bowel_Yes" checked />
+                                    <label for="Bowel_Yes">Yes</label>
+                                    <input name="Bowel1" type="radio" class="with-gap" id="Bowel_No" />
+                                    <label for="Bowel_No">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Personalhabits">Appetite:</label>
+                                <div class="form-check p-0">
+                                    <input name="Appetite1" type="radio" class="with-gap" id="Appetite_Yes" checked />
+                                    <label for="Appetite_Yes">Yes</label>
+                                    <input name="Appetite1" type="radio" class="with-gap" id="Appetite_No" />
+                                    <label for="Appetite_No">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Personalhabits">Micturition:</label>
+                                <div class="form-check p-0">
+                                    <input name="Micturition1" type="radio" class="with-gap" id="Micturition_Yes" checked />
+                                    <label for="Micturition_Yes">Yes</label>
+                                    <input name="Micturition1" type="radio" class="with-gap" id="Micturition_No" />
+                                    <label for="Micturition_No">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Personalhabits">Sleep:</label>
+                                <div class="form-check p-0">
+                                    <input name="Sleep1" type="radio" class="with-gap" id="Sleep_Yes" checked />
+                                    <label for="Sleep_Yes">Yes</label>
+                                    <input name="Sleep1" type="radio" class="with-gap" id="Sleep_No" />
+                                    <label for="Sleep_No">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Personalhabits">Estimated cost:</label>
+                                <div class="form-check p-0">
+                                    <input name="EstimatedCost1" type="radio" class="with-gap" id="EstimatedCost_Yes" checked />
+                                    <label for="EstimatedCost_Yes">Yes</label>
+                                    <input name="EstimatedCost1" type="radio" class="with-gap" id="EstimatedCost_No" />
+                                    <label for="EstimatedCost_No">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mt-20">
+                                <label>Doctor's declaration:</label>
+                                <div class="">
+                                    <label class="font-weight-bold">I declare that I am the patient’s treating doctor and the particulars given are true and correct to the best of my knowledge</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-50">
+                                <label>E-Sign of doctor:</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#ApprovalStatus').click(function () {
+        swal("Approval Sent!", "Dear Dr. Manish following request has been sent to insurance company for approval. You will get notification once your request is approved.", "success")
+    });
+
+</script>

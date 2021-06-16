@@ -1,0 +1,169 @@
+﻿
+@{ ViewBag.Title = "MIMasters";
+    Layout = "~/Areas/MedicalInsurance/Views/Shared/_Layout.cshtml";
+
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- Step wizard -->
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <div class="box-header">
+                <h3 class="box-title">Masters</h3>
+            </div>
+            <div class="box-body wizard-content">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa fa-building-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">Insurance Company Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("InsuranceCompanyMaster", "MIMaster")" class="link-1">Click here to add single or bulk of Insurance Company to the database.</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa fa-handshake-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">Client Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("ClientMaster", "MIMaster")" class="link-1">Click here to add single or bulk of Client Company to the database</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa fa-users"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">Producer Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("ProducerMaster", "MIMaster")" class="link-1">Click here to add single or bulk of Producer's to the database</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa  fa-user-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">Employee Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("EmployeeMaster", "MIMaster")" class="link-1">Click here to add single or bulk of Employee's to the database</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="ti-cloud"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">RI Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("RIMaster", "MIMaster")" class="link-1">Click here to add single or bulk of RI's to the database</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa fa-hospital-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">Medical Provider Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("MedicalProviderMaster", "MIMaster")" class="link-1">Click here to add single or bulk of Medical Provider's to the database</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa fa-code"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">ICD, Drug CPD Code</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("DrugMaster", "MIMaster")" class="link-1">Click here to add single or bulk of ICD, Drug CPD Code to the database</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="fa  fa-star-o"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-20 ml-3">Benefit Master</div>
+                                </div>
+                                <p class="mb-0"><a href="@Url.Action("BenefitMaster", "MIMaster")" class="link-1">Click here to add single or bulk of Benefit's to the database</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

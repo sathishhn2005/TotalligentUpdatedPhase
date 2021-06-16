@@ -1,0 +1,148 @@
+﻿@model Totalligent.BusinessEntities.HospitalMaster
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.BulkUpload != null)
+{
+   
+}
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>HospitalMaster</h4>
+    <hr />
+
+    <div>
+        @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" accept=".xls,.xlsx"/>
+            <input type="submit" value="Import" />
+            <a href="~/Masters/HospitalMaster.xlsx" download>Download Sample format</a>
+        }
+    </div>
+    <div>
+        @if (ViewBag.BulkUpload != null)
+        {
+            <label>@ViewBag.BulkUpload</label>
+        }
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.HospitalName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HospitalName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HospitalName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Band, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Band, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Band, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="btnHosMaster" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnHosMaster').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append("HospitalName", $("#HospitalName").val());
+            formData.append("Address", $("#Address").val());
+            formData.append("City", $("#City").val());
+            formData.append("State", $("#State").val());
+            formData.append("Zipcode", $("#Zipcode").val());
+            formData.append("ContactPerson", $("#ContactPerson").val());
+            formData.append("MobileNumber", $("#MobileNumber").val());
+            formData.append("EmailId", $("#EmailId").val());
+            formData.append("Band", $("#Band").val());
+            $.ajax({
+                type: "POST",
+                url: "/Hospital/Create",
+                data: formData,
+                dataType: "json",
+                // contentType: 'application/json;charset=utf-8',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res > 0) {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Insurance Company Registered Successfully.!');
+                    }
+                    else {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Insurance Company not Registered Successfully.!');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Insurance Company!.');
+                }
+            })
+        })
+    });
+</script>

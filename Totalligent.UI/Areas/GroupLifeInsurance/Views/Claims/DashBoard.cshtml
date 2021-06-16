@@ -1,0 +1,344 @@
+﻿
+@{
+    ViewBag.Title = "DocDashboard";
+    Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-t-30">
+    <div class="row">
+        <!-- Widget Item -->
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-primary pull-up">
+                <h6 class="text-uppercase">Total OP / IP cases</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">154</span>
+                    <span class="font-size-30 text-info mdi mdi-city"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-success pull-up">
+                <h6 class="text-uppercase">Claims Approved</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">412</span>
+                    <span class="font-size-30 text-primary mdi mdi-seal"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-danger pull-up">
+                <h6 class="text-uppercase">Claims Rejected</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">1</span>
+                    <span class="font-size-30 text-danger mdi mdi-city"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-warning pull-up">
+                <h6 class="text-uppercase">Approvals Pending</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">10</span>
+                    <span class="font-size-30 text-warning mdi mdi-home"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="box ">
+                <div class="box-header">
+                    <h4>Patient Search</h4>
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            @(Html.Kendo().ComboBox()
+                                .Name("ptCardNumber")
+                                .Placeholder(">> Search Card Number ")
+                                .BindTo(new List<string>() {
+                                    "ICICI/2021/001/000",
+                                    "ICICI/2021/452/000",
+                                    "HDFC/2021/001/000",
+                                    "AXIS/2021/452/000",
+                                    "TCS/2021/001/000",
+                                    "CTS/2021/452/000",
+                                    "DNB/2021/001/000",
+                                    "Att/2021/452/000",
+                                })
+                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                            )
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            @(Html.Kendo().TextBox().Name("ptAge").HtmlAttributes(new { placeholder = "Search by Age", style = "width: 100%" }))
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            @(Html.Kendo().DropDownList()
+                                .Name("ptGender")
+                                .BindTo(new List<string>() {
+                                    "Male",
+                                    "Female",
+                                    "Transgender",
+                                })
+                                .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
+                            )
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            <button class="btn btn-primary btn-sm" type="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Patient Name</th>
+                                    <th>Card No.</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Doctor Assigned</th>
+                                    <th>Last Visit</th>
+                                    <th>Patient Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#P-015512</td>
+                                    <td>
+                                        <h6><a>Ashwin</a></h6>
+                                    </td>
+                                    <td><div>TCS-114542021-000-001</div></td>
+                                    <td>54</td>
+                                    <td>Male</td>
+                                    <td>
+                                        <h6 class="table-avatar"><a>Dr. Mahesh</a></h6>
+                                    </td>
+                                    <td>18 Dec 2020</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm" name="button" data-toggle="modal" data-target="#myReportModal">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#P-154545</td>
+                                    <td>
+                                        <h6><a>Julio Saso</a></h6>
+                                    </td>
+                                    <td><div>ATT-11544-000-001</div></td>
+                                    <td>30</td>
+                                    <td>Male</td>
+                                    <td>
+                                        <h6 class="table-avatar"><a>Dr. Jegan</a></h6>
+                                    </td>
+                                    <td>05 Feb 2021</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm" name="button" data-toggle="modal" data-target="#myReportModal">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home8" role="tab"><span><i class="mdi mdi-hotel mr-10"></i>Patient List</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile8" role="tab"><span class="noti-dot"><i class="mdi mdi-checkbox-marked-circle-outline mr-10"></i>Recent Approvals</span></a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content tabcontent-border">
+                        <div class="tab-pane active" id="home8" role="tabpanel">
+                            <div class="tab-pane table-responsive active" id="All">
+                                <table class="table m-b-0 table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Patients ID</th>
+                                            <th>Name</th>
+                                            <th>Age</th>
+                                            <th>Address</th>
+                                            <th>Number</th>
+                                            <th>Last Visit</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-name">KU 00598</span></td>
+                                            <td>Daniel</td>
+                                            <td>32</td>
+                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
+                                            <td>404-447-6013</td>
+                                            <td>11 Jan 2018</td>
+                                            <td><span class="badge badge-secondary">N / A</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00258</span></td>
+                                            <td>Alexander</td>
+                                            <td>22</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>15 Jan 2018</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00369</span></td>
+                                            <td>Richard</td>
+                                            <td>26</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>16 Jan 2018</td>
+                                            <td><span class="badge badge-secondary">N / A</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00147</span></td>
+                                            <td>Samuel</td>
+                                            <td>45</td>
+                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
+                                            <td>404-447-6013</td>
+                                            <td>17 Jan 2018</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00123</span></td>
+                                            <td>Stephen</td>
+                                            <td>55</td>
+                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
+                                            <td>404-447-6013</td>
+                                            <td>18 Jan 2018</td>
+                                            <td><span class="badge badge-danger">Rejected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00456</span></td>
+                                            <td>Joseph</td>
+                                            <td>27</td>
+                                            <td>70 Bowman St. South Windsor, CT 06074</td>
+                                            <td>404-447-6013</td>
+                                            <td>19 Jan 2018</td>
+                                            <td><span class="badge badge-secondary">N / A</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00789</span></td>
+                                            <td>Cameron</td>
+                                            <td>38</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>19 Jan 2018</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00987</span></td>
+                                            <td>Alex</td>
+                                            <td>39</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>20 Jan 2018</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00951</span></td>
+                                            <td>James</td>
+                                            <td>32</td>
+                                            <td>44 Shirley Ave. West Chicago, IL 60185</td>
+                                            <td>404-447-6013</td>
+                                            <td>22 Jan 2018</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00953</span></td>
+                                            <td>charlie</td>
+                                            <td>51</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>22 Jan 2018</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00984</span></td>
+                                            <td>William</td>
+                                            <td>35</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>22 Jan 2018</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00934</span></td>
+                                            <td>thomas</td>
+                                            <td>26</td>
+                                            <td>123 6th St. Melbourne, FL 32904</td>
+                                            <td>404-447-6013</td>
+                                            <td>29 Jan 2018</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="profile8" role="tabpanel">
+                            <div class="tab-pane table-responsive active" id="All">
+                                <table class="table m-b-0 table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Patients ID</th>
+                                            <th>Name</th>
+                                            <th>Age</th>
+                                            <th>Reason</th>
+                                            <th>Number</th>
+                                            <th>Requested Date</th>
+                                            <th>Approved Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-name">KU 00598</span></td>
+                                            <td>Daniel</td>
+                                            <td>32</td>
+                                            <td>Surgery</td>
+                                            <td>404-447-6013</td>
+                                            <td>11 Feb 2021</td>
+                                            <td>--</td>
+                                            <td><span class="badge badge-warning">Awaiting Approval </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00598</span></td>
+                                            <td>Daniel</td>
+                                            <td>32</td>
+                                            <td>Surgery</td>
+                                            <td>404-447-6013</td>
+                                            <td>15 Feb 2021</td>
+                                            <td>--</td>
+                                            <td><span class="badge badge-warning">Awaiting Approval</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- /.col -->
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = (event) => {
+        setTimeout(function () {
+            $.toast({
+                heading: 'Application Approved',
+                text: 'Patient Card No: ICICI/1556/2020/12/000 </ br>Patient Name: Daniel </br>Requested Date: 11-Feb-2021 13:54 </br>Hospital Name: Fortis Hospital',
+                icon: 'success',
+                position: 'top-right',
+                bgColor: '#309155',
+                loaderBg: '#3db76b',
+                hideAfter: false,
+                stack: 6
+            });
+        }, 3000);
+    };
+</script>

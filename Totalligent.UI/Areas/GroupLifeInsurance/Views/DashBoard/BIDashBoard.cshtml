@@ -1,0 +1,272 @@
+﻿
+@{
+    ViewBag.Title = "BIDashboard";
+    Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
+   
+}
+@Scripts.Render("~/Content/js/BIDashboard.js");
+
+<div id="BIDashboard">
+    <div class="content-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="">
+                <h3 class="page-title">BI Dashboard</h3>
+            </div>
+            <div class="w-p50">
+                <!-- Search Form -->
+                @(Html.Kendo().ComboBox()
+                    .Name("MISInsuranceCompanyName")
+                    .Placeholder(">> Select Company Name ")
+                    .BindTo(new List<string>() {
+                        "ICICI Lombard",
+                        "HDFC Prudential",
+                        "Bajaj Allianz Life Insurance Company",
+                    })
+                    .HtmlAttributes(new { style = "width: 50%;font-size: 1rem;color: #5c6975;" })
+                )
+                @(Html.Kendo().ComboBox()
+                    .Name("MISInsComMember")
+                    .Placeholder(">> Select Staff Number ")
+                    .BindTo(new List<string>() {
+                        "TCS",
+                        "CTS",
+                        "DXC Technologies",
+                    })
+                    .HtmlAttributes(new { style = "width: 49%;font-size: 1rem;color: #5c6975;" })
+                )
+            </div>
+            <div class="right-title w-p20">
+                <span class="subheader_daterange font-weight-600" id="dashboard_daterangepicker">
+                    <span class="subheader_daterange-label">
+                        <span class="subheader_daterange-title"></span>
+                        <span class="subheader_daterange-date text-primary"></span>
+                    </span>
+                    <a href="#" class="btn btn-rounded btn-sm btn-primary">
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Basic Policy</h4>
+                    <div class="box-controls pull-right">
+                        <div class="progress progress-xs w-80 mb-0 mt-10">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="mt-0">240</h2>
+                            <small>Premium against claims</small>
+                        </div>
+                        <div class="font-size-50 text-primary"><i class="mdi mdi-heart-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Dental</h4>
+                    <div class="box-controls pull-right">
+                        <button class="btn btn-xs btn-info" href="#">Click here</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="mt-0">340</h2>
+                            <small>Premium against claims</small>
+                        </div>
+                        <div class="font-size-50 text-info"><i class="mdi mdi-tooth"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Optical</h4>
+                    <div class="box-controls pull-right">
+                        <div class="lookup lookup-circle lookup-right">
+                            <input type="text" name="s">
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="mt-0">3,540</h2>
+                            <small>Premium against claims</small>
+                        </div>
+                        <div class="font-size-50 text-warning"><i class="mdi mdi-glasses"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Maturity</h4>
+                    <ul class="box-controls pull-right">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" href="#"><i class="ti-more-alt rotate-90"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="ti-import"></i> Import</a>
+                                <a class="dropdown-item" href="#"><i class="ti-export"></i> Export</a>
+                                <a class="dropdown-item" href="#"><i class="ti-printer"></i> Print</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#"><i class="ti-settings"></i> Settings</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="mt-0">12,548</h2>
+                            <small>Premium against claims</small>
+                        </div>
+                        <div class="font-size-50 text-danger"><i class="mdi mdi-human-pregnant"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 col-12">
+            <div class="box">
+                <div class="box-body analytics-info">
+                    <h4 class="box-title">Total Active Members</h4>
+                    <div id="active-members" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-12">
+            <div class="box">
+                <div class="box-body analytics-info">
+                    <h4 class="box-title">Patients In</h4>
+                    <div id="pole-chart-overview" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-12">
+            <div class="box">
+                <div class="box-header no-border">
+                    <h6>OP & IP Loss Ratio</h6>
+                    <div class="box-tools pull-right">
+                        <p class="mb-0 text-success">14.21% High then last 3 years</p>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="d-block text-center">
+                        <div id="OPIPLossRatioBIChart"></div>
+                        <div class="d-flex justify-content-between mt-30">
+                            <div>
+                                <h5 class="mb-5">Overall</h5>
+                                <p class="mb-0">78.51%</p>
+                            </div>
+                            <div class="px-50 bx-1">
+                                <h5 class="mb-5">Montly</h5>
+                                <p class="mb-0">17.39%</p>
+                            </div>
+                            <div>
+                                <h5 class="mb-5">Day</h5>
+                                <p class="mb-0">7.12%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-12">
+            <div class="box">
+                <div class="box-header no-border">
+                    <h6>Benefitwise Loss Ratio</h6>
+                    <div class="box-tools pull-right">
+                        <p class="mb-0 text-danger"> 11.12% less then last 3 years</p>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="d-block text-center">
+                        <div id="BenefitwiseRatio"></div>
+                        <div class="d-flex justify-content-between mt-30">
+                            <div>
+                                <h5 class="mb-5">Overall</h5>
+                                <p class="mb-0">78.51%</p>
+                            </div>
+                            <div class="px-50 bx-1">
+                                <h5 class="mb-5">Montly</h5>
+                                <p class="mb-0">17.39%</p>
+                            </div>
+                            <div>
+                                <h5 class="mb-5">Day</h5>
+                                <p class="mb-0">7.12%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-12">
+            <div class="box">
+                <div class="box-header no-border">
+                    <h6>Average Claim Cost</h6>
+                    <div class="box-tools pull-right">
+                        <p class="mb-0 text-success">19.5% High then last 3 years</p>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="d-block text-center">
+                        <div id="avgClaimCostChart"></div>
+                        <div class="d-flex justify-content-between mt-30">
+                            <div>
+                                <h5 class="mb-5">Total Claims</h5>
+                                <p class="mb-0">78.51%</p>
+                            </div>
+                            <div class="px-50 bx-1">
+                                <h5 class="mb-5">Total Cases</h5>
+                                <p class="mb-0">17.39%</p>
+                            </div>
+                            <div>
+                                <h5 class="mb-5">Avg. Claims Cost</h5>
+                                <p class="mb-0">7.12%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="box">
+                <div class="box-body analytics-info">
+                    <div id="locationWiseLoss" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-body">
+                    <h4 class="box-title">Top Spending Members</h4>
+                    <div>
+                        <div id="topSpendingMembers"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body analytics-info">
+                    <div id="industryWiseLoss" style="height:400px;"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

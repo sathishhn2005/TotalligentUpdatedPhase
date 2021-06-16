@@ -39,7 +39,7 @@ $(function () {
 
         },
         error: function (Result) {
-            alert("Error");
+            //alert("Error");
         }
     });
 
@@ -135,7 +135,7 @@ $(function () {
 
         },
         error: function (Result) {
-            alert("Error");
+           // alert("Error");
         }
     });
     var options = {

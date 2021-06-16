@@ -1,0 +1,79 @@
+﻿
+@model Totalligent.BusinessEntities.DrugMaster
+@{
+    ViewBag.Title = "DrugMaster";
+    Layout = "~/Areas/MedicalInsurance/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="form-horizontal">
+    <h4>DrugMaster</h4>
+    <hr />
+
+    <div>
+        @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" accept=".xls,.xlsx" />
+            <input type="submit" value="Import" />
+            <a href="~/Masters/DrugMaster.xlsx" download>Download Sample format</a>
+        }
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DrugCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DrugCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DrugCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DrugName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DrugName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DrugName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="btnDrugMas" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnDrugMas').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append("DrugCode", $("#DrugCode").val());
+            formData.append("DrugName", $("#DrugName").val());
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Drug/Create",
+                data: formData,
+                dataType: "json",
+                // contentType: 'application/json;charset=utf-8',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res > 0) {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Insurance Company Registered Successfully.!');
+                    }
+                    else {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Insurance Company not Registered Successfully.!');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Insurance Company!.');
+                }
+            })
+        })
+    });
+</script>
+

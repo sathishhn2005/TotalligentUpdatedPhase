@@ -1,0 +1,197 @@
+﻿@model Totalligent.BusinessEntities.Register
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css {
+    <link href="@Url.Content("~/Content/material-kit.css")" rel="stylesheet" />
+}
+
+<div class="signup-page sidebar-collapse">
+    <div class="page-header header-filter" filter-color="purple" style="background-image: url('../Content/images/bg7.jpg'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                    <div class="card card-signup">
+                        <h2 class="card-title text-center">Register</h2>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 ml-auto">
+                                    <div class="info info-horizontal">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">supervisor_account</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Insurance claim document Audit</h4>
+                                            <p class="description">
+                                                Making Sense of Medical Claims Data
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="info info-horizontal">
+                                        <div class="icon icon-primary">
+                                            <i class="material-icons">accessibility_new</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Back Office Processing</h4>
+                                            <p class="description">
+                                                Medical Insurance Claims Processing Services
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="info info-horizontal">
+                                        <div class="icon icon-info">
+                                            <i class="material-icons">group</i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title">Quality & Testing for Insurance</h4>
+                                            <p class="description">
+                                                To support the growing complexity of the systems and applications
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mr-auto">
+                                    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+                                    {
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">account_circle</i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(m => m.CompanyName, new { oninvalid = "this.setCustomValidity('Company Name required: VNN & Co')", @required = "required", oninput = "setCustomValidity('')", @class = "form-control", placeholder = "Name of the Company" })
+                                                @*<input type="text" class="form-control" placeholder="Name of the Company">*@
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">import_contacts</i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(m => m.Address, new { oninvalid = "this.setCustomValidity('Company Address required: US ZIP 115')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Address of the Company" })
+                                                @*<input type="text" class="form-control" placeholder="Address of the company...">*@
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">location_city</i>
+                                                            </span>
+                                                        </div>
+                                                        @Html.TextBoxFor(m => m.City, new { oninvalid = "this.setCustomValidity('City required: AbuDhabi')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "City" })
+                                                        @*<input type="text" class="form-control" placeholder="City">*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">location_city</i>
+                                                            </span>
+                                                        </div>
+                                                        @Html.TextBoxFor(m => m.StateName, new { oninvalid = "this.setCustomValidity('State Name required: International City')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "State" })
+                                                        @*<input type="text" class="form-control" placeholder="State">*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">fiber_pin</i>
+                                                            </span>
+                                                        </div>
+                                                        @Html.TextBoxFor(m => m.ZipCode, new { oninvalid = "this.setCustomValidity('Postal Code/Zip Code required: 600034')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "ZipCode" })
+                                                        @*<input type="text" class="form-control" placeholder="Zipcode">*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">person</i>
+                                                            </span>
+                                                        </div>
+                                                        @Html.TextBoxFor(m => m.ContactPerson, new { oninvalid = "this.setCustomValidity('Contact Person required: Jeevarathanam P')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Contact Person" })
+                                                        @*<input type="text" class="form-control" placeholder="Contact Person">*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">phone</i>
+                                                            </span>
+                                                        </div>
+                                                        @Html.TextBoxFor(m => m.MobileNumber, new { oninvalid = "this.setCustomValidity('Mobile Number is required: 9840359280')", oninput = "setCustomValidity('')", @class = "form-control", @required = "required", placeholder = "Mobile Number" })
+                                                        @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">mail</i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(m => m.EmailId, new { oninvalid = "this.setCustomValidity('Valid email is required: ex@abc.xyz')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Email ID" })
+                                                @*<input type="text" class="form-control" placeholder="Email...">*@
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">money</i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(m => m.Currency, new { oninvalid = "this.setCustomValidity('Enter Currency :INR,US$')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Currency" })
+                                                @*<input type="text" placeholder="Currency" class="form-control" />*@
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            @*<a href="#" >Register</a>*@
+                                            <button type="submit" class="btn btn-primary btn-round">
+                                                Register
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    @*//End of Registration Details Section*@
+@*<div>
+        <label>Company name</label>
+        @Html.TextBoxFor(m => m.CompanyName)
+        <input type="submit" value="Submit" />
+    </div>*@
+
+
+

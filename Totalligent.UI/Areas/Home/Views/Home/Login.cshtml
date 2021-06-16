@@ -1,0 +1,151 @@
+﻿@model Totalligent.UI.Models.RolesModel
+@using Totalligent.BAL
+@{ ViewBag.Title = "Login"; }
+
+@{ Layout = null; }
+
+<style>
+    body {
+        overflow-y: hidden !important;
+    }
+</style>
+<link href="~/Content/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/style.css" rel="stylesheet" />
+<link href="~/Content/css/skin_color.css" rel="stylesheet" />
+<link href="~/Content/css/color_theme.css" rel="stylesheet" />
+<!-- Begin page -->
+<div class="accountbg"></div>
+<div class="wrapper-page">
+    <div class="card card-pages shadow-none">
+        <div class="card-body">
+            <div class="text-center m-t-0 m-b-15">
+                <a href="index.html" class="logo logo-admin"><img src="~/Content/images/logo.png" alt=""></a>
+            </div>
+
+            <form class="form-horizontal m-t-30">
+                @using (Html.BeginForm("Login", "Home", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Account Type</label>
+                            @Html.DropDownListFor(m => m.Role, new SelectList((new TotalligentBALayer()).GetRoles(), "RoleId", "Description", 0), new { @id = "RoleId", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Username</label>
+                            @Html.TextBoxFor(m => m.LoginUser.UserName, new { oninvalid = "this.setCustomValidity('Please enter Username')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Username..." })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Password</label>
+                            @Html.PasswordFor(m => m.LoginUser.Password, new { oninvalid = "this.setCustomValidity('Enter Password:xxxxxxx')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Password" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-12">
+                            <button class="btn btn-primary-login btn-block waves-effect waves-light" type="submit">Log In</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row m-t-30 m-b-0">
+                        <div class="col-sm-7">
+                            <a href="pages-recoverpw.html" class="text-muted" data-toggle="modal" data-target="#resetModal"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
+                        </div>
+                    </div>}
+                @if (ViewBag.Message != null)
+                {
+                    <div class="form-group row m-t-30 m-b-0">
+                        <label id="lblMes" class="errorID">
+                            @ViewBag.Message
+                        </label>
+                    </div>}
+            </form>
+        </div>
+
+    </div>
+</div>
+<!-- END wrapper -->
+
+
+<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Password Reset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+
+                        <input type="text" required placeholder="Enter UserName" class="form-control" id="txtUserName">
+                    </div>
+                    <label id="lblMessage"></label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnResetPassword" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#RoleId").on("change", function () {
+            debugger;
+            $("#lblMes").text('');
+            $('#LoginUser_UserName').val('');
+            $(this).find("option:selected").each(function () {
+                var optionValue = $(this).attr("value");
+                if (optionValue == 1) {
+                    //$("#divRegister").not("." + optionValue).hide();
+                    //$("." + optionValue).show();
+                    $("#divRegister").show();
+                    $("#divfrgtPswd").show();
+
+                } else {
+                    $("#divRegister").hide();
+                    $("#divfrgtPswd").hide();
+                }
+            });
+        });
+    });
+    $(function () {
+        $('#btnResetPassword').click(function (e) {
+            e.preventDefault();
+            var UserId = $('#txtUserName').val();
+            $.ajax({
+                type: "GET",
+                url: "/Home/ResetPassword",
+                data: { "UserId": UserId },
+                dataType: "",
+                contentType: 'application/json;charset=utf-8',
+                success: function (res) {
+
+                    if (res > 0) {
+                        $('#txtUserName').val('');
+                        $("#lblMessage").html('Password reset request sent successfully to Admin.!');
+                    }
+                    else {
+
+                        $("#lblMessage").html('Invalid username/You are already requested for reset password.Please reach out to admin for further assistance.');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Company!.');
+                }
+            })
+        })
+    });
+</script>  

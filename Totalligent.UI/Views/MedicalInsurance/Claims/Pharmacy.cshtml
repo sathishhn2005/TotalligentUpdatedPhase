@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "Pharmacy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-t-30">
+    <div class="box">
+        <div class="box-header with-border">
+            <h4 class="box-title"><strong>Pharmacy</strong></h4>
+        </div>
+        <div class="box-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-center mb-0">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Patient Name</th>
+                            <th>Reported Date</th>
+                            <th>Prescription</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h6 class="table-avatar"><a>Dr. Mahesh</a></h6>
+                            </td>
+                            <td>
+                                <h6><a>Ashwin</a></h6>
+                                <div>TCS-114542021-000-001</div>
+                            </td>
+                            <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+                            <td>Crosin, Paracetamol, Nazol Spray.....</td>
+                            <td>Prescribed tablets should be taken after food.</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm" name="button" data-toggle="modal" data-target="#myReportModal">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 class="table-avatar"><a>Dr. Ruby Perrin</a></h6>
+                            </td>
+                            <td>
+                                <h6><a>Mark Bernad</a></h6>
+                                <div>TCS-114552021-000-001</div>
+                            </td>
+                            <td>13 Jan 2021 <span class="d-block text-info">10.00 AM</span></td>
+                            <td>Saridon, Crosin</td>
+                            <td>After food.</td>
+                            <td>
+                                <span class="badge badge-danger">On Hold</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 class="table-avatar"><a>Dr. Mahesh</a></h6>
+                            </td>
+                            <td>
+                                <h6><a>Ashwin</a></h6>
+                                <div>TCS-114542021-000-001</div>
+                            </td>
+                            <td>14 Apr 2021 <span class="d-block text-info">10.00 AM</span></td>
+                            <td>Crosin, Paracetamol, Nazol Spray.....</td>
+                            <td>Before food</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm" name="button">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 class="table-avatar"><a>Dr. Ruby Perrin</a></h6>
+                            </td>
+                            <td>
+                                <h6><a>Mark Bernad</a></h6>
+                                <div>TCS-114552021-000-001</div>
+                            </td>
+                            <td>14 Nov 2021 <span class="d-block text-info">10.00 AM</span></td>
+                            <td>Paracetamol, Nazol Spray</td>
+                            <td>One hour after breakfast</td>
+                            <td>
+                                <span class="badge badge-danger">On Hold</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 class="table-avatar"><a>Dr. Mahesh</a></h6>
+                            </td>
+                            <td>
+                                <h6><a>Ashwin</a></h6>
+                                <div>TCS-114542021-000-001</div>
+                            </td>
+                            <td>11 Feb 2021 <span class="d-block text-info">10.00 AM</span></td>
+                            <td>Crosin, Paracetamol, Nazol Spray.....</td>
+                            <td>Prescribed tablets should be taken after food.</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm" name="button">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 class="table-avatar"><a>Dr. Ruby Perrin</a></h6>
+                            </td>
+                            <td>
+                                <h6><a>Mark Bernad</a></h6>
+                                <div>TCS-114552021-000-001</div>
+                            </td>
+                            <td>06 Feb 2021<span class="d-block text-info">10.00 AM</span></td>
+                            <td>Saridon, Crosin</td>
+                            <td>Prescribed tablets should be taken Before food.</td>
+                            <td>
+                                <span class="badge badge-danger">On Hold</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myReportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myReportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myReportModalLabel">
+                    Ashwin / TCS-114542021-000-001
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <ul class="todo-list">
+                    <li>
+                        <!-- drag handle -->
+                        <span class="handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+                        <!-- checkbox -->
+                        <input type="checkbox" id="basic_checkbox_13" class="filled-in">
+                        <label for="basic_checkbox_13" class="mb-0 h-15 ml-15"></label>
+                        <!-- todo text -->
+                        <span class="text-line">Crosin - Tablet</span>
+                        <!-- Emphasis label -->
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+                        <!-- checkbox -->
+                        <input type="checkbox" id="basic_checkbox_14" class="filled-in">
+                        <label for="basic_checkbox_14" class="mb-0 h-15 ml-15"></label>
+                        <span class="text-line">Paracetamol - Syrup</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+                        <!-- checkbox -->
+                        <input type="checkbox" id="basic_checkbox_15" class="filled-in">
+                        <label for="basic_checkbox_15" class="mb-0 h-15 ml-15"></label>
+                        <span class="text-line">Nazol Spray</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+                        <!-- checkbox -->
+                        <input type="checkbox" id="basic_checkbox_16" class="filled-in">
+                        <label for="basic_checkbox_16" class="mb-0 h-15 ml-15"></label>
+                        <span class="text-line">Saridon - Tablet</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+                        <!-- checkbox -->
+                        <input type="checkbox" id="basic_checkbox_17" class="filled-in">
+                        <label for="basic_checkbox_17" class="mb-0 h-15 ml-15"></label>
+                        <span class="text-line">Crosin - Tablet</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 10 Days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info btn-rounded" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

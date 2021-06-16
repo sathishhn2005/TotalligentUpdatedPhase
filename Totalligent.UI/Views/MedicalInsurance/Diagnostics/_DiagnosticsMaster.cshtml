@@ -1,0 +1,77 @@
+﻿@model Totalligent.BusinessEntities.DiagnosticsMaster
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>DiagnosticsMaster</h4>
+    <hr />
+
+    <div>
+        @using (Html.BeginForm("BulkUpload", "Agent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" accept=".xls,.xlsx"/>
+            <input type="submit" value="Import" />
+            <a href="~/Masters/DiagnosticsMaster.xlsx" download>Download Sample format</a>
+        }
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DiagnosticsCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DiagnosticsCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DiagnosticsCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DiagnosticsName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DiagnosticsName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DiagnosticsName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="btnDiagMas" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $('#btnDiagMas').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append("DiagnosticsCode", $("#DiagnosticsCode").val());
+            formData.append("DiagnosticsName", $("#DiagnosticsName").val());
+          
+
+            $.ajax({
+                type: "POST",
+                url: "/Diagnostics/Create",
+                data: formData,
+                dataType: "json",
+                // contentType: 'application/json;charset=utf-8',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res > 0) {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Insurance Company Registered Successfully.!');
+                    }
+                    else {
+                        $('#dialogClient').data("kendoDialog").open();
+                        $("#lblMessage").html('Insurance Company not Registered Successfully.!');
+                    }
+                },
+                error: function () {
+                    $("#lblMessage").html('Error while Registring the Insurance Company!.');
+                }
+            })
+        })
+    });
+</script>

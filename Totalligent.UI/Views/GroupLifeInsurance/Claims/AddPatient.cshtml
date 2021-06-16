@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "AddPatient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-t-30">
+    <div class="box">
+        <div class="box-header with-border">
+            <h4 class="box-title"><strong>Add Patient</strong></h4>
+        </div>
+        <div class="box-body">
+            <div class="box no-shadow">
+                <div class="box-header no-border p-0 ">
+                    <h4 class="text-bold">Provider Details</h4>
+                </div>
+                <div class="box-body">
+                    <div class="row gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="hospitalName">Hospital Name</label>
+                                <input type="text" class="form-control" id="hospitalName" placeholder="Hospital Name">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <input type="text" class="form-control" id="category" placeholder="Category">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="hosptialReg">Hosptial Reg No</label>
+                                <input type="text" class="form-control" id="hosptialReg" placeholder="Hosptial Registration No">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="hosptialCode">Hospital Code</label>
+                                <input type="text" class="form-control" id="hosptialCode" placeholder="Hosptial Code">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="TrDoctorName">Treating Doctor Name</label>
+                                <input type="text" class="form-control" id="TrDoctorName" placeholder="Treating Doctor Name">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="TrDoctorReg">Treating Doctor Reg No</label>
+                                <input type="text" class="form-control" id="TrDoctorReg" placeholder="Treating Doctor Reg No">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box no-shadow">
+                <div class="box-header no-border p-0 ">
+                    <h4 class="text-bold">Patient Details</h4>
+                </div>
+                <div class="box-body">
+                    <div class="row gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="TCS/2021/001/0545">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" placeholder="Full Name">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="uhid">UHID</label>
+                                <input type="text" class="form-control" id="uhid" placeholder="UHID">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <input type="text" class="form-control" id="category" placeholder="Category">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date Of Birth</label>
+                                <input type="text" class="form-control" id="dateOfBirth" placeholder="Date Of Birth">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <input type="text" class="form-control" id="gender" placeholder="Gender">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label for="PrimaryDoctorName">Primary Doctor Name</label>
+                                <input type="text" class="form-control" id="PrimaryDoctorName" placeholder="Primary Doctor Name">
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="text-right">
+                                <button class="btn btn-primary">Submit</button>
+                                <a class="btn btn-default" href="/Claims/IPTreatment">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
