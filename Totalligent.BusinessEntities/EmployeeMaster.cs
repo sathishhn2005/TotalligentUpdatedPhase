@@ -10,7 +10,9 @@ namespace Totalligent.BusinessEntities
     {
 
         public long EmployeeId { get; set; }
-
+        public decimal ClientRate { get; set; }
+        public decimal RIRate { get; set; }
+        
         public string EmployeeName { get; set; }
 
         public string EmployeeUniqueNumber { get; set; }
